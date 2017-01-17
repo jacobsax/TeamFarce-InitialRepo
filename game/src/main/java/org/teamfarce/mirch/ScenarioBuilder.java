@@ -65,8 +65,8 @@ public class ScenarioBuilder {
 	 * Takes an ArrayList of props and a room ID, adds additional props to the list and returns the extended list
 	 */
 	public ArrayList<Prop> generateProps(ArrayList<Prop> props, int roomID){
-		
-		return null;
+		//load props from prop list into array list
+		return null; //return new prop list
 	}
 	
 	/**
@@ -75,7 +75,8 @@ public class ScenarioBuilder {
 	 * 
 	 * Generates a clue object and returns it
 	 */
-	public Clue generateClue(){
+	public Clue generateClue(Prop prop){
+		//generate clue from prop and return
 		return null;
 	}
 	
@@ -114,7 +115,7 @@ public class ScenarioBuilder {
 		//For Each Prop, generate Clues
 		//Iterate through each prop in the props ArrayList
 		for (Prop prop : props){
-			prop.clue.add(this.generateClue()); //add a clue to the prop
+			prop.clue.add(this.generateClue(prop)); //add a clue to the prop
 		}
 		
 		//Generate Detective - using character traits
@@ -122,7 +123,12 @@ public class ScenarioBuilder {
 		//Generate Dialogue Tree
 		//Iterate through each suspect in the suspect list
 		for (Suspect suspect : suspects){
-			//generate a dialogue tree for the suspect
+			
+			//load dialogue text screens
+			//search for next text screen from follow up question linker
+			//load next dialogue text screen
+			
+			//store dialogue tree in suspect
 		}
 		
 		//Produce Game Snapshot
