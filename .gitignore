@@ -184,3 +184,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+game/.bash_profile
