@@ -186,3 +186,7 @@ ENV/
 .ropeproject
 
 game/.bash_profile
+
+*.db
+
+*.db-journal

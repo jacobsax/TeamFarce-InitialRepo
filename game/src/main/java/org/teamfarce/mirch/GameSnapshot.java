@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class GameSnapshot {
 	
 	private ArrayList<Suspect> suspects;
+	private Suspect victim;
 	private MapEntity detective;
 	private GameState state;
 	private ArrayList<Prop> props;
@@ -22,8 +23,9 @@ public class GameSnapshot {
 	/**
 	 * Initialises function
 	 */
-	GameSnapshot(ArrayList<Suspect> suspects, MapEntity detective, ArrayList<Prop> props, ArrayList<Room> rooms){
+	GameSnapshot(ArrayList<Suspect> suspects, Suspect victim, MapEntity detective, ArrayList<Prop> props, ArrayList<Room> rooms){
 		this.suspects = suspects;
+		this.victim = victim;
 		this.detective = detective;
 		this.state = GameState.map;
 		this.props = props;

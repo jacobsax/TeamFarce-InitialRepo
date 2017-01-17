@@ -12,7 +12,10 @@ public class ScenarioBuilder {
 	 * Generates an ArrayList of suspects and returns the ArrayList
 	 */
 	public ArrayList<Suspect> generateSuspects(){
-		return null;
+		//Load suspects from database
+		//Store list of suspects in ArrayList<Suspect>
+		
+		return null; //return new array list
 	}
 	
 	/**
@@ -23,7 +26,8 @@ public class ScenarioBuilder {
 	 * Chooses a suspect from the suspect list and returns the Suspect Object
 	 */
 	public Suspect chooseVictim(ArrayList<Suspect> suspectList){
-		
+		//randomly choose a victim from the suspect list
+		//return the suspect
 		return null;
 	}
 	
@@ -36,7 +40,8 @@ public class ScenarioBuilder {
 	 * Then returns the edited list
 	 */
 	public ArrayList<Suspect> chooseMurderer(ArrayList<Suspect> suspectList){
-		
+		//randomly select a murderer from the list
+		//mark the murderer by changing boolean
 		return suspectList;
 	}
 	
