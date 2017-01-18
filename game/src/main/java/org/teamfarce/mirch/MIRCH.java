@@ -24,10 +24,12 @@ public class MIRCH extends ApplicationAdapter{
 
 	
 	private Sprite player;
+	private Sprite character;
 	
 	private OrthographicCamera camera;
 	
 	private boolean isObjectPressed(Sprite theSprite, Vector3 mouse){
+
 		boolean toReturn = false;
 		
 		float x1 = theSprite.getX();
