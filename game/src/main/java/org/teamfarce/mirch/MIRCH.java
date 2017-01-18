@@ -24,6 +24,7 @@ public class MIRCH extends ApplicationAdapter{
 
 	
 	private Sprite player;
+	private Sprite character;
 	
 	private OrthographicCamera camera;
 	
@@ -31,16 +32,28 @@ public class MIRCH extends ApplicationAdapter{
 		return false;
 	}
 	
-	private void drawSprites(){
-		
+	private void drawCharacters(ArrayList<RenderItem> characters, SpriteBatch batch){
+		for(Sprite character : characters){
+			batch.begin();
+			character.Sprite.draw(batch);
+			batch.end();
+		}
 	}
 	
-	private void drawObjects(){
-		
+	private void drawObjects(ArrayList<RenderItem> objects, SpriteBatch batch){
+		for(Sprite object : objects){
+			batch.begin();
+			object.Sprite.draw(batch);
+			batch.end();	
+		}
 	}
 	
-	private void drawRooms(){
-		
+	private void drawRooms(ArrayList<RenderItem> rooms, SpriteBatch batch){
+		for(Sprite room : rooms){
+			batch.begin();
+			room.Sprite.draw(batch);
+			batch.end();	
+		}
 	}
 	
 	private void drawPlayer(){
