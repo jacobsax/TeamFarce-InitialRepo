@@ -4,10 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertSame;
 
-/**
- * @author jacobwunwin
- */
-public class GameSnapshot_Test {
+public class GameSnapshotTest {
 
     @Test
     public void getTime() {

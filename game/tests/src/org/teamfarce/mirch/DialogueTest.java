@@ -8,10 +8,7 @@ import org.teamfarce.mirch.entities.Clue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-/**
- * Created by brookehatton on 16/02/2017.
- */
-public class Dialogue_Test extends GameTest {
+public class DialogueTest extends GameTest {
     private Dialogue testDialogue;
     private Clue testClue;
 

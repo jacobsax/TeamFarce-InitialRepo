@@ -8,11 +8,7 @@ import org.teamfarce.mirch.map.Room;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by joeshuff on 15/02/2017.
- */
-public class Player_Test extends GameTest {
-
+public class PlayerTest extends GameTest {
     Player p = null;
 
     @Before

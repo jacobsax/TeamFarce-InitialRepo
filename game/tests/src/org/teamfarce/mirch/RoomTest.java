@@ -7,11 +7,7 @@ import org.teamfarce.mirch.map.Room;
 
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by joeshuff on 26/11/2016.
- */
-public class Room_Test extends GameTest {
-
+public class RoomTest extends GameTest {
     Room room0, room1;
 
     @Before

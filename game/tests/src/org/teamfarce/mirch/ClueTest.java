@@ -10,10 +10,8 @@ import static org.junit.Assert.*;
 
 /**
  * Tests the clues class
- *
- * @author jacobwunwin
  */
-public class Clue_Test extends GameTest {
+public class ClueTest extends GameTest {
 
     Clue clue;
 

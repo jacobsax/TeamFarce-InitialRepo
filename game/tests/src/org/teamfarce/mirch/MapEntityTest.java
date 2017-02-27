@@ -11,12 +11,7 @@ import org.teamfarce.mirch.map.Room;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Test the map Entity
- *
- * @author jacobwunwin
- */
-public class MapEntity_Test extends GameTest {
+public class MapEntityTest extends GameTest {
     String demoFileName = "clues/clueSheet.png";
     Texture demoTexture = new Texture(Gdx.files.internal(demoFileName));
 

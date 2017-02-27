@@ -12,11 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-/**
- * @author jacobwunwin
- */
-public class Suspect_Test {
-
+public class SuspectTest {
     private Suspect suspect;
 
     @Before

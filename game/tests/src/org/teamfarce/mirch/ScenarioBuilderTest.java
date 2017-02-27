@@ -10,13 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-/**
- * Tests functions in the scenario builder class
- *
- * @author jacobwunwin
- */
-public class ScenarioBuilder_Test extends GameTest {
-
+public class ScenarioBuilderTest extends GameTest {
     @Test
     public void distributeCluesGiveRooms() {
         List<Clue> clues = new ArrayList<>();

@@ -7,10 +7,7 @@ import org.teamfarce.mirch.screens.AbstractScreen;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-/**
- * Created by Jason on 04/02/2017.
- */
-public class GUIController_Test extends GameTest {
+public class GUIControllerTest extends GameTest {
 
     MIRCH game;
 

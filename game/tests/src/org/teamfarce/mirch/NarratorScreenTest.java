@@ -8,13 +8,8 @@ import org.teamfarce.mirch.screens.NarratorScreen;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by joeshuff on 13/02/2017.
- */
-public class NarratorScreen_Test extends GameTest {
-
+public class NarratorScreenTest extends GameTest {
     private NarratorScreen screen;
-
     private MIRCH game;
 
     @Before

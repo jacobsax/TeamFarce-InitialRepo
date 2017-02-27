@@ -5,11 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Tests for scoring
- */
-public class Scoring_Test extends GameTest {
-
+public class ScoringTest extends GameTest {
     GameSnapshot gameSnapshot;
 
     @Before

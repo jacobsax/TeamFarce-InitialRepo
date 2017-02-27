@@ -11,12 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Tests the journal class
- *
- * @author jacobwunwin
- */
-public class Journal_Test extends GameTest {
+public class JournalTest extends GameTest {
     @Test
     public void addClue() {
         MIRCH game = new MIRCH();
