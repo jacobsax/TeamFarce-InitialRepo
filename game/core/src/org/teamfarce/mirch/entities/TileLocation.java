@@ -5,7 +5,7 @@ import org.teamfarce.mirch.Vector2Int;
 /**
  * A interface for all objects that require to be positioned on the map in terms of tiles
  */
-public interface tileLocation {
+public interface TileLocation {
 
     /**
      * Gets the x location of the object in terms of tiles

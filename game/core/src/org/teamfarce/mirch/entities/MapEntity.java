@@ -10,7 +10,7 @@ import org.teamfarce.mirch.map.Room;
 /**
  * Base class to represent different map entities.
  */
-public class MapEntity extends Sprite implements tileLocation {
+public class MapEntity extends Sprite implements TileLocation {
     protected Room room;
     protected String name;
     protected String description;
