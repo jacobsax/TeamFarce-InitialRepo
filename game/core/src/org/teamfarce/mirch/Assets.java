@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * This class manages all the assets.
@@ -20,7 +21,7 @@ public class Assets {
     /**
      * This it the animation for the clue glint to be drawn where a clue is hidden
      */
-    public static Animation CLUE_GLINT;
+    public static Animation<TextureRegion> CLUE_GLINT;
 
     /**
      * @param file - The file that contains the textures.
@@ -42,9 +43,9 @@ public class Assets {
 
         Texture glintFile = loadTexture("clues/glintSheet.png");
         TextureRegion[][] splitFrames = TextureRegion.split(glintFile, 32, 32);
-        TextureRegion[] frames = splitFrames[0];
+        Array<TextureRegion> frames = new Array<>(splitFrames[0]);
 
-        CLUE_GLINT = new Animation(0.1f, frames);
+        CLUE_GLINT = new Animation<>(0.1f, frames);
     }
 
     /**
