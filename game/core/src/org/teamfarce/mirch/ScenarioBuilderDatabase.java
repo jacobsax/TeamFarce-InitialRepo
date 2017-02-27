@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.io.File;
 
 public class ScenarioBuilderDatabase {
     HashMap<Integer, DataClue> means;
@@ -34,7 +35,14 @@ public class ScenarioBuilderDatabase {
     public ScenarioBuilderDatabase(String databaseName) throws SQLException {
         this();
 
-        Connection sqlConn = DriverManager.getConnection("jdbc:sqlite:" + databaseName);
+        Connection sqlConn = null;
+
+        if (new File(databaseName).exists()) {
+            sqlConn = DriverManager.getConnection("jdbc:sqlite:" + databaseName);
+        } else {
+            sqlConn = DriverManager.getConnection("jdbc:sqlite::resource:" + databaseName);
+        }
+
         Statement sqlStmt = sqlConn.createStatement();
 
         ResultSet rsResource = sqlStmt.executeQuery("SELECT * FROM resources");
