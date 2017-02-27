@@ -22,7 +22,8 @@ public class NarratorScreen_Test extends GameTest {
         Skin skin = new Skin();
         game = new MIRCH();
         game.gameSnapshot = new GameSnapshot(null, null, null, null, null);
-        game.gameSnapshot.victim = new Suspect(game, "Test", "test", "Colin.png", new Vector2Int(0, 0), null);
+        game.gameSnapshot.victim =
+            new Suspect(game, "Test", "test", "Colin.png", new Vector2Int(0, 0), null);
         screen = new NarratorScreen(game, skin);
     }
 
@@ -37,7 +38,6 @@ public class NarratorScreen_Test extends GameTest {
     public void updateSpeech() {
         screen.setSpeech("Test Speech");
         screen.updateSpeech();
-
 
         assertEquals(screen.getCurrentSpeech(), "T");
     }

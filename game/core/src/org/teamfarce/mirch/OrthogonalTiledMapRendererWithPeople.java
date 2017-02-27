@@ -12,10 +12,10 @@ import java.util.List;
 /**
  * OrthogonalTiledMapRendererWithPeople
  *
- * This class is an extension of the OrthogonalTiledMapRenderer that deals with
- * rendering sprites aswell. The last layer of the map is designed to be drawn OVER
- * the player sprite and NPCs. So this controls that by drawing each layer until it comes to the last
- * one, then it draws the sprites, then the final layer.
+ * This class is an extension of the OrthogonalTiledMapRenderer that deals with rendering sprites
+ * aswell. The last layer of the map is designed to be drawn OVER the player sprite and NPCs. So
+ * this controls that by drawing each layer until it comes to the last one, then it draws the
+ * sprites, then the final layer.
  */
 public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRenderer {
     /**
@@ -49,7 +49,7 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
      * @param sprites
      */
     public void addPerson(List<AbstractPerson> sprites) {
-        for (AbstractPerson a : sprites) {
+        for (AbstractPerson a: sprites) {
             people.add(a);
         }
     }
@@ -64,8 +64,8 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
     /**
      * This overrides the render method in the super class.
      *
-     * It draws all the map layers until the final one. Then it draws all the sprites in the
-     * sprite list, then it draws the final layer.
+     * It draws all the map layers until the final one. Then it draws all the sprites in the sprite
+     * list, then it draws the final layer.
      */
     @Override
     public void render() {
@@ -79,22 +79,23 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
             MapLayer layer = map.getLayers().get(currentLayer);
 
             if (layer.getName().equals("Blood") && !MIRCH.me.player.getRoom().isMurderRoom()) {
-                //Don't draw the layer as its not the murder room
+                // Don't draw the layer as its not the murder room
             } else {
                 renderTileLayer((TiledMapTileLayer) layer);
             }
 
             if (currentLayer == amountOfLayers - 2 || amountOfLayers == 1) {
 
-                for (AbstractPerson s : people) {
+                for (AbstractPerson s: people) {
                     s.draw(this.getBatch());
                 }
             }
         }
 
-        /*if (Settings.DEBUG) {
-            DebugOverlay.renderDebugTiles(GameMain.me.player.getRoom(), this.getBatch());
-        }*/
+        /*
+         * if (Settings.DEBUG) { DebugOverlay.renderDebugTiles(GameMain.me.player.getRoom(),
+         * this.getBatch()); }
+         */
 
         endRender();
     }

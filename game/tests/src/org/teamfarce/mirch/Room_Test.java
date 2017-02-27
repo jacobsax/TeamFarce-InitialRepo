@@ -14,7 +14,6 @@ public class Room_Test extends GameTest {
 
     Room room0, room1;
 
-
     @Before
     public void before() {
 
@@ -35,7 +34,8 @@ public class Room_Test extends GameTest {
 
     @Test
     public void addTransition() {
-        room1.addTransition(new Room.Transition().setFrom(0, 0).setTo(room0, 0, 4, Direction.NORTH));
+        room1
+            .addTransition(new Room.Transition().setFrom(0, 0).setTo(room0, 0, 4, Direction.NORTH));
         assertEquals(room0, room1.getTransitionData(0, 0).getNewRoom());
     }
 

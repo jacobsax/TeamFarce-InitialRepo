@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import org.teamfarce.mirch.MIRCH;
 
 public class DesktopLauncher {
-    public static void main (String[] arg) {
+    public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "MIRCH";
         config.width = 1366;

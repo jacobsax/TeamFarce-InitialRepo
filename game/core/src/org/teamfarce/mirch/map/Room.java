@@ -19,7 +19,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This class defines a room which is a game representation of a real world room in the Ron Cooke Hub.
+ * This class defines a room which is a game representation of a real world room in the Ron Cooke
+ * Hub.
  */
 public class Room {
     /**
@@ -29,8 +30,7 @@ public class Room {
      */
     public List<Vector2Int> hidingSpots = null;
     /**
-     * This stores the name of the room.
-     * It is displayed on the tag when they enter the room
+     * This stores the name of the room. It is displayed on the tag when they enter the room
      */
     private String name;
     /**
@@ -54,12 +54,13 @@ public class Room {
      */
     private TiledMap map;
     /**
-     * This stores the coordinates of the map in a 2x2 array. If a player/NPC attempts to move to a location, it locks
-     * the location before it moves, to avoid anything else moving to it.
+     * This stores the coordinates of the map in a 2x2 array. If a player/NPC attempts to move to a
+     * location, it locks the location before it moves, to avoid anything else moving to it.
      */
     private boolean[][] lockedTiles = null;
     /**
-     * Room transitions stored as custom Transition object. Defines where the transition is from and where it goes to
+     * Room transitions stored as custom Transition object. Defines where the transition is from and
+     * where it goes to
      */
     private List<Transition> roomTransitions = new ArrayList<Transition>();
     private float animationStateTime = 0f;
@@ -67,9 +68,9 @@ public class Room {
     /**
      * Constructor that builds a Room object from the given parameters
      *
-     * @param id      - The integer ID of the room
+     * @param id - The integer ID of the room
      * @param mapFile - The String that points to the tmx map file.
-     * @param name    - The name of the room
+     * @param name - The name of the room
      */
     public Room(int id, String mapFile, String name) {
         this.ID = id;
@@ -95,7 +96,8 @@ public class Room {
      * This method checks equality between the Room and another object
      *
      * @param obj - The object to be checked against
-     * @return (boolean) Returns true if the obj is of type Room and has the exact same ID. {@link #ID}
+     * @return (boolean) Returns true if the obj is of type Room and has the exact same ID.
+     * {@link #ID}
      */
     @Override
     public boolean equals(Object obj) {
@@ -148,13 +150,15 @@ public class Room {
      * @param newClue - The clue to add to the room
      */
     public void addClue(Clue newClue) {
-        System.out.println("Added Clue " + newClue.getName() + " at location " + newClue.getTileCoordinates() + " in room " + getID());
+        System.out.println(
+            "Added Clue " + newClue.getName() + " at location " + newClue.getTileCoordinates()
+                + " in room " + getID()
+        );
 
         if (!cluesInRoom.contains(newClue)) {
             cluesInRoom.add(newClue);
         }
     }
-
 
     /**
      * Returns a list of clues in the room
@@ -183,9 +187,14 @@ public class Room {
     public void drawClues(float delta, Batch batch) {
         animationStateTime += delta;
 
-        for (Clue c : cluesInRoom) {
-            TextureRegion currentFrame = (TextureRegion) Assets.CLUE_GLINT.getKeyFrame(animationStateTime, true);
-            batch.draw(currentFrame, c.getTileX() * Settings.TILE_SIZE, c.getTileY() * Settings.TILE_SIZE);
+        for (Clue c: cluesInRoom) {
+            TextureRegion currentFrame =
+                (TextureRegion) Assets.CLUE_GLINT.getKeyFrame(animationStateTime, true);
+            batch.draw(
+                currentFrame,
+                c.getTileX() * Settings.TILE_SIZE,
+                c.getTileY() * Settings.TILE_SIZE
+            );
         }
     }
 
@@ -220,30 +229,30 @@ public class Room {
     }
 
     /**
-     * This method takes a current X and Y coordinate and checks through all the layers on the map to see if any tile IS NOT
-     * movable. If any tile IS NOT movable, it returns false.
+     * This method takes a current X and Y coordinate and checks through all the layers on the map
+     * to see if any tile IS NOT movable. If any tile IS NOT movable, it returns false.
      *
      * @param x - The x coordinate to check
      * @param y - The y coordinate to check
      * @return - (boolean) whether or not that tile can be walked on.
      */
     public boolean isWalkableTile(int x, int y) {
-        //reduced by one because the last layer is to be displayed over the top of the player and therefore is ignored.
+        // reduced by one because the last layer is to be displayed over the top of the player and
+        // therefore is ignored.
         int amountOfLayers = map.getLayers().getCount() - 1;
-        int emptyCellCount = 0; //The amount of empty cells on the map in the location x and y.
-
+        int emptyCellCount = 0; // The amount of empty cells on the map in the location x and y.
 
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             TiledMapTileLayer tiledLayer = (TiledMapTileLayer) map.getLayers().get(currentLayer);
 
             if (tiledLayer.getName().equals("Blood") && !this.isMurderRoom()) {
-                //Don't check the layer as the blood splat isn't there
+                // Don't check the layer as the blood splat isn't there
                 emptyCellCount++;
                 continue;
             }
 
             if (tiledLayer.getCell(x, y) == null) {
-                emptyCellCount++; //for every empty cell increase the emptyCellCount by 1
+                emptyCellCount++; // for every empty cell increase the emptyCellCount by 1
                 continue;
             }
 
@@ -251,34 +260,47 @@ public class Room {
                 continue;
             }
 
-            if (tiledLayer.getCell(x, y).getTile().getProperties().get("walkable").toString().equals("false")) {
+            if (
+                tiledLayer
+                    .getCell(x, y)
+                    .getTile()
+                    .getProperties()
+                    .get("walkable")
+                    .toString()
+                    .equals("false")
+            ) {
                 return false;
             }
         }
 
-
         /*
-        Check to see if the number of empty layer cells matches the number of layers,
-        if it does the this must be an empty area of the map that is not walkable
+         * Check to see if the number of empty layer cells matches the number of layers, if it does
+         * the this must be an empty area of the map that is not walkable
          */
         if (emptyCellCount == amountOfLayers) {
             return false;
         }
 
         try {
-             /*
-            Check to see if the player is standing in the target destination
-            */
-            if (MIRCH.me.player.getTileCoordinates().x == x && MIRCH.me.player.getTileCoordinates().y == y) {
+            /*
+             * Check to see if the player is standing in the target destination
+             */
+            if (
+                MIRCH.me.player.getTileCoordinates().x == x
+                    && MIRCH.me.player.getTileCoordinates().y == y
+            ) {
                 return false;
             }
 
-             /*
-             Check to see if any NPCs are standing in the target destination
+            /*
+             * Check to see if any NPCs are standing in the target destination
              */
-            for (Suspect suspect : MIRCH.me.characters) {
+            for (Suspect suspect: MIRCH.me.characters) {
 
-                if (suspect.getRoom() == this && suspect.getTileCoordinates().x == x && suspect.getTileCoordinates().y == y) {
+                if (
+                    suspect.getRoom() == this && suspect.getTileCoordinates().x == x
+                        && suspect.getTileCoordinates().y == y
+                ) {
                     return false;
                 }
             }
@@ -287,21 +309,20 @@ public class Room {
         }
 
         /*
-        Check to see if any people object has locked the target destination for them to move to
+         * Check to see if any people object has locked the target destination for them to move to
          */
         try {
             if (this.lockedTiles[x][y]) {
                 return false;
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
 
         return true;
     }
 
     /**
-     * This method checks ALL layers for the tile at x, y to see if it is a trigger tile.
-     * If any of them are true, it returns true
+     * This method checks ALL layers for the tile at x, y to see if it is a trigger tile. If any of
+     * them are true, it returns true
      *
      * @param x - The x coordinate to check
      * @param y - The y coordinate to check
@@ -310,7 +331,8 @@ public class Room {
     public boolean isTriggerTile(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
 
-        if (layer.getCell(x, y) == null) return false;
+        if (layer.getCell(x, y) == null)
+            return false;
 
         int amountOfLayers = map.getLayers().getCount();
 
@@ -325,7 +347,9 @@ public class Room {
                 continue;
             }
 
-            if (tl.getCell(x, y).getTile().getProperties().get("trigger").toString().equals("true")) {
+            if (
+                tl.getCell(x, y).getTile().getProperties().get("trigger").toString().equals("true")
+            ) {
                 return true;
             }
         }
@@ -334,17 +358,18 @@ public class Room {
     }
 
     /**
-     * This method gets the rotation that the map is that they are standing on.
-     * If they aren't on a mat, it returns null
+     * This method gets the rotation that the map is that they are standing on. If they aren't on a
+     * mat, it returns null
      *
      * @param x - The x coordinate to check
-     * @param y = The y coordinate to  check
+     * @param y = The y coordinate to check
      * @return a String representing the direction they are facing
      */
     public String getMatRotation(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Doors");
 
-        if (layer.getCell(x, y) == null) return null;
+        if (layer.getCell(x, y) == null)
+            return null;
 
         return (String) layer.getCell(x, y).getTile().getProperties().get("dir");
     }
@@ -370,12 +395,14 @@ public class Room {
     }
 
     /**
-     * This will check the map for any potential hiding locations, and returns them as a list of coordinates
+     * This will check the map for any potential hiding locations, and returns them as a list of
+     * coordinates
      *
      * @return (List<Vector2Int>) list of coordinates of the hideable tiles
      */
     public List<Vector2Int> getHidingSpots() {
-        if (hidingSpots != null) return hidingSpots;
+        if (hidingSpots != null)
+            return hidingSpots;
 
         List<Vector2Int> hidingSpots = new ArrayList<>();
 
@@ -384,15 +411,24 @@ public class Room {
 
         for (int x = 0; x < roomWidth; x++) {
             for (int y = 0; y < roomHeight; y++) {
-                for (MapLayer layer : this.getTiledMap().getLayers()) {
+                for (MapLayer layer: this.getTiledMap().getLayers()) {
                     TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
                     TiledMapTileLayer.Cell cellInTile = thisLayer.getCell(x, y);
 
-                    if (cellInTile == null) continue;
+                    if (cellInTile == null)
+                        continue;
 
-                    if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
+                    if (!cellInTile.getTile().getProperties().containsKey("hidingSpot"))
+                        continue;
 
-                    if (cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")) {
+                    if (
+                        cellInTile
+                            .getTile()
+                            .getProperties()
+                            .get("hidingSpot")
+                            .toString()
+                            .equals("true")
+                    ) {
                         hidingSpots.add(new Vector2Int(x, y));
                         break;
                     }
@@ -405,11 +441,11 @@ public class Room {
         return this.hidingSpots;
     }
 
-
     /**
      * This gets a random possible location to hide a clue in
      *
-     * @return (Vector2Int) Coordinates of the tile where the clue is to be hidden, null if there are none available
+     * @return (Vector2Int) Coordinates of the tile where the clue is to be hidden, null if there
+     * are none available
      */
     public Vector2Int getRandHidingSpot() {
 
@@ -428,26 +464,27 @@ public class Room {
     }
 
     /**
-     * This method will get the transition data (if available)
-     * for the associated door mat in this room at the location x y.
+     * This method will get the transition data (if available) for the associated door mat in this
+     * room at the location x y.
      *
      * @param x - The current x coordinate in the room (in terms of tiles not pixels)
      * @param y - The current y coordinate in the room (in terms of tiles not pixels)
-     * @return - (Transition) a Transition data type. Which stores the relevant information. null if there is no transition at x, y
+     * @return - (Transition) a Transition data type. Which stores the relevant information. null if
+     * there is no transition at x, y
      */
     public Transition getTransitionData(int x, int y) {
         return hasTransition(new Vector2Int(x, y));
     }
 
     /**
-     * This method checks through all the transitions of this room and if one exists where the FROM property is equal to the parameter 'v' then
-     * it returns that Transition, else, it returns null
+     * This method checks through all the transitions of this room and if one exists where the FROM
+     * property is equal to the parameter 'v' then it returns that Transition, else, it returns null
      *
      * @param v - The vector containing the FROM coordinates
      * @return - (Transition) nullable Transition - the transition if it exists, else, null
      */
     private Transition hasTransition(Vector2Int v) {
-        for (Transition l : roomTransitions) {
+        for (Transition l: roomTransitions) {
             if (l.from.equals(v)) {
                 return (l);
             }
@@ -507,19 +544,23 @@ public class Room {
         /**
          * Constructor
          */
-        public Transition() {
-        }
+        public Transition() {}
 
         /**
          * This method takes the parameters and sets the values of the relevant properties
          *
-         * @param room               - The room that the transition takes you to
+         * @param room - The room that the transition takes you to
          * @param newTileCoordinateX - The x coordinate that the transition takes you to
          * @param newTileCoordinateY - The y coordinates that the transition takes you to
-         * @param newDirection       - The direction that you will face after the transition
+         * @param newDirection - The direction that you will face after the transition
          * @return (Transition) this
          */
-        public Transition setTo(Room room, int newTileCoordinateX, int newTileCoordinateY, Direction newDirection) {
+        public Transition setTo(
+            Room room,
+            int newTileCoordinateX,
+            int newTileCoordinateY,
+            Direction newDirection
+        ) {
             this.newRoom = room;
             this.newTileCoordinates = new Vector2Int(newTileCoordinateX, newTileCoordinateY);
             this.newDirection = newDirection;
@@ -548,5 +589,3 @@ public class Room {
         }
     }
 }
-
-

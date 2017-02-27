@@ -10,8 +10,8 @@ import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
 /**
- * This is the GameTester class it initialises the headless backend of the game.
- * Taken from: http://manabreak.eu/java/2016/10/21/unittesting-libgdx.html
+ * This is the GameTester class it initialises the headless backend of the game. Taken from:
+ * http://manabreak.eu/java/2016/10/21/unittesting-libgdx.html
  */
 public class GameTest {
     private static Application application;
@@ -20,31 +20,27 @@ public class GameTest {
     @BeforeClass
     public static void init() {
         // Note that we don't need to implement any of the listener's methods
-        application = new HeadlessApplication(new ApplicationListener() {
-            @Override
-            public void create() {
-            }
+        application = new HeadlessApplication(
+            new ApplicationListener() {
+                @Override
+                public void create() {}
 
-            @Override
-            public void resize(int width, int height) {
-            }
+                @Override
+                public void resize(int width, int height) {}
 
-            @Override
-            public void render() {
-            }
+                @Override
+                public void render() {}
 
-            @Override
-            public void pause() {
-            }
+                @Override
+                public void pause() {}
 
-            @Override
-            public void resume() {
-            }
+                @Override
+                public void resume() {}
 
-            @Override
-            public void dispose() {
+                @Override
+                public void dispose() {}
             }
-        });
+        );
 
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);

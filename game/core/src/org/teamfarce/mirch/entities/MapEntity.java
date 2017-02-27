@@ -16,18 +16,19 @@ public class MapEntity extends Sprite implements TileLocation {
     protected String description;
 
     /**
-     * This is the location on the map in terms of tiles can be set using {@link #setTileCoordinates(int, int)}
-     * Note: this is different to com.badlogic.gdx.graphics.g2d.Sprite.position that is the position on the screen in terms of pixels,
-     * whereas this is in terms of map tiles relative to the bottom left of the map.
+     * This is the location on the map in terms of tiles can be set using
+     * {@link #setTileCoordinates(int, int)} Note: this is different to
+     * com.badlogic.gdx.graphics.g2d.Sprite.position that is the position on the screen in terms of
+     * pixels, whereas this is in terms of map tiles relative to the bottom left of the map.
      */
     protected Vector2Int tileCoordinates;
 
     /**
      * Initialise the entity.
      *
-     * @param name        The name of the entity.
+     * @param name The name of the entity.
      * @param description The description of the entity.
-     * @param texture     The the texture for the entity
+     * @param texture The the texture for the entity
      */
     public MapEntity(String name, String description, Texture texture) {
         super(texture);
@@ -39,9 +40,9 @@ public class MapEntity extends Sprite implements TileLocation {
     /**
      * Initialise the entity.
      *
-     * @param name        The name of the entity.
+     * @param name The name of the entity.
      * @param description The description of the entity.
-     * @param texture     The the texture region for the entity
+     * @param texture The the texture region for the entity
      */
     public MapEntity(String name, String description, TextureRegion texture) {
         super(texture);

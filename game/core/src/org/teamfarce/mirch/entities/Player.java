@@ -16,31 +16,41 @@ public class Player extends AbstractPerson {
      */
     public boolean roomChange = false;
     /**
-     * This variable stores the NPC that the person will talk to when they finish walking. It is null if nothing should happen
+     * This variable stores the NPC that the person will talk to when they finish walking. It is
+     * null if nothing should happen
      */
     Suspect talkToOnEnd = null;
     /**
-     * This variable stores a clue that has been clicked on. It is to be collected when the player arrives at the clue
+     * This variable stores a clue that has been clicked on. It is to be collected when the player
+     * arrives at the clue
      */
     Clue findOnEnd = null;
     /**
-     * This variable stores a goal location to be tracked to the next time the player completes a move
+     * This variable stores a goal location to be tracked to the next time the player completes a
+     * move
      */
     private Vector2Int trackToNext = null;
 
     /**
-     * This boolean stores whether the player is to transition to the next room or not when they finish walking
+     * This boolean stores whether the player is to transition to the next room or not when they
+     * finish walking
      */
     private boolean transitionOnEnd = false;
 
     /**
      * Initialise the entity.
      *
-     * @param name            The name of the entity.
-     * @param description     The description of the entity.
+     * @param name The name of the entity.
+     * @param description The description of the entity.
      * @param spriteSheetFile The spriteSheetFile of the image to display for the entity.
      */
-    public Player(MIRCH game, String name, String description, String spriteSheetFile, Dialogue dialogue) {
+    public Player(
+        MIRCH game,
+        String name,
+        String description,
+        String spriteSheetFile,
+        Dialogue dialogue
+    ) {
         super(game, name, description, spriteSheetFile, dialogue);
 
         this.state = PersonState.STANDING;
@@ -56,16 +66,26 @@ public class Player extends AbstractPerson {
             return;
         }
 
-        if (this.isOnTriggerTile() && dir.toString().equals(getRoom().getMatRotation(this.tileCoordinates.x, this.tileCoordinates.y))) {
+        if (
+            this.isOnTriggerTile() && dir.toString().equals(
+                getRoom().getMatRotation(this.tileCoordinates.x, this.tileCoordinates.y)
+            )
+        ) {
             roomChange = true;
             return;
         }
 
-        if (!getRoom().isWalkableTile(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy())) {
+        if (
+            !getRoom().isWalkableTile(
+                this.tileCoordinates.x + dir.getDx(),
+                this.tileCoordinates.y + dir.getDy()
+            )
+        ) {
             direction = dir;
 
             /**
-             * If they are currently tracking to somewhere and they get interrupted, rerun the path finding algorithm
+             * If they are currently tracking to somewhere and they get interrupted, rerun the path
+             * finding algorithm
              */
             if (!toMoveTo.isEmpty()) {
                 toMoveTo = aStarPath(toMoveTo.get(toMoveTo.size() - 1));
@@ -102,13 +122,16 @@ public class Player extends AbstractPerson {
             transitionOnEnd = true;
             toMoveTo = aStarPath(tileLocation);
 
-            if (toMoveTo.isEmpty()) finishMove();
+            if (toMoveTo.isEmpty())
+                finishMove();
 
             return;
         }
 
-        for (Suspect s : ((MapScreen) game.guiController.mapScreen).getNPCs()) {
-            if (s.getTileCoordinates().equals(tileLocation) && s.getState() != PersonState.WALKING) {
+        for (Suspect s: ((MapScreen) game.guiController.mapScreen).getNPCs()) {
+            if (
+                s.getTileCoordinates().equals(tileLocation) && s.getState() != PersonState.WALKING
+            ) {
                 toMoveTo = aStarPath(getClosestNeighbour(s.getTileCoordinates()));
 
                 if (!toMoveTo.isEmpty()) {
@@ -119,7 +142,7 @@ public class Player extends AbstractPerson {
             }
         }
 
-        for (Clue c : getRoom().getClues()) {
+        for (Clue c: getRoom().getClues()) {
             if (c.getTileCoordinates().equals(tileLocation)) {
                 toMoveTo = aStarPath(getClosestNeighbour(c.getTileCoordinates()));
 
@@ -165,17 +188,22 @@ public class Player extends AbstractPerson {
             west = null;
         }
 
-        //Work out whether the player is further, east, north, south or west of the goal
+        // Work out whether the player is further, east, north, south or west of the goal
         int xDist = getTileX() - goal.getX();
-        //- means west of goal
+        // - means west of goal
 
         int yDist = getTileY() - goal.getY();
-        //- means south of goal
+        // - means south of goal
 
         int absX = Math.abs(xDist);
         int absY = Math.abs(yDist);
 
-        Vector2Int[] priority = new Vector2Int[]{null, null, null, null};
+        Vector2Int[] priority = new Vector2Int[] {
+            null,
+            null,
+            null,
+            null
+        };
 
         if (absX >= absY) {
             priority = lessThanPriorityDecision(xDist, priority, 0, 3, west, east);
@@ -185,7 +213,7 @@ public class Player extends AbstractPerson {
             priority = lessThanPriorityDecision(xDist, priority, 1, 2, west, east);
         }
 
-        for (Vector2Int v : priority) {
+        for (Vector2Int v: priority) {
             if (v != null) {
                 return v;
             }
@@ -195,17 +223,25 @@ public class Player extends AbstractPerson {
     }
 
     /**
-     * This method checks the coordinate and places the directions as a priority in a list. This is used by the `getClosestNeighbour` method
+     * This method checks the coordinate and places the directions as a priority in a list. This is
+     * used by the `getClosestNeighbour` method
      *
-     * @param check              - The number to check is less than 0
-     * @param priority           - The priority list
-     * @param priorityListFirst  - The first position to place a direction in
+     * @param check - The number to check is less than 0
+     * @param priority - The priority list
+     * @param priorityListFirst - The first position to place a direction in
      * @param priorityListSecond - The second position to place a direction in
-     * @param first              - The first priority direction
-     * @param second             - The second priority direction
+     * @param first - The first priority direction
+     * @param second - The second priority direction
      * @return Vector2Int the priority list back after being modified
      */
-    private Vector2Int[] lessThanPriorityDecision(int check, Vector2Int[] priority, int priorityListFirst, int priorityListSecond, Vector2Int first, Vector2Int second) {
+    private Vector2Int[] lessThanPriorityDecision(
+        int check,
+        Vector2Int[] priority,
+        int priorityListFirst,
+        int priorityListSecond,
+        Vector2Int first,
+        Vector2Int second
+    ) {
         if (check <= 0) {
             priority[priorityListFirst] = first;
             priority[priorityListSecond] = second;
@@ -218,7 +254,8 @@ public class Player extends AbstractPerson {
     }
 
     /**
-     * This method returns whether or not the player is standing on a tile that initiates a Transition to another room
+     * This method returns whether or not the player is standing on a tile that initiates a
+     * Transition to another room
      *
      * @return (boolean) Whether the player is on a trigger tile or not
      */
@@ -231,7 +268,8 @@ public class Player extends AbstractPerson {
         super.finishMove();
 
         if (toMoveTo.isEmpty() && talkToOnEnd != null) {
-            talkToOnEnd.setDirection(getTileCoordinates().dirBetween(talkToOnEnd.getTileCoordinates()));
+            talkToOnEnd
+                .setDirection(getTileCoordinates().dirBetween(talkToOnEnd.getTileCoordinates()));
             setDirection(talkToOnEnd.direction.getOpposite());
 
             game.gameSnapshot.setState(GameState.interviewStart);
@@ -250,7 +288,6 @@ public class Player extends AbstractPerson {
                 roomChange = true;
             }
 
-
         }
 
         if (trackToNext != null) {
@@ -260,11 +297,16 @@ public class Player extends AbstractPerson {
     }
 
     /**
-     * This takes the player at its current position, and automatically gets the transition data for the next room and applies it to the player and game
+     * This takes the player at its current position, and automatically gets the transition data for
+     * the next room and applies it to the player and game
      */
     public void moveRoom() {
         if (isOnTriggerTile()) {
-            Room.Transition newRoomData = this.getRoom().getTransitionData(this.getTileCoordinates().x, this.getTileCoordinates().y);
+            Room.Transition newRoomData =
+                this.getRoom().getTransitionData(
+                    this.getTileCoordinates().x,
+                    this.getTileCoordinates().y
+                );
 
             this.setRoom(newRoomData.getNewRoom());
 
@@ -273,7 +315,10 @@ public class Player extends AbstractPerson {
                 this.updateTextureRegion();
             }
 
-            this.setTileCoordinates(newRoomData.newTileCoordinates.x, newRoomData.newTileCoordinates.y);
+            this.setTileCoordinates(
+                newRoomData.newTileCoordinates.x,
+                newRoomData.newTileCoordinates.y
+            );
         }
     }
 

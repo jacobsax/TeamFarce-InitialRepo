@@ -30,10 +30,15 @@ public class InterviewResponseButton {
     /**
      * Constructor for InterviewResponseButton
      *
-     * @param buttonText      String to display on button
+     * @param buttonText String to display on button
      * @param eventHandlerVal On click event handler - use a Lambda function (Java8 only)
      */
-    public InterviewResponseButton(String buttonText, int buttonResult, Clue clue, EventHandler eventHandlerVal) {
+    public InterviewResponseButton(
+        String buttonText,
+        int buttonResult,
+        Clue clue,
+        EventHandler eventHandlerVal
+    ) {
         this.text = buttonText;
         this.result = buttonResult;
         this.eventHandler = eventHandlerVal;
@@ -41,16 +46,13 @@ public class InterviewResponseButton {
     }
 
     /**
-     * Event handler interface
-     * Used for defining the click event handler on a InterviewResponseButton
+     * Event handler interface Used for defining the click event handler on a
+     * InterviewResponseButton
      *
-     * Initialising an event handler:
-     * InterviewResponseButton.EventHandler eventHandler = (String name) -> {
-     * System.out.println(name + " was pressed");
-     * };
+     * Initialising an event handler: InterviewResponseButton.EventHandler eventHandler = (String
+     * name) -> { System.out.println(name + " was pressed"); };
      *
-     * Usage:
-     * Used in InterviewResponseBox class on button click
+     * Usage: Used in InterviewResponseBox class on button click
      * InterviewResponseButton.eventHandler.trigger();
      */
     public interface EventHandler {

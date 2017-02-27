@@ -1,6 +1,5 @@
 package org.teamfarce.mirch.screens.elements;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import org.teamfarce.mirch.GameSnapshot;
 import org.teamfarce.mirch.GameState;
 
-
 /**
  * Top status bar in game
  */
@@ -20,12 +18,12 @@ public class StatusBar {
     /**
      * Height of bar
      */
-    public static final int HEIGHT = 40; //Used to set height of status bar
+    public static final int HEIGHT = 40; // Used to set height of status bar
 
     /**
      * Item count
      */
-    private static final int ITEM_COUNT = 5; //Used to set width of controls on bar
+    private static final int ITEM_COUNT = 5; // Used to set width of controls on bar
 
     /**
      * Width of bar
@@ -46,8 +44,8 @@ public class StatusBar {
     private GameSnapshot gameSnapshot;
 
     /**
-     * The initializer for the StatusBar
-     * Sets up UI controls and adds them to the stage ready for rendering
+     * The initializer for the StatusBar Sets up UI controls and adds them to the stage ready for
+     * rendering
      */
     public StatusBar(GameSnapshot snapshot, Skin uiSkin) {
         gameSnapshot = snapshot;
@@ -59,7 +57,6 @@ public class StatusBar {
         statusBar.setPosition(0, Gdx.graphics.getHeight() - HEIGHT);
         statusBar.row().height(HEIGHT);
         statusBar.defaults().width(WIDTH);
-
 
         scoreLabel = new TextButton("Score: " + gameSnapshot.getScore(), uiSkin);
         statusBar.add(scoreLabel).uniform();
@@ -74,21 +71,25 @@ public class StatusBar {
         statusBar.add(personalityMeter).uniform();
 
         /* Event handlers */
-        //add a listener for the show interview log button
-        mapButton.addListener(new ChangeListener() {
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("map button was pressed");
-                gameSnapshot.setState(GameState.map);
+        // add a listener for the show interview log button
+        mapButton.addListener(
+            new ChangeListener() {
+                public void changed(ChangeEvent event, Actor actor) {
+                    System.out.println("map button was pressed");
+                    gameSnapshot.setState(GameState.map);
+                }
             }
-        });
+        );
 
-        //add a listener for the show interview log button
-        journalButton.addListener(new ChangeListener() {
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Journal button was pressed");
-                gameSnapshot.setState(GameState.journalClues);
+        // add a listener for the show interview log button
+        journalButton.addListener(
+            new ChangeListener() {
+                public void changed(ChangeEvent event, Actor actor) {
+                    System.out.println("Journal button was pressed");
+                    gameSnapshot.setState(GameState.journalClues);
+                }
             }
-        });
+        );
 
         stage.addActor(statusBar);
     }
@@ -117,8 +118,7 @@ public class StatusBar {
     }
 
     /**
-     * Render function to display the status bar
-     * Usage: call within the render() method in a screen
+     * Render function to display the status bar Usage: call within the render() method in a screen
      */
     public void render() {
         scoreLabel.setText("Score: " + gameSnapshot.getScore());
@@ -131,7 +131,7 @@ public class StatusBar {
     /**
      * Used for window resize event
      *
-     * @param width  - updated width
+     * @param width - updated width
      * @param height - updated height
      */
     public void resize(int width, int height) {

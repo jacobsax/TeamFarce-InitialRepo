@@ -34,12 +34,11 @@ public class ScenarioBuilder_Test extends GameTest {
 
         ScenarioBuilder.distributeClues(clues, rooms);
 
-        for (Room r : rooms) {
+        for (Room r: rooms) {
             if (!(r.getClues().size() > 0)) {
                 fail("Rooms not being given clues");
             }
         }
-
 
     }
 
@@ -60,7 +59,7 @@ public class ScenarioBuilder_Test extends GameTest {
 
         ScenarioBuilder.distributeClues(clues, rooms);
 
-        for (Room r : rooms) {
+        for (Room r: rooms) {
             if (r.getClues().size() != 1) {
                 fail("Clues being given the same room");
             }
@@ -68,18 +67,47 @@ public class ScenarioBuilder_Test extends GameTest {
 
     }
 
-
     @Test
     public void generateMotives() {
         ScenarioBuilderDatabase.DataMotive dataMotive = new ScenarioBuilderDatabase.DataMotive();
-        dataMotive.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis tincidunt augue, eu dignissim massa maximus at. Praesent egestas, arcu vitae dignissim pharetra, sem lectus luctus metus, ac suscipit nibh massa non lacus. In tortor sem, blandit non odio sed";
+        dataMotive.description =
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis tincidunt augue, eu dignissim massa maximus at. Praesent egestas, arcu vitae dignissim pharetra, sem lectus luctus metus, ac suscipit nibh massa non lacus. In tortor sem, blandit non odio sed";
 
         List<Clue> clues = ScenarioBuilder.generateMotive(dataMotive);
 
-        assertEquals(clues.get(0), new Clue("Motive Part 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis tincidunt augue", "clueSheet.png", 0, 0, false));
-        assertEquals(clues.get(1), new Clue("Motive Part 2", ", eu dignissim massa maximus at. Praesent egestas, arcu vitae dignissim pharetra, sem le", "clueSheet.png", 0, 0, false));
-        assertEquals(clues.get(2), new Clue("Motive Part 3", "ctus luctus metus, ac suscipit nibh massa non lacus. In tortor sem, blandit non odio sed", "clueSheet.png", 0, 0, false));
-
+        assertEquals(
+            clues.get(0),
+            new Clue(
+                "Motive Part 1",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis tincidunt augue",
+                "clueSheet.png",
+                0,
+                0,
+                false
+            )
+        );
+        assertEquals(
+            clues.get(1),
+            new Clue(
+                "Motive Part 2",
+                ", eu dignissim massa maximus at. Praesent egestas, arcu vitae dignissim pharetra, sem le",
+                "clueSheet.png",
+                0,
+                0,
+                false
+            )
+        );
+        assertEquals(
+            clues.get(2),
+            new Clue(
+                "Motive Part 3",
+                "ctus luctus metus, ac suscipit nibh massa non lacus. In tortor sem, blandit non odio sed",
+                "clueSheet.png",
+                0,
+                0,
+                false
+            )
+        );
 
     }
 }

@@ -52,7 +52,7 @@ public class FindClueScreen extends AbstractScreen {
     /**
      * Initialiser
      *
-     * @param game   - Reference to the main game class
+     * @param game - Reference to the main game class
      * @param uiSkin - The skin to render objects with
      */
     public FindClueScreen(MIRCH game, Skin uiSkin) {
@@ -78,16 +78,32 @@ public class FindClueScreen extends AbstractScreen {
         screenShot.setWidth(Gdx.graphics.getWidth());
 
         goalSize = new Vector2Int(15 * Settings.TILE_SIZE, 15 * Settings.TILE_SIZE);
-        goalPos = new Vector2Int((Gdx.graphics.getWidth() / 2) - (goalSize.getX() / 2), (Gdx.graphics.getHeight() / 2) - (goalSize.getY() / 2));
+        goalPos =
+            new Vector2Int(
+                (Gdx.graphics.getWidth() / 2) - (goalSize.getX() / 2),
+                (Gdx.graphics.getHeight() / 2) - (goalSize.getY() / 2)
+            );
 
         clueBox = new Image(Assets.loadTexture("clues/clueBox.png"));
         clueBox.setSize(Settings.TILE_SIZE * 1.1f, Settings.TILE_SIZE * 1.1f);
 
         displayingClue = game.player.getClueFound();
-        clueImage = new Image(new TextureRegion(displayingClue.getTexture(), displayingClue.getResourceX() * 128, displayingClue.getResourceY() * 128, 128, 128));
+        clueImage =
+            new Image(
+                new TextureRegion(
+                    displayingClue.getTexture(),
+                    displayingClue.getResourceX() * 128,
+                    displayingClue.getResourceY() * 128,
+                    128,
+                    128
+                )
+            );
 
         clueImage.setSize(Settings.TILE_SIZE, Settings.TILE_SIZE);
-        int[] res = new int[]{Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2};
+        int[] res = new int[] {
+            Gdx.graphics.getWidth() / 2,
+            Gdx.graphics.getHeight() / 2
+        };
         clueImage.setPosition(res[0], res[1]);
         clueBox.setPosition(res[0], res[1]);
 
@@ -120,13 +136,20 @@ public class FindClueScreen extends AbstractScreen {
         if (soFarAnim < ANIM_TIME * 0.5f) {
             soFarAnim += delta;
 
-            //This interpolation is linear but using it exponentially creates a really nice fading effect.
+            // This interpolation is linear but using it exponentially creates a really nice fading
+            // effect.
 
-            float nextWidth = Interpolation.linear.apply(clueImage.getWidth(), goalSize.getX(), soFarAnim / ANIM_TIME);
-            float nextHeight = Interpolation.linear.apply(clueImage.getHeight(), goalSize.getY(), soFarAnim / ANIM_TIME);
+            float nextWidth =
+                Interpolation.linear
+                    .apply(clueImage.getWidth(), goalSize.getX(), soFarAnim / ANIM_TIME);
+            float nextHeight =
+                Interpolation.linear
+                    .apply(clueImage.getHeight(), goalSize.getY(), soFarAnim / ANIM_TIME);
 
-            float nextXPos = Interpolation.linear.apply(clueImage.getX(), goalPos.getX(), soFarAnim / ANIM_TIME);
-            float nextYPos = Interpolation.linear.apply(clueImage.getY(), goalPos.getY(), soFarAnim / ANIM_TIME);
+            float nextXPos =
+                Interpolation.linear.apply(clueImage.getX(), goalPos.getX(), soFarAnim / ANIM_TIME);
+            float nextYPos =
+                Interpolation.linear.apply(clueImage.getY(), goalPos.getY(), soFarAnim / ANIM_TIME);
 
             clueBox.setSize(nextWidth, nextHeight);
             clueBox.setPosition(nextXPos, nextYPos);
@@ -158,60 +181,89 @@ public class FindClueScreen extends AbstractScreen {
     }
 
     /**
-     * This adds the buttons and clue descriptors to the screen. It shows them once the clue has moved to the centre of the screen
+     * This adds the buttons and clue descriptors to the screen. It shows them once the clue has
+     * moved to the centre of the screen
      */
     public void addAllToStage() {
         continueButton = new TextButton("Continue", uiSkin);
         continueButton.setSize(Gdx.graphics.getWidth() / 4, 50);
-        continueButton.setPosition((Gdx.graphics.getWidth() / 2) - (continueButton.getWidth() / 2), clueBox.getY() - (2 * continueButton.getHeight()));
-        continueButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                hideAll();
+        continueButton.setPosition(
+            (Gdx.graphics.getWidth() / 2) - (continueButton.getWidth() / 2),
+            clueBox.getY() - (2 * continueButton.getHeight())
+        );
+        continueButton.addListener(
+            new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    hideAll();
 
-                rotate = true;
+                    rotate = true;
 
-                goalPos = new Vector2Int((int) (Gdx.graphics.getWidth() * 0.6), Gdx.graphics.getHeight());
-                goalSize = new Vector2Int(0, 0);
+                    goalPos =
+                        new Vector2Int(
+                            (int) (Gdx.graphics.getWidth() * 0.6),
+                            Gdx.graphics.getHeight()
+                        );
+                    goalSize = new Vector2Int(0, 0);
 
-                soFarAnim = 0f;
-                ANIM_TIME = 2f;
+                    soFarAnim = 0f;
+                    ANIM_TIME = 2f;
 
-                game.player.getRoom().removeClue(displayingClue);
-                game.player.clearFound();
+                    game.player.getRoom().removeClue(displayingClue);
+                    game.player.clearFound();
+                }
             }
-        });
+        );
 
         if (displayingClue.getName().contains("Motive")) {
             motiveLabel = new Label(displayingClue.getDescription(), uiSkin);
             motiveLabel.setSize(clueImage.getWidth() * 0.6f, clueImage.getHeight());
             motiveLabel.setAlignment(Align.center);
-            motiveLabel.setPosition((Gdx.graphics.getWidth() / 2) - (motiveLabel.getWidth() / 2), clueImage.getY());
+            motiveLabel.setPosition(
+                (Gdx.graphics.getWidth() / 2) - (motiveLabel.getWidth() / 2),
+                clueImage.getY()
+            );
             motiveLabel.setWrap(true);
 
             clueStage.addActor(motiveLabel);
         } else {
-            Pixmap pixMap = new Pixmap((int) (clueBox.getWidth() / 2), (int) clueBox.getHeight(), Pixmap.Format.RGBA8888);
+            Pixmap pixMap =
+                new Pixmap(
+                    (int) (clueBox.getWidth() / 2),
+                    (int) clueBox.getHeight(),
+                    Pixmap.Format.RGBA8888
+                );
             pixMap.setColor(0, 0, 0, 0.9f);
             pixMap.fill();
 
             descBackground = new Image(new Texture(pixMap));
 
-            float posX = clueBox.getX() + clueBox.getWidth() + (Gdx.graphics.getWidth() - clueBox.getWidth()) / 8;
+            float posX =
+                clueBox.getX() + clueBox.getWidth()
+                    + (Gdx.graphics.getWidth() - clueBox.getWidth()) / 8;
 
             descBackground.setPosition(posX, clueBox.getY());
             clueStage.addActor(descBackground);
 
             description = new Label(displayingClue.getDescription(), uiSkin, "white");
-            description.setSize(descBackground.getWidth() * 0.9f, descBackground.getHeight() * 0.9f);
+            description
+                .setSize(descBackground.getWidth() * 0.9f, descBackground.getHeight() * 0.9f);
             description.setAlignment(Align.top);
-            description.setPosition(descBackground.getX() + descBackground.getWidth() * 0.05f, descBackground.getY() + descBackground.getHeight() * 0.05f);
+            description.setPosition(
+                descBackground.getX() + descBackground.getWidth() * 0.05f,
+                descBackground.getY() + descBackground.getHeight() * 0.05f
+            );
             description.setWrap(true);
 
             clueStage.addActor(description);
         }
 
-        Pixmap pixMap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() / 10, Pixmap.Format.RGBA8888);
+        Pixmap pixMap =
+            new Pixmap(
+                Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight() / 10,
+                Pixmap.Format.RGBA8888
+            );
         pixMap.setColor(0, 0, 0, 0.9f);
         pixMap.fill();
 
@@ -239,11 +291,14 @@ public class FindClueScreen extends AbstractScreen {
         nameBackground.setVisible(false);
         continueButton.setVisible(false);
 
-        if (motiveLabel != null) motiveLabel.setVisible(false);
+        if (motiveLabel != null)
+            motiveLabel.setVisible(false);
 
-        if (descBackground != null) descBackground.setVisible(false);
+        if (descBackground != null)
+            descBackground.setVisible(false);
 
-        if (description != null) description.setVisible(false);
+        if (description != null)
+            description.setVisible(false);
     }
 
     @Override

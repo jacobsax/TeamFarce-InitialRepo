@@ -54,7 +54,6 @@ public class GameSnapshot {
         this.currentPersonality = 0;
     }
 
-
     /**
      * Takes an integer and adds it on to the current score.
      *
@@ -69,7 +68,8 @@ public class GameSnapshot {
     }
 
     /**
-     * This method shows the narrator screen with the necessary dialog for the player losing the game.
+     * This method shows the narrator screen with the necessary dialog for the player losing the
+     * game.
      */
     public void showLoseScreen() {
         String murdererName = murderer.getName();
@@ -77,25 +77,39 @@ public class GameSnapshot {
         String room = "";
         String weapon = meansClue.getName();
 
-        //Get the murder room name and the murder weapon
-        for (Room r : game.gameSnapshot.map.getRooms()) {
+        // Get the murder room name and the murder weapon
+        for (Room r: game.gameSnapshot.map.getRooms()) {
             if (r.isMurderRoom()) {
                 room = r.getName();
             }
         }
 
-        //List of other detectives who could've possibly solved the crime
-        String[] detectives = new String[]{"Richie Paper", "Princess Fiona", "Lilly Blort", "Michael Dodders"};
+        // List of other detectives who could've possibly solved the crime
+        String[] detectives = new String[] {
+            "Richie Paper",
+            "Princess Fiona",
+            "Lilly Blort",
+            "Michael Dodders"
+        };
 
-        //Send the speech to the narrrator screen and display it
-        game.guiController.narratorScreen.setSpeech("Oh No!\n \nDetective " + detectives[new Random().nextInt(detectives.length)] + " has solved the crime before you! They discovered that all along it was " + murdererName + " who killed " + victimName + " in the " + room + " with " + weapon + "\n \n" +
-                "It's a real shame, I really thought you'd have gotten there first!\n \nOh well! Better luck next time!")
-                .setButton("End Game", new Runnable() {
+        // Send the speech to the narrrator screen and display it
+        game.guiController.narratorScreen
+            .setSpeech(
+                "Oh No!\n \nDetective " + detectives[new Random().nextInt(detectives.length)]
+                    + " has solved the crime before you! They discovered that all along it was "
+                    + murdererName + " who killed " + victimName + " in the " + room + " with "
+                    + weapon + "\n \n"
+                    + "It's a real shame, I really thought you'd have gotten there first!\n \nOh well! Better luck next time!"
+            )
+            .setButton(
+                "End Game",
+                new Runnable() {
                     @Override
                     public void run() {
                         Gdx.app.exit();
                     }
-                });
+                }
+            );
 
         game.gameSnapshot.setState(GameState.narrator);
     }
@@ -212,7 +226,6 @@ public class GameSnapshot {
 
     }
 
-
     /**
      * Getter for current personality
      *
@@ -238,7 +251,7 @@ public class GameSnapshot {
      * This method unlocks all the Suspects and allows them all to be spoken to.
      */
     public void setAllUnlocked() {
-        for (Suspect s : getSuspects()) {
+        for (Suspect s: getSuspects()) {
             s.setLocked(false);
         }
     }

@@ -23,7 +23,6 @@ import org.teamfarce.mirch.screens.elements.StatusBar;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by brookehatton on 31/01/2017.
  */
@@ -80,14 +79,16 @@ public class MapScreen extends AbstractScreen {
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, w, h);
         this.camera.update();
-        this.tileRender = new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap());
+        this.tileRender =
+            new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap());
         this.tileRender.addPerson(game.player);
         currentNPCs = game.gameSnapshot.map.getNPCs(game.player.getRoom());
         tileRender.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs));
         this.playerController = new PlayerController(game.player, game, camera);
         this.spriteBatch = new SpriteBatch();
 
-        Pixmap pixMap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
+        Pixmap pixMap =
+            new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
 
         pixMap.setColor(Color.BLACK);
         pixMap.fill();
@@ -111,8 +112,8 @@ public class MapScreen extends AbstractScreen {
         playerController.update(delta);
         game.player.update(delta);
 
-        //loop through each suspect character, moving them randomly
-        for (Suspect character : currentNPCs) {
+        // loop through each suspect character, moving them randomly
+        for (Suspect character: currentNPCs) {
             character.update(delta);
         }
 
@@ -131,7 +132,7 @@ public class MapScreen extends AbstractScreen {
 
         updateTransition(delta);
 
-        //Everything to be drawn relative to bottom left of the screen
+        // Everything to be drawn relative to bottom left of the screen
         spriteBatch.begin();
 
         if (roomTransition) {
@@ -189,7 +190,9 @@ public class MapScreen extends AbstractScreen {
                     currentNPCs = game.gameSnapshot.map.getNPCs(game.player.getRoom());
                     getTileRenderer().setMap(game.player.getRoom().getTiledMap());
                     getTileRenderer().clearPeople();
-                    getTileRenderer().addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs));
+                    getTileRenderer().addPerson(
+                        (List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs)
+                    );
                     getTileRenderer().addPerson(game.player);
                 }
 

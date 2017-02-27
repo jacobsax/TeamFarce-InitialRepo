@@ -19,7 +19,6 @@ public class Scoring_Test extends GameTest {
 
     }
 
-
     @Test
     public void modifyScoreAddition() {
         int currentScore;

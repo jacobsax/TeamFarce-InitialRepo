@@ -1,6 +1,5 @@
 package org.teamfarce.mirch;
 
-
 import org.teamfarce.mirch.entities.Direction;
 
 /**
@@ -43,19 +42,25 @@ public class Vector2Int {
     }
 
     /**
-     * This is a method override which allows the use of equality in the newly defined Vector2Int objects.
+     * This is a method override which allows the use of equality in the newly defined Vector2Int
+     * objects.
      *
      * @param obj - The Vector2Int object.
      * @return Returns true or false depending on whether the equality is true or false.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
         Vector2Int other = (Vector2Int) obj;
-        if (x != other.x) return false;
-        if (y != other.y) return false;
+        if (x != other.x)
+            return false;
+        if (y != other.y)
+            return false;
         return true;
     }
 
@@ -86,10 +91,14 @@ public class Vector2Int {
      * @return Direction - The direction the other position is in
      */
     public Direction dirBetween(Vector2Int other) {
-        if (x - other.getX() == 1) return Direction.EAST;
-        if (x - other.getX() == -1) return Direction.WEST;
-        if (y - other.getY() == 1) return Direction.NORTH;
-        if (y - other.getY() == -1) return Direction.SOUTH;
+        if (x - other.getX() == 1)
+            return Direction.EAST;
+        if (x - other.getX() == -1)
+            return Direction.WEST;
+        if (y - other.getY() == 1)
+            return Direction.NORTH;
+        if (y - other.getY() == -1)
+            return Direction.SOUTH;
 
         return Direction.NORTH;
     }

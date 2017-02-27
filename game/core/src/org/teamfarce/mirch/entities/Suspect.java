@@ -27,19 +27,25 @@ public class Suspect extends AbstractPerson {
     /**
      * Initialiser function.
      *
-     * @param name             A string for the name
-     * @param description      A string description
-     * @param filename         The filename of the image for this suspect.
+     * @param name A string for the name
+     * @param description A string description
+     * @param filename The filename of the image for this suspect.
      * @param startingPosition The position to start at.
-     * @param dialogue         The json file containing the suspects dialogue.
+     * @param dialogue The json file containing the suspects dialogue.
      */
-    public Suspect(MIRCH game, String name, String description, String filename, Vector2Int startingPosition, Dialogue dialogue) {
+    public Suspect(
+        MIRCH game,
+        String name,
+        String description,
+        String filename,
+        Vector2Int startingPosition,
+        Dialogue dialogue
+    ) {
         super(game, name, description, filename, dialogue);
 
         this.beenAccused = false;
         this.setTileCoordinates(startingPosition.x, startingPosition.y);
     }
-
 
     /**
      * Accuse the suspect.
@@ -53,7 +59,7 @@ public class Suspect extends AbstractPerson {
      */
     public boolean accuse(boolean hasEvidence) {
         this.beenAccused = true;
-        //clear the dialogue tree here
+        // clear the dialogue tree here
         if (this.killer == false || hasEvidence == false) {
             game.gameSnapshot.modifyScore(-50);
         } else {
@@ -77,9 +83,14 @@ public class Suspect extends AbstractPerson {
             return;
         }
 
-        if (!canMove) return;
+        if (!canMove)
+            return;
 
-        if (!getRoom().isWalkableTile(this.getTileX() + dir.getDx(), this.getTileY() + dir.getDy()) || getRoom().isTriggerTile(this.getTileX() + dir.getDx(), this.getTileY() + dir.getDy())) {
+        if (
+            !getRoom().isWalkableTile(this.getTileX() + dir.getDx(), this.getTileY() + dir.getDy())
+                || getRoom()
+                    .isTriggerTile(this.getTileX() + dir.getDx(), this.getTileY() + dir.getDy())
+        ) {
             setDirection(dir);
             return;
         }
@@ -100,7 +111,8 @@ public class Suspect extends AbstractPerson {
      * This method attempts to move the NPC in a random direction
      */
     private void randomMove() {
-        if (getState() == PersonState.WALKING) return;
+        if (getState() == PersonState.WALKING)
+            return;
 
         if (random.nextDouble() > 0.01) {
             return;

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * MIRCH is used to generate all graphics in the program. It initialises the scenario generator and game state
- * and provides all interactions with the back end of the program.
+ * MIRCH is used to generate all graphics in the program. It initialises the scenario generator and
+ * game state and provides all interactions with the back end of the program.
  *
  * Lorem Ipsum executable file: http://lihq.me/Downloads/Assessment3/Game.zip
  *
@@ -27,7 +27,7 @@ public class MIRCH extends Game {
     public ArrayList<Room> rooms;
     public ArrayList<Suspect> characters;
 
-    public int step; //stores the current loop number
+    public int step; // stores the current loop number
 
     public Player player;
 
@@ -40,7 +40,7 @@ public class MIRCH extends Game {
         me = this;
         Assets.load();
 
-        step = 0; //initialise the step variable
+        step = 0; // initialise the step variable
 
         ScenarioBuilderDatabase database;
         try {
@@ -58,24 +58,23 @@ public class MIRCH extends Game {
             e1.printStackTrace();
         }
 
-        //generate RenderItems from each room
+        // generate RenderItems from each room
         rooms = new ArrayList<>();
-        for (Room room : gameSnapshot.getRooms()) {
-            rooms.add(room); //create a new renderItem for the room
+        for (Room room: gameSnapshot.getRooms()) {
+            rooms.add(room); // create a new renderItem for the room
         }
 
-        //generate RenderItems for each prop
+        // generate RenderItems for each prop
 
-
-        //generate RenderItems for each suspect
+        // generate RenderItems for each suspect
         characters = new ArrayList<>();
-        for (Suspect suspect : gameSnapshot.getSuspects()) {
+        for (Suspect suspect: gameSnapshot.getSuspects()) {
             characters.add(suspect);
         }
 
         gameSnapshot.map.placeNPCsInRooms(characters);
 
-        //initialise the player sprite
+        // initialise the player sprite
         Dialogue playerDialogue = null;
         try {
             playerDialogue = new Dialogue("Player.JSON", true);
@@ -83,11 +82,18 @@ public class MIRCH extends Game {
             System.out.print(e.getMessage());
             System.exit(0);
         }
-        player = new Player(this, "Bob", "The player to beat all players", "Detective_sprite.png", playerDialogue);
+        player =
+            new Player(
+                this,
+                "Bob",
+                "The player to beat all players",
+                "Detective_sprite.png",
+                playerDialogue
+            );
         player.setTileCoordinates(7, 10);
         this.player.setRoom(rooms.get(0));
 
-        //Setup screens
+        // Setup screens
         this.guiController = new GUIController(this);
         this.guiController.initScreens();
     }
@@ -101,7 +107,7 @@ public class MIRCH extends Game {
         this.guiController.update();
         super.render();
 
-        step++; //increment the step counter
+        step++; // increment the step counter
     }
 
     @Override

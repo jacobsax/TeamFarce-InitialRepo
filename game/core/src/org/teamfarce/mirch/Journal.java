@@ -45,7 +45,8 @@ public class Journal {
 
         game.gameSnapshot.modifyScore(5);
 
-        if (clue.isMotiveClue()) motivesFound++;
+        if (clue.isMotiveClue())
+            motivesFound++;
 
         if (motivesFound == 3) {
             displayMotive();
@@ -60,15 +61,21 @@ public class Journal {
      * This method displays the complete motive to the player
      */
     private void displayMotive() {
-        game.guiController.narratorScreen.setSpeech("Congratulations! You have solved the killers motive! Let's take a look at those clues...\n \n"
-                + getMotive() + "\n \nI can't believe someone would kill someone for that!\n \n"
-                + "Well, you go out there and find out who committed this murder!\n \nGood Luck!")
-                .setButton("Continue Game", new Runnable() {
+        game.guiController.narratorScreen
+            .setSpeech(
+                "Congratulations! You have solved the killers motive! Let's take a look at those clues...\n \n"
+                    + getMotive() + "\n \nI can't believe someone would kill someone for that!\n \n"
+                    + "Well, you go out there and find out who committed this murder!\n \nGood Luck!"
+            )
+            .setButton(
+                "Continue Game",
+                new Runnable() {
                     @Override
                     public void run() {
                         game.gameSnapshot.setState(GameState.map);
                     }
-                });
+                }
+            );
 
         game.gameSnapshot.setState(GameState.narrator);
     }
@@ -81,11 +88,15 @@ public class Journal {
      * @return String motive
      */
     private String getMotive() {
-        String[] motives = new String[]{"", "", ""};
+        String[] motives = new String[] {
+            "",
+            "",
+            ""
+        };
 
         Clue[] remove = new Clue[3];
 
-        for (Clue c : foundClues) {
+        for (Clue c: foundClues) {
             if (c.getName().contains("Motive")) {
                 if (c.getName().contains("1")) {
                     motives[0] = c.getDescription();
@@ -104,7 +115,17 @@ public class Journal {
         foundClues.remove(remove[1]);
         foundClues.remove(remove[2]);
 
-        addClue(new Clue("Motive Clue", "After piecing it together, this is the motive:\n" + motives[0] + motives[1] + motives[2], "clueSheet.png", 1, 2, false));
+        addClue(
+            new Clue(
+                "Motive Clue",
+                "After piecing it together, this is the motive:\n" + motives[0] + motives[1]
+                    + motives[2],
+                "clueSheet.png",
+                1,
+                2,
+                false
+            )
+        );
 
         return motives[0] + motives[1] + motives[2];
     }
@@ -113,7 +134,6 @@ public class Journal {
         return this.foundClues;
     }
 
-
     /**
      * This gets the clues that can be used in the interview process
      *
@@ -121,7 +141,7 @@ public class Journal {
      */
     public List<Clue> getQuestionableClues() {
         List<Clue> clues = new ArrayList<>();
-        for (Clue c : this.foundClues) {
+        for (Clue c: this.foundClues) {
             if (!c.isMotiveClue() && !c.isMeansClue()) {
                 clues.add(c);
             }
@@ -132,7 +152,7 @@ public class Journal {
     /**
      * Add a conversation with a given character to the journal.
      *
-     * @param text          The text to add the journal.
+     * @param text The text to add the journal.
      * @param characterName The character name to associate with the journal.
      */
     public void addConversation(String text, String characterName) {

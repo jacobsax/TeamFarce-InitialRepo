@@ -27,17 +27,35 @@ public class Clue extends MapEntity {
     /**
      * Creates a clue
      *
-     * @param name        the name of the clue i.e. what it is
+     * @param name the name of the clue i.e. what it is
      * @param description describes what the clue is
-     * @param filename    the texture region of the clue
+     * @param filename the texture region of the clue
      */
-    public Clue(String name, String description, String filename, int resourceX, int resourceY, boolean meansClue) {
-        super(name, description, new TextureRegion(Assets.loadTexture("clues/" + filename), resourceX * 128, resourceY * 128, 128, 128));
+    public Clue(
+        String name,
+        String description,
+        String filename,
+        int resourceX,
+        int resourceY,
+        boolean meansClue
+    ) {
+        super(
+            name,
+            description,
+            new TextureRegion(
+                Assets.loadTexture("clues/" + filename),
+                resourceX * 128,
+                resourceY * 128,
+                128,
+                128
+            )
+        );
         this.resourceX = resourceX;
         this.resourceY = resourceY;
         setSize(Settings.TILE_SIZE, Settings.TILE_SIZE);
 
-        if (name.contains("Motive")) motiveClue = true;
+        if (name.contains("Motive"))
+            motiveClue = true;
 
         this.meansClue = meansClue;
     }
@@ -52,7 +70,8 @@ public class Clue extends MapEntity {
     public boolean equals(Object obj) {
         if (obj instanceof Clue) {
             Clue c = (Clue) obj;
-            return c.getName().equals(this.getName()) && c.getDescription().equals(this.description);
+            return c.getName().equals(this.getName())
+                && c.getDescription().equals(this.description);
         }
 
         return false;

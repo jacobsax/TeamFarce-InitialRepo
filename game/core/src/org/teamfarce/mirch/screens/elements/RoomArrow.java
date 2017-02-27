@@ -45,20 +45,24 @@ public class RoomArrow extends Sprite {
     }
 
     /**
-     * This is called every tick, all the game logic related to the RoomArrow is contained here,
-     * it checks to see if the player is on a trigger tile (a floor mat for example) and if so displays an arrow
-     * otherwise it is hidden
+     * This is called every tick, all the game logic related to the RoomArrow is contained here, it
+     * checks to see if the player is on a trigger tile (a floor mat for example) and if so displays
+     * an arrow otherwise it is hidden
      */
     public void update() {
-        if (this.player.isOnTriggerTile() && this.player.getState() == AbstractPerson.PersonState.STANDING) {
+        if (
+            this.player.isOnTriggerTile()
+                && this.player.getState() == AbstractPerson.PersonState.STANDING
+        ) {
 
-            //this is the rotation of the mat (ie the way the arrow should face)
+            // this is the rotation of the mat (ie the way the arrow should face)
             String rotation = player.getRoom().getMatRotation(player.getTileX(), player.getTileY());
 
             int x = ((int) player.getX()) + (Direction.valueOf(rotation).getDx() * 32);
             int y = ((int) player.getY()) + (Direction.valueOf(rotation).getDy() * 32);
 
-            //if the arrow is already being displayed at the correct location we do not need to update it
+            // if the arrow is already being displayed at the correct location we do not need to
+            // update it
             if (this.visible && this.getX() == x && this.getY() == y) {
                 return;
             }

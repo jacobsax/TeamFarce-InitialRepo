@@ -14,36 +14,57 @@ import java.util.*;
 public class ScenarioBuilder {
 
     /**
-     * Takes a list of data characters,
-     * randomly selects a killer from the list of possible killers.
-     * Only generates clues for the possible killers.
-     * Randomly selects a victim from the list of possible victims
+     * Takes a list of data characters, randomly selects a killer from the list of possible killers.
+     * Only generates clues for the possible killers. Randomly selects a victim from the list of
+     * possible victims
      *
      * @param dataCharacters
      * @return
      */
-    public static CharacterData generateCharacters(MIRCH game, HashMap<Integer, DataCharacter> dataCharacters) throws ScenarioBuilderException {
+    public static
+        CharacterData
+        generateCharacters(MIRCH game, HashMap<Integer, DataCharacter> dataCharacters)
+            throws ScenarioBuilderException {
         CharacterData data = new CharacterData();
 
         List<Suspect> posKillers = new ArrayList<>();
         List<Suspect> posVictims = new ArrayList<>();
-        dataCharacters.forEach((x, c) -> {
-            Dialogue dialogue = null;
-            try {
-                dialogue = new Dialogue(c.dialogue.filename, false);
-            } catch (Dialogue.InvalidDialogueException e) {
-                e.printStackTrace();
-                System.exit(0);
-            }
-            if (c.posKiller) {
-                Suspect tempSuspect = new Suspect(game, c.name, c.description, c.spritesheet.filename, new Vector2Int(0, 0), dialogue);
-                tempSuspect.relatedClues = (convertClues(c.relatedClues));
-                posKillers.add(tempSuspect);
+        dataCharacters.forEach(
+            (x, c) -> {
+                Dialogue dialogue = null;
+                try {
+                    dialogue = new Dialogue(c.dialogue.filename, false);
+                } catch (Dialogue.InvalidDialogueException e) {
+                    e.printStackTrace();
+                    System.exit(0);
+                }
+                if (c.posKiller) {
+                    Suspect tempSuspect =
+                        new Suspect(
+                            game,
+                            c.name,
+                            c.description,
+                            c.spritesheet.filename,
+                            new Vector2Int(0, 0),
+                            dialogue
+                        );
+                    tempSuspect.relatedClues = (convertClues(c.relatedClues));
+                    posKillers.add(tempSuspect);
 
-            } else {
-                posVictims.add(new Suspect(game, c.name, c.description, c.spritesheet.filename, new Vector2Int(0, 0), dialogue));
+                } else {
+                    posVictims.add(
+                        new Suspect(
+                            game,
+                            c.name,
+                            c.description,
+                            c.spritesheet.filename,
+                            new Vector2Int(0, 0),
+                            dialogue
+                        )
+                    );
+                }
             }
-        });
+        );
 
         Collections.shuffle(posKillers);
         Collections.shuffle(posVictims);
@@ -56,7 +77,8 @@ public class ScenarioBuilder {
         data.victim = posVictims.get(0);
 
         if (data.murderer.relatedClues == null) {
-            ScenarioBuilderException e = new ScenarioBuilderException("no clues related to the murderer");
+            ScenarioBuilderException e =
+                new ScenarioBuilderException("no clues related to the murderer");
             throw e;
         }
 
@@ -74,8 +96,12 @@ public class ScenarioBuilder {
      */
     public static List<Clue> generateMotive(DataMotive dataMotive) {
 
-        final int third = dataMotive.description.length() / 3; //get the middle of the String
-        String[] parts = {dataMotive.description.substring(0, third), dataMotive.description.substring(third, 2 * third), dataMotive.description.substring(2 * third)};
+        final int third = dataMotive.description.length() / 3; // get the middle of the String
+        String[] parts = {
+            dataMotive.description.substring(0, third),
+            dataMotive.description.substring(third, 2 * third),
+            dataMotive.description.substring(2 * third)
+        };
         System.out.println("Motive generated:");
         System.out.println(parts[0]);
         System.out.println(parts[1]);
@@ -104,7 +130,7 @@ public class ScenarioBuilder {
             return null;
         }
         List<Clue> output = new ArrayList<>();
-        for (DataClue c : clues) {
+        for (DataClue c: clues) {
             output.add(new Clue(c.name, c.description, c.sprite, c.assetX, c.assetY, c.isMeans));
         }
 
@@ -114,13 +140,16 @@ public class ScenarioBuilder {
     /**
      * This method takes the database and build a GameSnapshot from the database
      *
-     * @param game     MIRCH - Reference to main game class
+     * @param game MIRCH - Reference to main game class
      * @param database - The database of which to get info from
-     * @param random   - Random, used to generate a random means clue, and a random motive
+     * @param random - Random, used to generate a random means clue, and a random motive
      * @return GameSnapshot - The generate gamesnapshot
      * @throws ScenarioBuilderException
      */
-    public static GameSnapshot generateGame(MIRCH game, ScenarioBuilderDatabase database, Random random) throws ScenarioBuilderException {
+    public static
+        GameSnapshot
+        generateGame(MIRCH game, ScenarioBuilderDatabase database, Random random)
+            throws ScenarioBuilderException {
 
         List<Clue> constructedClues = new ArrayList<>();
 
@@ -139,7 +168,7 @@ public class ScenarioBuilder {
         Suspect murderer = characterData.murderer;
 
         List<Suspect> aliveSuspects = new ArrayList<Suspect>();
-        for (Suspect suspect : characterData.allCharacters) {
+        for (Suspect suspect: characterData.allCharacters) {
             if (!suspect.isVictim()) {
                 aliveSuspects.add(suspect);
             }
@@ -149,7 +178,15 @@ public class ScenarioBuilder {
 
         Object[] means = database.means.values().toArray();
         DataClue randomMean = (DataClue) means[random.nextInt(means.length)];
-        Clue meansClue = new Clue(randomMean.name, randomMean.description, randomMean.sprite, randomMean.assetX, randomMean.assetY, randomMean.isMeans);
+        Clue meansClue =
+            new Clue(
+                randomMean.name,
+                randomMean.description,
+                randomMean.sprite,
+                randomMean.assetX,
+                randomMean.assetY,
+                randomMean.isMeans
+            );
         constructedClues.add(meansClue);
 
         distributeClues(constructedClues, rooms);
@@ -178,7 +215,8 @@ public class ScenarioBuilder {
         System.out.println("There are " + amountOfClues + " clues this game");
 
         for (int i = 0; i < amountOfClues; i++) {
-            if (amountOfClues == 0) return;
+            if (amountOfClues == 0)
+                return;
 
             if (loopRooms.isEmpty()) {
                 loopRooms.addAll(rooms);
@@ -202,7 +240,6 @@ public class ScenarioBuilder {
             super(message);
         }
     }
-
 
     private static class CharacterData {
         public Suspect victim = null;

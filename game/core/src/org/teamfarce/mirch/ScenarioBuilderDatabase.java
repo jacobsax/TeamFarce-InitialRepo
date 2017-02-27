@@ -67,7 +67,6 @@ public class ScenarioBuilderDatabase {
             means.put(singleMeans.id, singleMeans);
         }
 
-
         ResultSet rsClue = sqlStmt.executeQuery("SELECT * FROM clues WHERE is_means != 1");
         while (rsClue.next()) {
             DataClue clue = new DataClue();
@@ -123,7 +122,6 @@ public class ScenarioBuilderDatabase {
             character.relatedClues = characterClues.get(character.id);
             characters.put(character.id, character);
         }
-
 
     }
 

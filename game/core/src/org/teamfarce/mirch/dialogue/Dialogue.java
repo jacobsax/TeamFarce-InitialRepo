@@ -32,7 +32,8 @@ public class Dialogue {
     }
 
     /**
-     * This takes a template file and validates that there exists a valid response like the templates.
+     * This takes a template file and validates that there exists a valid response like the
+     * templates.
      *
      * @return Boolean true if it passes
      * @throws InvalidDialogueException if the JSON is invalid
@@ -41,13 +42,14 @@ public class Dialogue {
         JsonValue jsonTemp = new JsonReader().parse(Gdx.files.internal("characters/template.JSON"));
         Iterator itr = jsonTemp.get("responses").iterator();
 
-
         if (isForPlayer) {
             while (itr.hasNext()) {
                 String key = itr.next().toString().split(":")[0];
                 if (this.isForPlayer && this.jsonData.get("responses").get(key).size != 3) {
                     if (!key.equals("introduction")) {
-                        throw new InvalidDialogueException("No question values for the key: " + key + ", in the player json");
+                        throw new InvalidDialogueException(
+                            "No question values for the key: " + key + ", in the player json"
+                        );
                     }
                 }
             }
@@ -110,14 +112,13 @@ public class Dialogue {
         }
     }
 
-
     public class InvalidDialogueException extends Exception {
-        //Parameterless Constructor
+        // Parameterless Constructor
         public InvalidDialogueException() {
             this("Unknown InvalidDialogException");
         }
 
-        //Constructor that accepts a message
+        // Constructor that accepts a message
         public InvalidDialogueException(String message) {
             super(message);
         }

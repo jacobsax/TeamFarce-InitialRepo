@@ -53,12 +53,13 @@ public class PlayerController extends InputAdapter {
      * This method is called when a key press is read
      *
      * @param keycode - The code of the key pressed
-     * @return (boolean) Whether this method acted upon the keypress or not. Used for InputMultiplexers
+     * @return (boolean) Whether this method acted upon the keypress or not. Used for
+     * InputMultiplexers
      */
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE) {
-            //player.interact();
+            // player.interact();
             return true;
         }
 
@@ -77,7 +78,6 @@ public class PlayerController extends InputAdapter {
             return true;
         }
 
-
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
             this.south = true;
             return true;
@@ -90,7 +90,8 @@ public class PlayerController extends InputAdapter {
      * This method is called when a key release is read
      *
      * @param keycode - The keycode of the released key
-     * @return (boolean) Whether this method processed the key release or not. Used for input multiplexers.
+     * @return (boolean) Whether this method processed the key release or not. Used for input
+     * multiplexers.
      */
     @Override
     public boolean keyUp(int keycode) {
@@ -121,7 +122,8 @@ public class PlayerController extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // ignore if its not left mouse button or first touch pointer
-        if (button != Input.Buttons.LEFT || pointer > 0) return false;
+        if (button != Input.Buttons.LEFT || pointer > 0)
+            return false;
         player.interact(screenPosToTile(screenX, screenY));
         return true;
     }
@@ -136,12 +138,17 @@ public class PlayerController extends InputAdapter {
     private Vector2Int screenPosToTile(int screenX, int screenY) {
         Vector3 screenPosition = new Vector3(0, 0, 0);
         camera.unproject(screenPosition.set(screenX, screenY, 0));
-        Vector2Int tileLocation = new Vector2Int((int) screenPosition.x / Settings.TILE_SIZE, (int) screenPosition.y / Settings.TILE_SIZE);
+        Vector2Int tileLocation =
+            new Vector2Int(
+                (int) screenPosition.x / Settings.TILE_SIZE,
+                (int) screenPosition.y / Settings.TILE_SIZE
+            );
         return tileLocation;
     }
 
     /**
-     * This method is called once a game tick to transfer the key reads to the live game data in the logic Thread.
+     * This method is called once a game tick to transfer the key reads to the live game data in the
+     * logic Thread.
      */
     public void update(float delta) {
         if (!south && !north && !east && !west) {
@@ -160,11 +167,15 @@ public class PlayerController extends InputAdapter {
             goTo = Direction.WEST;
         }
 
-        if (goTo == null) return;
+        if (goTo == null)
+            return;
 
         timer += delta;
 
-        if (timer > movementTime && !((MapScreen) game.guiController.mapScreen).isTransitioning() && player.toMoveTo.isEmpty()) {
+        if (
+            timer > movementTime && !((MapScreen) game.guiController.mapScreen).isTransitioning()
+                && player.toMoveTo.isEmpty()
+        ) {
             player.move(goTo);
             return;
         }

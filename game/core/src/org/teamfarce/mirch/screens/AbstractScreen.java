@@ -25,7 +25,6 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public abstract void pause();
 
-
     @Override
     public abstract void resume();
 
