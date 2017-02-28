@@ -105,7 +105,7 @@ public class GameSnapshot {
      */
 
     public int getScore() {
-        return this.scoreTracker.collectScore((i, j, k, l) -> 0);
+        return this.scoreTracker.collectScore(new ScoreCalculator());
     }
 
     /**
