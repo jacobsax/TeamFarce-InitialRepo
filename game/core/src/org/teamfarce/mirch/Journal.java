@@ -43,7 +43,7 @@ public class Journal {
 
         game.gameSnapshot.setAllUnlocked();
 
-        game.gameSnapshot.modifyScore(5);
+        this.game.gameSnapshot.scoreTracker.addClue();
 
         if (clue.isMotiveClue())
             motivesFound++;

@@ -55,19 +55,6 @@ public class GameSnapshot {
     }
 
     /**
-     * Takes an integer and adds it on to the current score.
-     *
-     * @param amount - the integer to add to the score.
-     */
-    public void modifyScore(int amount) {
-        score += amount;
-
-        if (score <= 0) {
-            showLoseScreen();
-        }
-    }
-
-    /**
      * This method shows the narrator screen with the necessary dialog for the player losing the
      * game.
      */
