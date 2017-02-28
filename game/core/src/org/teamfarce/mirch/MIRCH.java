@@ -20,7 +20,6 @@ import java.util.Random;
  * @author jacobwunwin
  */
 public class MIRCH extends Game {
-    public static MIRCH me;
     public GameSnapshot gameSnapshot;
     public GUIController guiController;
 
@@ -36,8 +35,6 @@ public class MIRCH extends Game {
      */
     @Override
     public void create() {
-
-        me = this;
         Assets.load();
 
         step = 0; // initialise the step variable

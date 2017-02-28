@@ -13,8 +13,8 @@ public class RoomTest extends GameTest {
     @Before
     public void before() {
 
-        room0 = new Room(0, "testRoom0.tmx", "Test Room 0");
-        room1 = new Room(1, "testRoom1.tmx", "Test Room 1");
+        room0 = new Room(0, "testRoom0.tmx", "Test Room 0", null);
+        room1 = new Room(1, "testRoom1.tmx", "Test Room 1", null);
 
         room0.addTransition(new Room.Transition().setFrom(0, 4).setTo(room1, 0, 0, Direction.EAST));
     }

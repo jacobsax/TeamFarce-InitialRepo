@@ -26,56 +26,43 @@ public class Map {
      * This function initialises all the rooms of the Ron Cooke Hub and their transitions
      */
     public List<Room> initialiseRooms() {
-
-        Room mainRoom = new Room(0, "mainroom.tmx", "Main Foyer");
-
-        Room rch037 = new Room(1, "rch037.tmx", "RCH/037 Lecture Theatre");
-
-        Room portersOffice = new Room(2, "portersoffice.tmx", "Porters Office");
-
-        Room kitchen = new Room(3, "kitchen.tmx", "Kitchen");
-
-        Room islandOfInteraction = new Room(4, "islandofinteraction.tmx", "Island of Interaction");
-
-        Room toilet = new Room(5, "toilet.tmx", "Toilet");
-
-        Room computerRoom = new Room(6, "computerroom.tmx", "Computer Room");
-
-        Room lakeHouse = new Room(7, "lakehouse.tmx", "Lakehouse");
-
-        Room outside = new Room(8, "outside.tmx", "Outside Ron Cooke Hub");
-
-        Room pod = new Room(9, "pod.tmx", "Pod");
+        Room mainRoom = new Room(0, "mainroom.tmx", "Main Foyer", this.game);
+        Room rch037 = new Room(1, "rch037.tmx", "RCH/037 Lecture Theatre", this.game);
+        Room portersOffice = new Room(2, "portersoffice.tmx", "Porters Office", this.game);
+        Room kitchen = new Room(3, "kitchen.tmx", "Kitchen", this.game);
+        Room islandOfInteraction = new Room(
+            4, "islandofinteraction.tmx", "Island of Interaction", this.game
+        );
+        Room toilet = new Room(5, "toilet.tmx", "Toilet", this.game);
+        Room computerRoom = new Room(6, "computerroom.tmx", "Computer Room", this.game);
+        Room lakeHouse = new Room(7, "lakehouse.tmx", "Lakehouse", this.game);
+        Room outside = new Room(8, "outside.tmx", "Outside Ron Cooke Hub", this.game);
+        Room pod = new Room(9, "pod.tmx", "Pod", this.game);
 
         mainRoom
             .addTransition(
                 new Room.Transition().setFrom(17, 17).setTo(portersOffice, 1, 5, Direction.EAST)
             ) // To Porters Office
-
             .addTransition(
                 new Room.Transition().setFrom(27, 13).setTo(kitchen, 1, 3, Direction.EAST)
             ) // To Kitchen
-
             .addTransition(
                 new Room.Transition()
                     .setFrom(26, 29)
                     .setTo(islandOfInteraction, 11, 14, Direction.WEST)
             ) // To Island of Interaction
-
-            .addTransition(new Room.Transition().setFrom(18, 2).setTo(toilet, 1, 1, Direction.EAST)) // To
-                                                                                                     // Toilet
-
+            .addTransition(
+                new Room.Transition().setFrom(18, 2).setTo(toilet, 1, 1, Direction.EAST)
+            ) // To Toilet
             .addTransition(
                 new Room.Transition().setFrom(2, 8).setTo(computerRoom, 2, 2, Direction.EAST)
             ) // To Computer Room
-
             .addTransition(
                 new Room.Transition().setFrom(3, 5).setTo(outside, 19, 4, Direction.SOUTH)
             ) // To Outside
             .addTransition(
                 new Room.Transition().setFrom(4, 5).setTo(outside, 20, 4, Direction.SOUTH)
             ) // To Outside
-
             .addTransition(
                 new Room.Transition().setFrom(11, 1).setTo(rch037, 2, 5, Direction.SOUTH)
             ) // To RCH/037
@@ -90,7 +77,6 @@ public class Map {
             .addTransition(
                 new Room.Transition().setFrom(3, 5).setTo(mainRoom, 12, 1, Direction.NORTH)
             ) // To Main Room
-
             .addTransition(
                 new Room.Transition().setFrom(11, 17).setTo(computerRoom, 7, 1, Direction.NORTH)
             ) // To Computer Room
@@ -118,14 +104,12 @@ public class Map {
             .addTransition(
                 new Room.Transition().setFrom(13, 11).setTo(lakeHouse, 11, 1, Direction.NORTH)
             ) // To Lakehouse
-
             .addTransition(
                 new Room.Transition().setFrom(7, 1).setTo(rch037, 11, 17, Direction.SOUTH)
             ) // To RCH/037
             .addTransition(
                 new Room.Transition().setFrom(8, 1).setTo(rch037, 12, 17, Direction.SOUTH)
             ) // To RCH/037
-
             .addTransition(
                 new Room.Transition().setFrom(2, 2).setTo(mainRoom, 2, 8, Direction.EAST)
             ); // To Main Room
@@ -141,11 +125,12 @@ public class Map {
             .addTransition(
                 new Room.Transition().setFrom(20, 4).setTo(mainRoom, 4, 5, Direction.NORTH)
             ) // To Main Room
-
-            .addTransition(new Room.Transition().setFrom(9, 11).setTo(pod, 18, 9, Direction.WEST)) // To
-                                                                                                   // Pod
-            .addTransition(new Room.Transition().setFrom(9, 12).setTo(pod, 18, 10, Direction.WEST)); // To
-                                                                                                     // Pod
+            .addTransition(
+                new Room.Transition().setFrom(9, 11).setTo(pod, 18, 9, Direction.WEST)
+            ) // To Pod
+            .addTransition(
+                new Room.Transition().setFrom(9, 12).setTo(pod, 18, 10, Direction.WEST)
+            ); // To Pod
 
         pod
             .addTransition(

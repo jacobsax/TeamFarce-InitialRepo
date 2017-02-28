@@ -29,7 +29,7 @@ public class PlayerTest extends GameTest {
         Vector2Int dest = new Vector2Int(4, 4);
 
         p.setTileCoordinates(start);
-        p.setRoom(new Room(0, "testMap.tmx", "name"));
+        p.setRoom(new Room(0, "testMap.tmx", "name", null));
 
         String desiredSolution = "[(0,0), (1,0), (2,0), (3,0), (4,0), (4,1), (4,2), (4,3), (4,4)]";
         assertEquals(desiredSolution, p.aStarPath(dest).toString());

@@ -64,6 +64,8 @@ public class Room {
      */
     private List<Transition> roomTransitions = new ArrayList<Transition>();
     private float animationStateTime = 0f;
+    // A reference to this rooms MIRCH object.
+    private MIRCH mirchRef;
 
     /**
      * Constructor that builds a Room object from the given parameters
@@ -71,11 +73,13 @@ public class Room {
      * @param id - The integer ID of the room
      * @param mapFile - The String that points to the tmx map file.
      * @param name - The name of the room
+     * @param mirchRef A reference to this room's MIRCH object.
      */
-    public Room(int id, String mapFile, String name) {
+    public Room(int id, String mapFile, String name, MIRCH mirchRef) {
         this.ID = id;
         this.mapFile = mapFile;
         this.name = name;
+        this.mirchRef = mirchRef;
 
         this.map = new TmxMapLoader().load("maps/" + this.mapFile);
 
@@ -286,8 +290,8 @@ public class Room {
              * Check to see if the player is standing in the target destination
              */
             if (
-                MIRCH.me.player.getTileCoordinates().x == x
-                    && MIRCH.me.player.getTileCoordinates().y == y
+                mirchRef.player.getTileCoordinates().x == x
+                    && mirchRef.player.getTileCoordinates().y == y
             ) {
                 return false;
             }
@@ -295,7 +299,7 @@ public class Room {
             /*
              * Check to see if any NPCs are standing in the target destination
              */
-            for (Suspect suspect: MIRCH.me.characters) {
+            for (Suspect suspect: mirchRef.characters) {
 
                 if (
                     suspect.getRoom() == this && suspect.getTileCoordinates().x == x
