@@ -124,15 +124,6 @@ public class GameSnapshot {
         return this.score;
     }
 
-    public void updateScore(float delta) {
-        counter += delta;
-        if (counter >= 5) {
-            counter = 0;
-            modifyScore(-1);
-        }
-
-    }
-
     /**
      * Returns a list of all rooms.
      *

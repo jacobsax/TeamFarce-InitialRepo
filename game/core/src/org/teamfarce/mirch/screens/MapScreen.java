@@ -108,7 +108,7 @@ public class MapScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        game.gameSnapshot.updateScore(delta);
+        game.gameSnapshot.scoreTracker.incrementGameTicks();
         playerController.update(delta);
         game.player.update(delta);
 
