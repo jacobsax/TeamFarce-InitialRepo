@@ -19,7 +19,7 @@ public class MapEntityTest extends GameTest {
     public void setRoomGetRoom() {
         MapEntity mapEntity = new MapEntity(null, null, demoTexture);
 
-        Room theRoom = new Room(0, "testRoom0.tmx", "Test Room 0");
+        Room theRoom = new Room(0, "testRoom0.tmx", "Test Room 0", null);
 
         mapEntity.setRoom(theRoom);
 

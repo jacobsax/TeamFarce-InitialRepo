@@ -80,7 +80,7 @@ public class MapScreen extends AbstractScreen {
         this.camera.setToOrtho(false, w, h);
         this.camera.update();
         this.tileRender =
-            new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap());
+            new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap(), game);
         this.tileRender.addPerson(game.player);
         currentNPCs = game.gameSnapshot.map.getNPCs(game.player.getRoom());
         tileRender.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs));

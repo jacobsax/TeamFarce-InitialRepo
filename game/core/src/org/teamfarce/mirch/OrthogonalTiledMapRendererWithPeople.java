@@ -28,10 +28,11 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
      *
      * @param map - The TiledMap that is to be rendered using this renderer
      */
-    public OrthogonalTiledMapRendererWithPeople(TiledMap map) {
+    public OrthogonalTiledMapRendererWithPeople(TiledMap map, MIRCH mirchRef) {
         super(map);
 
-        people = new ArrayList<>();
+        this.mirchRef = mirchRef;
+        this.people = new ArrayList<>();
     }
 
     /**
@@ -61,6 +62,9 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
         people.clear();
     }
 
+    // A reference to this renderer's MIRCH object
+    private MIRCH mirchRef;
+
     /**
      * This overrides the render method in the super class.
      *
@@ -78,7 +82,7 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             MapLayer layer = map.getLayers().get(currentLayer);
 
-            if (layer.getName().equals("Blood") && !MIRCH.me.player.getRoom().isMurderRoom()) {
+            if (layer.getName().equals("Blood") && !this.mirchRef.player.getRoom().isMurderRoom()) {
                 // Don't draw the layer as its not the murder room
             } else {
                 renderTileLayer((TiledMapTileLayer) layer);

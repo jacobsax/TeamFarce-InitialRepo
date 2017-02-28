@@ -21,10 +21,10 @@ public class ScenarioBuilderTest extends GameTest {
         clues.add(new Clue("4", "4", "clueSheet.png", 0, 0, false));
 
         List<Room> rooms = new ArrayList<>();
-        rooms.add(new Room(0, "testMap.tmx", "Test Room1"));
-        rooms.add(new Room(1, "testMap.tmx", "Test Room2"));
-        rooms.add(new Room(2, "testMap.tmx", "Test Room3"));
-        rooms.add(new Room(3, "testMap.tmx", "Test Room4"));
+        rooms.add(new Room(0, "testMap.tmx", "Test Room1", null));
+        rooms.add(new Room(1, "testMap.tmx", "Test Room2", null));
+        rooms.add(new Room(2, "testMap.tmx", "Test Room3", null));
+        rooms.add(new Room(3, "testMap.tmx", "Test Room4", null));
 
         ScenarioBuilder.distributeClues(clues, rooms);
 
@@ -46,10 +46,10 @@ public class ScenarioBuilderTest extends GameTest {
         clues.add(new Clue("4", "4", "clueSheet.png", 0, 0, false));
 
         List<Room> rooms = new ArrayList<>();
-        rooms.add(new Room(0, "testMap.tmx", "Test Room1"));
-        rooms.add(new Room(1, "testMap.tmx", "Test Room2"));
-        rooms.add(new Room(2, "testMap.tmx", "Test Room3"));
-        rooms.add(new Room(3, "testMap.tmx", "Test Room4"));
+        rooms.add(new Room(0, "testMap.tmx", "Test Room1", null));
+        rooms.add(new Room(1, "testMap.tmx", "Test Room2", null));
+        rooms.add(new Room(2, "testMap.tmx", "Test Room3", null));
+        rooms.add(new Room(3, "testMap.tmx", "Test Room4", null));
 
         ScenarioBuilder.distributeClues(clues, rooms);
 
