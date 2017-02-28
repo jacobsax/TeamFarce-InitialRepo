@@ -29,11 +29,9 @@ public class GameSnapshot {
     List<Clue> clues;
     List<Room> rooms;
 
-    int score = 0;
     int currentPersonality;
     private List<Suspect> suspects;
     private GameState state;
-    private float counter = 0f;
     private Suspect interviewSuspect = null;
 
     public final ScoreTracker scoreTracker = new ScoreTracker();
@@ -50,7 +48,6 @@ public class GameSnapshot {
         this.rooms = rooms;
         this.journal = new Journal(game);
         this.gameWon = false;
-        this.score = 150;
         this.currentPersonality = 0;
     }
 
@@ -108,7 +105,7 @@ public class GameSnapshot {
      */
 
     public int getScore() {
-        return this.score;
+        return this.scoreTracker.collectScore((i, j, k, l) -> 0);
     }
 
     /**
