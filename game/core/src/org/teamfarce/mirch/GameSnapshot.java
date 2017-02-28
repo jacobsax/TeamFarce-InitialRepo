@@ -30,12 +30,13 @@ public class GameSnapshot {
     List<Room> rooms;
 
     int score = 0;
-    int time;
     int currentPersonality;
     private List<Suspect> suspects;
     private GameState state;
     private float counter = 0f;
     private Suspect interviewSuspect = null;
+
+    public final ScoreTracker scoreTracker = new ScoreTracker();
 
     /**
      * Initialises function.
@@ -48,7 +49,6 @@ public class GameSnapshot {
         this.map = map;
         this.rooms = rooms;
         this.journal = new Journal(game);
-        this.time = 0;
         this.gameWon = false;
         this.score = 150;
         this.currentPersonality = 0;
@@ -131,15 +131,6 @@ public class GameSnapshot {
             modifyScore(-1);
         }
 
-    }
-
-    /**
-     * Returns the current value of the pseudo-time variable.
-     *
-     * @return The current time.
-     */
-    public int getTime() {
-        return this.time;
     }
 
     /**
