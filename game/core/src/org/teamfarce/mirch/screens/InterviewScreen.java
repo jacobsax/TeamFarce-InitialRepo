@@ -213,8 +213,8 @@ public class InterviewScreen extends AbstractScreen {
             // Checks to see if a valid response has been provided
             if (suspectDialogue.length() == 0) {
                 suspectDialogue = suspect.dialogue.get("none");
-                game.gameSnapshot.modifyScore(-2);
             } else {
+                this.game.gameSnapshot.scoreTracker.addQuestion();
                 gameSnapshot.journal.addConversation(
                     String.format("%s?: %s ", tempClue.getName(), suspectDialogue),
                     suspect.getName()

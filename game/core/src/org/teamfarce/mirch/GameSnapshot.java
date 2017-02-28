@@ -29,13 +29,12 @@ public class GameSnapshot {
     List<Clue> clues;
     List<Room> rooms;
 
-    int score = 0;
-    int time;
     int currentPersonality;
     private List<Suspect> suspects;
     private GameState state;
-    private float counter = 0f;
     private Suspect interviewSuspect = null;
+
+    public final ScoreTracker scoreTracker = new ScoreTracker();
 
     /**
      * Initialises function.
@@ -48,23 +47,8 @@ public class GameSnapshot {
         this.map = map;
         this.rooms = rooms;
         this.journal = new Journal(game);
-        this.time = 0;
         this.gameWon = false;
-        this.score = 150;
         this.currentPersonality = 0;
-    }
-
-    /**
-     * Takes an integer and adds it on to the current score.
-     *
-     * @param amount - the integer to add to the score.
-     */
-    public void modifyScore(int amount) {
-        score += amount;
-
-        if (score <= 0) {
-            showLoseScreen();
-        }
     }
 
     /**
@@ -121,25 +105,7 @@ public class GameSnapshot {
      */
 
     public int getScore() {
-        return this.score;
-    }
-
-    public void updateScore(float delta) {
-        counter += delta;
-        if (counter >= 5) {
-            counter = 0;
-            modifyScore(-1);
-        }
-
-    }
-
-    /**
-     * Returns the current value of the pseudo-time variable.
-     *
-     * @return The current time.
-     */
-    public int getTime() {
-        return this.time;
+        return this.scoreTracker.collectScore(new ScoreCalculator());
     }
 
     /**
