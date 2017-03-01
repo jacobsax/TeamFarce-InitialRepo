@@ -26,8 +26,6 @@ public class MIRCH extends Game {
     public ArrayList<Room> rooms;
     public ArrayList<Suspect> characters;
 
-    public int step; // stores the current loop number
-
     public Player player;
 
     /**
@@ -36,8 +34,6 @@ public class MIRCH extends Game {
     @Override
     public void create() {
         Assets.load();
-
-        step = 0; // initialise the step variable
 
         ScenarioBuilderDatabase database;
         try {
@@ -103,8 +99,6 @@ public class MIRCH extends Game {
     public void render() {
         this.guiController.update();
         super.render();
-
-        step++; // increment the step counter
     }
 
     @Override
