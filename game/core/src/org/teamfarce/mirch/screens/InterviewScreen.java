@@ -126,7 +126,10 @@ public class InterviewScreen extends AbstractScreen {
                 new InterviewResponseButton("Question the suspect", 0, null, switchStateHandler)
             );
 
-            if (game.getCurrentGameSnapshot().isMeansProven() && game.getCurrentGameSnapshot().isMotiveProven()) {
+            if (
+                game.getCurrentGameSnapshot().isMeansProven()
+                    && game.getCurrentGameSnapshot().isMotiveProven()
+            ) {
                 buttonList.add(
                     new InterviewResponseButton("Accuse the suspect", 1, null, switchStateHandler)
                 );
@@ -176,7 +179,8 @@ public class InterviewScreen extends AbstractScreen {
             if (personality <= 5) {
                 buttonList.add(
                     new InterviewResponseButton(
-                        "Aggressively: " + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "AGGRESSIVE"),
+                        "Aggressively: " + game.getCurrentGameSnapshot().player.dialogue
+                            .get(tempClue, "AGGRESSIVE"),
                         0,
                         null,
                         styleHandler
@@ -186,7 +190,8 @@ public class InterviewScreen extends AbstractScreen {
 
             buttonList.add(
                 new InterviewResponseButton(
-                    "Conversational: " + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "CONVERSATIONAL"),
+                    "Conversational: " + game.getCurrentGameSnapshot().player.dialogue
+                        .get(tempClue, "CONVERSATIONAL"),
                     1,
                     null,
                     styleHandler
@@ -196,7 +201,8 @@ public class InterviewScreen extends AbstractScreen {
             if (personality >= -5) {
                 buttonList.add(
                     new InterviewResponseButton(
-                        "Politely: " + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "POLITE"),
+                        "Politely: "
+                            + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "POLITE"),
                         2,
                         null,
                         styleHandler
@@ -232,7 +238,10 @@ public class InterviewScreen extends AbstractScreen {
                 )
             );
 
-            if (game.getCurrentGameSnapshot().isMeansProven() && game.getCurrentGameSnapshot().isMotiveProven()) {
+            if (
+                game.getCurrentGameSnapshot().isMeansProven()
+                    && game.getCurrentGameSnapshot().isMotiveProven()
+            ) {
                 buttonList.add(
                     new InterviewResponseButton("Accuse the suspect", 1, null, switchStateHandler)
                 );

@@ -37,16 +37,18 @@ public class MIRCH extends Game {
             database = new ScenarioBuilderDatabase("db.db");
 
             try {
-                for (int i = 0; i < PLAYERNO; i++){
+                for (int i = 0; i < PLAYERNO; i++) {
 
-                    this.gameSnapshots.add(ScenarioBuilder.generateGame(this, database, new Random()));
+                    this.gameSnapshots
+                        .add(ScenarioBuilder.generateGame(this, database, new Random()));
 
-                    this.currentSnapshot = i; //move to the game snapshot we just added
+                    this.currentSnapshot = i; // move to the game snapshot we just added
 
                     // generate RenderItems from each room
                     getCurrentGameSnapshot().mirchRooms = new ArrayList<>();
                     for (Room room: getCurrentGameSnapshot().getRooms()) {
-                        getCurrentGameSnapshot().mirchRooms.add(room); // create a new renderItem for the room
+                        getCurrentGameSnapshot().mirchRooms.add(room); // create a new renderItem
+                                                                       // for the room
                     }
 
                     // generate RenderItems for each prop
@@ -57,7 +59,8 @@ public class MIRCH extends Game {
                         getCurrentGameSnapshot().characters.add(suspect);
                     }
 
-                    getCurrentGameSnapshot().map.placeNPCsInRooms(getCurrentGameSnapshot().characters);
+                    getCurrentGameSnapshot().map
+                        .placeNPCsInRooms(getCurrentGameSnapshot().characters);
 
                     // initialise the player sprite
                     Dialogue playerDialogue = null;
@@ -78,7 +81,8 @@ public class MIRCH extends Game {
                         );
 
                     getCurrentGameSnapshot().player.setTileCoordinates(7, 10);
-                    getCurrentGameSnapshot().player.setRoom(getCurrentGameSnapshot().mirchRooms.get(0));
+                    getCurrentGameSnapshot().player
+                        .setRoom(getCurrentGameSnapshot().mirchRooms.get(0));
                 }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
@@ -112,23 +116,21 @@ public class MIRCH extends Game {
 
     /**
      * Finds and returns the current game snapshot.
-     * @return
-     * @author TeamFARCE - jacobwunwin
+     *
+     * @return The game snapshot object.
      */
     public GameSnapshot getCurrentGameSnapshot() {
         return this.gameSnapshots.get(this.currentSnapshot);
     }
 
-    /*
-     * Moves the game to the next game snapshot
-     * @author TeamFARCE - jacobwunwin
+    /**
+     * Moves the game to the next game snapshot.
      */
-    public void nextGameSnapshot(){
-        this.currentSnapshot += 1; //increment the current snapshot pointer
-        //move the snapshot pointer back to 0 if its reached the end of the list
-        if (this.currentSnapshot >= this.gameSnapshots.size()){
+    public void nextGameSnapshot() {
+        this.currentSnapshot += 1; // increment the current snapshot pointer
+        // move the snapshot pointer back to 0 if its reached the end of the list
+        if (this.currentSnapshot >= this.gameSnapshots.size()) {
             this.currentSnapshot = 0;
         }
     }
-
 }

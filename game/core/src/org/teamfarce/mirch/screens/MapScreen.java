@@ -80,11 +80,17 @@ public class MapScreen extends AbstractScreen {
         this.camera.setToOrtho(false, w, h);
         this.camera.update();
         this.tileRender =
-            new OrthogonalTiledMapRendererWithPeople(game.getCurrentGameSnapshot().player.getRoom().getTiledMap(), game);
+            new OrthogonalTiledMapRendererWithPeople(
+                game.getCurrentGameSnapshot().player.getRoom().getTiledMap(),
+                game
+            );
         this.tileRender.addPerson(game.getCurrentGameSnapshot().player);
-        currentNPCs = game.getCurrentGameSnapshot().map.getNPCs(game.getCurrentGameSnapshot().player.getRoom());
+        currentNPCs =
+            game.getCurrentGameSnapshot().map
+                .getNPCs(game.getCurrentGameSnapshot().player.getRoom());
         tileRender.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs));
-        this.playerController = new PlayerController(game.getCurrentGameSnapshot().player, game, camera);
+        this.playerController =
+            new PlayerController(game.getCurrentGameSnapshot().player, game, camera);
         this.spriteBatch = new SpriteBatch();
 
         Pixmap pixMap =
@@ -126,7 +132,9 @@ public class MapScreen extends AbstractScreen {
         tileRender.getBatch().begin();
         arrow.update();
         arrow.draw(tileRender.getBatch());
-        game.getCurrentGameSnapshot().player.getRoom().drawClues(delta, getTileRenderer().getBatch());
+        game.getCurrentGameSnapshot().player
+            .getRoom()
+            .drawClues(delta, getTileRenderer().getBatch());
 
         tileRender.getBatch().end();
 
@@ -187,8 +195,11 @@ public class MapScreen extends AbstractScreen {
 
                 if (animTimer >= ANIM_TIME) {
                     game.getCurrentGameSnapshot().player.moveRoom();
-                    currentNPCs = game.getCurrentGameSnapshot().map.getNPCs(game.getCurrentGameSnapshot().player.getRoom());
-                    getTileRenderer().setMap(game.getCurrentGameSnapshot().player.getRoom().getTiledMap());
+                    currentNPCs =
+                        game.getCurrentGameSnapshot().map
+                            .getNPCs(game.getCurrentGameSnapshot().player.getRoom());
+                    getTileRenderer()
+                        .setMap(game.getCurrentGameSnapshot().player.getRoom().getTiledMap());
                     getTileRenderer().clearPeople();
                     getTileRenderer().addPerson(
                         (List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs)
