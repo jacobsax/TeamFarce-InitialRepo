@@ -70,10 +70,10 @@ public class JournalScreen extends AbstractScreen {
     public JournalScreen(MIRCH game, Skin uiSkin) {
         super(game);
         this.game = game;
-        this.gameSnapshot = game.gameSnapshot;
+        this.gameSnapshot = game.getCurrentGameSnapshot();
         this.uiSkin = uiSkin;
 
-        statusBar = new StatusBar(game.gameSnapshot, uiSkin);
+        statusBar = new StatusBar(game.getCurrentGameSnapshot(), uiSkin);
 
         // Initialise notepad page here to preserve page contents across screen transitions
         notepadPage = initJournalNotepadPage();
@@ -142,7 +142,7 @@ public class JournalScreen extends AbstractScreen {
         clueContainer.addActor(clueDesc);
         clueContainer.addActor(clueImage);
 
-        if (game.gameSnapshot.journal.getClues().size() == 0) {
+        if (game.getCurrentGameSnapshot().journal.getClues().size() == 0) {
             clueContainer.setVisible(false);
         }
 
@@ -151,12 +151,12 @@ public class JournalScreen extends AbstractScreen {
 
         // Load details page onto right journal page
         Table detailsPage;
-        GameState currentState = game.gameSnapshot.getState();
+        GameState currentState = game.getCurrentGameSnapshot().getState();
         switch (currentState) {
         case journalClues:
             detailsPage = initJournalCluesPage();
 
-            if (game.gameSnapshot.journal.getClues().size() != 0) {
+            if (game.getCurrentGameSnapshot().journal.getClues().size() != 0) {
                 clueContainer.setVisible(true);
             }
 
@@ -225,7 +225,7 @@ public class JournalScreen extends AbstractScreen {
         page.addActor(getJournalPageSubtitle("Click and drag below to scroll", 1));
 
         // Add list of found clues to journal
-        List<Clue> clues = game.gameSnapshot.journal.getClues();
+        List<Clue> clues = game.getCurrentGameSnapshot().journal.getClues();
 
         // Loop through each clue and add to table
         Table content = new Table();
@@ -239,7 +239,7 @@ public class JournalScreen extends AbstractScreen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
 
-                        for (Clue c: game.gameSnapshot.journal.getClues()) {
+                        for (Clue c: game.getCurrentGameSnapshot().journal.getClues()) {
                             if (c.getName().equals(clueLabel.getText().toString())) {
                                 currentClue = c;
                                 updateClue();
@@ -271,11 +271,11 @@ public class JournalScreen extends AbstractScreen {
             content.row();
         }
 
-        if (!game.gameSnapshot.journal.getClues().isEmpty()) {
+        if (!game.getCurrentGameSnapshot().journal.getClues().isEmpty()) {
             currentClue =
-                game.gameSnapshot.journal
+                game.getCurrentGameSnapshot().journal
                     .getClues()
-                    .get(game.gameSnapshot.journal.getClues().size() - 1);
+                    .get(game.getCurrentGameSnapshot().journal.getClues().size() - 1);
             updateClue();
         }
 
@@ -343,7 +343,7 @@ public class JournalScreen extends AbstractScreen {
         page.addActor(getJournalPageSubtitle("Click and drag below to scroll", 1));
 
         // Add list of previous conversations to journal
-        List<String> conversations = game.gameSnapshot.journal.getConversations();
+        List<String> conversations = game.getCurrentGameSnapshot().journal.getConversations();
 
         // Loop through each conversation entry and add to table
         Table content = new Table();

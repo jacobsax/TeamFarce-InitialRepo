@@ -57,10 +57,10 @@ public class FindClueScreen extends AbstractScreen {
      */
     public FindClueScreen(MIRCH game, Skin uiSkin) {
         super(game);
-        this.snapshot = game.gameSnapshot;
+        this.snapshot = game.getCurrentGameSnapshot();
         this.uiSkin = uiSkin;
 
-        statusBar = new StatusBar(game.gameSnapshot, uiSkin);
+        statusBar = new StatusBar(game.getCurrentGameSnapshot(), uiSkin);
     }
 
     /**
@@ -87,7 +87,7 @@ public class FindClueScreen extends AbstractScreen {
         clueBox = new Image(Assets.loadTexture("clues/clueBox.png"));
         clueBox.setSize(Settings.TILE_SIZE * 1.1f, Settings.TILE_SIZE * 1.1f);
 
-        displayingClue = game.player.getClueFound();
+        displayingClue = game.getCurrentGameSnapshot().player.getClueFound();
         clueImage =
             new Image(
                 new TextureRegion(
@@ -163,9 +163,9 @@ public class FindClueScreen extends AbstractScreen {
 
             if (soFarAnim >= ANIM_TIME * 0.5f) {
                 if (continueButton != null) {
-                    game.gameSnapshot.setState(GameState.map);
+                    game.getCurrentGameSnapshot().setState(GameState.map);
 
-                    game.gameSnapshot.journal.addClue(displayingClue);
+                    game.getCurrentGameSnapshot().journal.addClue(displayingClue);
                 } else {
                     addAllToStage();
                 }
@@ -209,8 +209,8 @@ public class FindClueScreen extends AbstractScreen {
                     soFarAnim = 0f;
                     ANIM_TIME = 2f;
 
-                    game.player.getRoom().removeClue(displayingClue);
-                    game.player.clearFound();
+                    game.getCurrentGameSnapshot().player.getRoom().removeClue(displayingClue);
+                    game.getCurrentGameSnapshot().player.clearFound();
                 }
             }
         );

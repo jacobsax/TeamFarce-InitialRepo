@@ -272,14 +272,14 @@ public class Player extends AbstractPerson {
                 .setDirection(getTileCoordinates().dirBetween(talkToOnEnd.getTileCoordinates()));
             setDirection(talkToOnEnd.direction.getOpposite());
 
-            game.gameSnapshot.setState(GameState.interviewStart);
-            game.gameSnapshot.setSuspectForInterview(talkToOnEnd);
+            game.getCurrentGameSnapshot().setState(GameState.interviewStart);
+            game.getCurrentGameSnapshot().setSuspectForInterview(talkToOnEnd);
         }
 
         if (toMoveTo.isEmpty() && findOnEnd != null) {
             setDirection(findOnEnd.getTileCoordinates().dirBetween(getTileCoordinates()));
             MapScreen.grabScreenshot = true;
-            game.gameSnapshot.setState(GameState.findClue);
+            game.getCurrentGameSnapshot().setState(GameState.findClue);
         }
 
         if (toMoveTo.isEmpty() && transitionOnEnd) {

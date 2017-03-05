@@ -31,7 +31,10 @@ public class ScoreTracker {
          * @return The score.
          */
         public int calculateScore(
-            int timeTaken, int incorrectAccusations, int askedQuestions, int cluesFound
+            int timeTaken,
+            int incorrectAccusations,
+            int askedQuestions,
+            int cluesFound
         );
     }
 

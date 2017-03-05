@@ -82,7 +82,10 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             MapLayer layer = map.getLayers().get(currentLayer);
 
-            if (layer.getName().equals("Blood") && !this.mirchRef.player.getRoom().isMurderRoom()) {
+            if (
+                layer.getName().equals("Blood")
+                    && !this.mirchRef.getCurrentGameSnapshot().player.getRoom().isMurderRoom()
+            ) {
                 // Don't draw the layer as its not the murder room
             } else {
                 renderTileLayer((TiledMapTileLayer) layer);

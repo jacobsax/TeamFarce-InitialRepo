@@ -2,10 +2,12 @@ package org.teamfarce.mirch;
 
 import com.badlogic.gdx.Gdx;
 import org.teamfarce.mirch.entities.Clue;
+import org.teamfarce.mirch.entities.Player;
 import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.map.Map;
 import org.teamfarce.mirch.map.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -27,7 +29,6 @@ public class GameSnapshot {
     public Clue meansClue;
     MIRCH game;
     List<Clue> clues;
-    List<Room> rooms;
 
     int currentPersonality;
     private List<Suspect> suspects;
@@ -35,6 +36,10 @@ public class GameSnapshot {
     private Suspect interviewSuspect = null;
 
     public final ScoreTracker scoreTracker = new ScoreTracker();
+    public Player player;
+    public ArrayList<Suspect> characters;
+    public List<Room> rooms;
+    public ArrayList<Room> mirchRooms;
 
     /**
      * Initialises function.
@@ -62,7 +67,7 @@ public class GameSnapshot {
         String weapon = meansClue.getName();
 
         // Get the murder room name and the murder weapon
-        for (Room r: game.gameSnapshot.map.getRooms()) {
+        for (Room r: game.getCurrentGameSnapshot().map.getRooms()) {
             if (r.isMurderRoom()) {
                 room = r.getName();
             }
@@ -95,7 +100,7 @@ public class GameSnapshot {
                 }
             );
 
-        game.gameSnapshot.setState(GameState.narrator);
+        game.getCurrentGameSnapshot().setState(GameState.narrator);
     }
 
     /**
