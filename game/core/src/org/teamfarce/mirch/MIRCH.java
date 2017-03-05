@@ -133,4 +133,14 @@ public class MIRCH extends Game {
             this.currentSnapshot = 0;
         }
     }
+
+    /**
+     * Adds and sets the current snapshot to the one given.
+     *
+     * @param snapshot The snapshot to use.
+     */
+    public void setGameSnapshot(GameSnapshot snapshot) {
+        this.gameSnapshots.add(snapshot);
+        this.currentSnapshot = this.gameSnapshots.size() - 1;
+    }
 }
