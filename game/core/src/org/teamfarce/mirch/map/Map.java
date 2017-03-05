@@ -30,9 +30,8 @@ public class Map {
         Room rch037 = new Room(1, "rch037.tmx", "RCH/037 Lecture Theatre", this.game);
         Room portersOffice = new Room(2, "portersoffice.tmx", "Porters Office", this.game);
         Room kitchen = new Room(3, "kitchen.tmx", "Kitchen", this.game);
-        Room islandOfInteraction = new Room(
-            4, "islandofinteraction.tmx", "Island of Interaction", this.game
-        );
+        Room islandOfInteraction =
+            new Room(4, "islandofinteraction.tmx", "Island of Interaction", this.game);
         Room toilet = new Room(5, "toilet.tmx", "Toilet", this.game);
         Room computerRoom = new Room(6, "computerroom.tmx", "Computer Room", this.game);
         Room lakeHouse = new Room(7, "lakehouse.tmx", "Lakehouse", this.game);
@@ -51,9 +50,8 @@ public class Map {
                     .setFrom(26, 29)
                     .setTo(islandOfInteraction, 11, 14, Direction.WEST)
             ) // To Island of Interaction
-            .addTransition(
-                new Room.Transition().setFrom(18, 2).setTo(toilet, 1, 1, Direction.EAST)
-            ) // To Toilet
+            .addTransition(new Room.Transition().setFrom(18, 2).setTo(toilet, 1, 1, Direction.EAST)) // To
+                                                                                                     // Toilet
             .addTransition(
                 new Room.Transition().setFrom(2, 8).setTo(computerRoom, 2, 2, Direction.EAST)
             ) // To Computer Room
@@ -125,12 +123,10 @@ public class Map {
             .addTransition(
                 new Room.Transition().setFrom(20, 4).setTo(mainRoom, 4, 5, Direction.NORTH)
             ) // To Main Room
-            .addTransition(
-                new Room.Transition().setFrom(9, 11).setTo(pod, 18, 9, Direction.WEST)
-            ) // To Pod
-            .addTransition(
-                new Room.Transition().setFrom(9, 12).setTo(pod, 18, 10, Direction.WEST)
-            ); // To Pod
+            .addTransition(new Room.Transition().setFrom(9, 11).setTo(pod, 18, 9, Direction.WEST)) // To
+                                                                                                   // Pod
+            .addTransition(new Room.Transition().setFrom(9, 12).setTo(pod, 18, 10, Direction.WEST)); // To
+                                                                                                     // Pod
 
         pod
             .addTransition(
@@ -173,7 +169,7 @@ public class Map {
     public List<Suspect> getNPCs(Room room) {
         List<Suspect> npcsInRoom = new ArrayList<Suspect>();
 
-        for (Suspect s: game.gameSnapshot.getSuspects()) {
+        for (Suspect s: game.getCurrentGameSnapshot().getSuspects()) {
             if (s.getRoom().getID() == room.getID()) {
                 npcsInRoom.add(s);
             }

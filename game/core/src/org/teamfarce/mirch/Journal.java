@@ -41,9 +41,9 @@ public class Journal {
     public void addClue(Clue clue) {
         this.foundClues.add(clue);
 
-        game.gameSnapshot.setAllUnlocked();
+        game.getCurrentGameSnapshot().setAllUnlocked();
 
-        this.game.gameSnapshot.scoreTracker.addClue();
+        this.game.getCurrentGameSnapshot().scoreTracker.addClue();
 
         if (clue.isMotiveClue())
             motivesFound++;
@@ -72,12 +72,12 @@ public class Journal {
                 new Runnable() {
                     @Override
                     public void run() {
-                        game.gameSnapshot.setState(GameState.map);
+                        game.getCurrentGameSnapshot().setState(GameState.map);
                     }
                 }
             );
 
-        game.gameSnapshot.setState(GameState.narrator);
+        game.getCurrentGameSnapshot().setState(GameState.narrator);
     }
 
     /**

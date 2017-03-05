@@ -52,7 +52,7 @@ public class InterviewScreen extends AbstractScreen {
     public InterviewScreen(MIRCH game, Skin uiSkin) {
         super(game);
         this.game = game;
-        this.gameSnapshot = game.gameSnapshot;
+        this.gameSnapshot = game.getCurrentGameSnapshot();
         this.uiSkin = uiSkin;
     }
 
@@ -126,7 +126,7 @@ public class InterviewScreen extends AbstractScreen {
                 new InterviewResponseButton("Question the suspect", 0, null, switchStateHandler)
             );
 
-            if (game.gameSnapshot.isMeansProven() && game.gameSnapshot.isMotiveProven()) {
+            if (game.getCurrentGameSnapshot().isMeansProven() && game.getCurrentGameSnapshot().isMotiveProven()) {
                 buttonList.add(
                     new InterviewResponseButton("Accuse the suspect", 1, null, switchStateHandler)
                 );
@@ -148,7 +148,7 @@ public class InterviewScreen extends AbstractScreen {
 
                 // Setup buttons to Question, Accuse and Ignore
 
-                for (Clue c: game.gameSnapshot.journal.getQuestionableClues()) {
+                for (Clue c: game.getCurrentGameSnapshot().journal.getQuestionableClues()) {
                     buttonList.add(new InterviewResponseButton(c.getName(), 0, c, clueHandler));
                 }
             } else {
@@ -176,7 +176,7 @@ public class InterviewScreen extends AbstractScreen {
             if (personality <= 5) {
                 buttonList.add(
                     new InterviewResponseButton(
-                        "Aggressively: " + game.player.dialogue.get(tempClue, "AGGRESSIVE"),
+                        "Aggressively: " + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "AGGRESSIVE"),
                         0,
                         null,
                         styleHandler
@@ -186,7 +186,7 @@ public class InterviewScreen extends AbstractScreen {
 
             buttonList.add(
                 new InterviewResponseButton(
-                    "Conversational: " + game.player.dialogue.get(tempClue, "CONVERSATIONAL"),
+                    "Conversational: " + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "CONVERSATIONAL"),
                     1,
                     null,
                     styleHandler
@@ -196,7 +196,7 @@ public class InterviewScreen extends AbstractScreen {
             if (personality >= -5) {
                 buttonList.add(
                     new InterviewResponseButton(
-                        "Politely: " + game.player.dialogue.get(tempClue, "POLITE"),
+                        "Politely: " + game.getCurrentGameSnapshot().player.dialogue.get(tempClue, "POLITE"),
                         2,
                         null,
                         styleHandler
@@ -214,7 +214,7 @@ public class InterviewScreen extends AbstractScreen {
             if (suspectDialogue.length() == 0) {
                 suspectDialogue = suspect.dialogue.get("none");
             } else {
-                this.game.gameSnapshot.scoreTracker.addQuestion();
+                this.game.getCurrentGameSnapshot().scoreTracker.addQuestion();
                 gameSnapshot.journal.addConversation(
                     String.format("%s?: %s ", tempClue.getName(), suspectDialogue),
                     suspect.getName()
@@ -232,7 +232,7 @@ public class InterviewScreen extends AbstractScreen {
                 )
             );
 
-            if (game.gameSnapshot.isMeansProven() && game.gameSnapshot.isMotiveProven()) {
+            if (game.getCurrentGameSnapshot().isMeansProven() && game.getCurrentGameSnapshot().isMotiveProven()) {
                 buttonList.add(
                     new InterviewResponseButton("Accuse the suspect", 1, null, switchStateHandler)
                 );
@@ -337,7 +337,7 @@ public class InterviewScreen extends AbstractScreen {
 
         game.guiController.narratorScreen.setSpeech(
             "Congratulations! You solved it!\n\n" + "All along it was "
-                + game.gameSnapshot.murderer.getName() + " who killed "
+                + game.getCurrentGameSnapshot().murderer.getName() + " who killed "
                 + gameSnapshot.victim.getName() + " with " + gameSnapshot.meansClue.getName()
                 + " in the " + room
                 + "\n\nI would never have been able to work that out!\n\nYou completed the game with a score of "
@@ -401,7 +401,7 @@ public class InterviewScreen extends AbstractScreen {
             suspect.setLocked(true);
             suspect = null;
             gameSnapshot.setSuspectForInterview(null);
-            game.player.clearTalkTo();
+            game.getCurrentGameSnapshot().player.clearTalkTo();
             break;
         case 3: // Game has been won
             winGame();
@@ -411,7 +411,7 @@ public class InterviewScreen extends AbstractScreen {
             suspect.canMove = true;
             suspect = null;
             gameSnapshot.setSuspectForInterview(null);
-            game.player.clearTalkTo();
+            game.getCurrentGameSnapshot().player.clearTalkTo();
             break;
         }
     }

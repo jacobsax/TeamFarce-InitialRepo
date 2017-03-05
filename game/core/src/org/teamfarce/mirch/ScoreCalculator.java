@@ -1,12 +1,15 @@
 package org.teamfarce.mirch;
 
 /**
- * A score calculator function which takes the given parameters and provides back a simple
- * integer score.
+ * A score calculator function which takes the given parameters and provides back a simple integer
+ * score.
  */
 public class ScoreCalculator implements ScoreTracker.ScoreCalculator {
     public int calculateScore(
-        int timeTaken, int incorrectAccusations, int askedQuestions, int cluesFound
+        int timeTaken,
+        int incorrectAccusations,
+        int askedQuestions,
+        int cluesFound
     ) {
         // Decrease the score by 1 every 5 seconds.
         final int timeScore = -(timeTaken / 300);

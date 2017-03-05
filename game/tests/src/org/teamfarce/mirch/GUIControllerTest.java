@@ -62,7 +62,7 @@ public class GUIControllerTest extends GameTest {
     @Before
     public void init_tests() {
         game = new MIRCH();
-        game.gameSnapshot = new GameSnapshot(null, null, null, null, null);
+        game.setGameSnapshot(new GameSnapshot(null, null, null, null, null));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class GUIControllerTest extends GameTest {
         assertSame(game.getScreen(), null);
 
         // Set MapScreen as active
-        game.gameSnapshot.setState(GameState.map);
+        game.getCurrentGameSnapshot().setState(GameState.map);
         guiController.update();
 
         // Check MapScreen is active
@@ -101,7 +101,7 @@ public class GUIControllerTest extends GameTest {
     public void screenCanBeChanged() {
 
         // Init GUIController with active MapScreen
-        game.gameSnapshot.setState(GameState.map);
+        game.getCurrentGameSnapshot().setState(GameState.map);
         GUIController guiController = new GUIController(game);
         guiController.journalScreen = screen1;
         guiController.mapScreen = screen2;
@@ -113,7 +113,7 @@ public class GUIControllerTest extends GameTest {
         assertNotSame(game.getScreen(), guiController.journalScreen);
 
         // Switch to JournalScreen
-        game.gameSnapshot.setState(GameState.journalClues);
+        game.getCurrentGameSnapshot().setState(GameState.journalClues);
         guiController.update();
 
         // Check JournalScreen is active

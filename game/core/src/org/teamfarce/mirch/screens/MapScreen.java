@@ -44,7 +44,7 @@ public class MapScreen extends AbstractScreen {
     /**
      * This stores the room arrow that is drawn when the player stands on a room changing mat
      */
-    private RoomArrow arrow = new RoomArrow(game.player);
+    private RoomArrow arrow = new RoomArrow(game.getCurrentGameSnapshot().player);
     /**
      * This is the sprite batch that is relative to the screens origin
      */
@@ -80,11 +80,11 @@ public class MapScreen extends AbstractScreen {
         this.camera.setToOrtho(false, w, h);
         this.camera.update();
         this.tileRender =
-            new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap(), game);
-        this.tileRender.addPerson(game.player);
-        currentNPCs = game.gameSnapshot.map.getNPCs(game.player.getRoom());
+            new OrthogonalTiledMapRendererWithPeople(game.getCurrentGameSnapshot().player.getRoom().getTiledMap(), game);
+        this.tileRender.addPerson(game.getCurrentGameSnapshot().player);
+        currentNPCs = game.getCurrentGameSnapshot().map.getNPCs(game.getCurrentGameSnapshot().player.getRoom());
         tileRender.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs));
-        this.playerController = new PlayerController(game.player, game, camera);
+        this.playerController = new PlayerController(game.getCurrentGameSnapshot().player, game, camera);
         this.spriteBatch = new SpriteBatch();
 
         Pixmap pixMap =
@@ -95,7 +95,7 @@ public class MapScreen extends AbstractScreen {
 
         BLACK_BACKGROUND = new Sprite(new Texture(pixMap));
 
-        this.statusBar = new StatusBar(game.gameSnapshot, uiSkin);
+        this.statusBar = new StatusBar(game.getCurrentGameSnapshot(), uiSkin);
     }
 
     @Override
@@ -108,17 +108,17 @@ public class MapScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        game.gameSnapshot.scoreTracker.incrementGameTicks();
+        game.getCurrentGameSnapshot().scoreTracker.incrementGameTicks();
         playerController.update(delta);
-        game.player.update(delta);
+        game.getCurrentGameSnapshot().player.update(delta);
 
         // loop through each suspect character, moving them randomly
         for (Suspect character: currentNPCs) {
             character.update(delta);
         }
 
-        camera.position.x = game.player.getX();
-        camera.position.y = game.player.getY();
+        camera.position.x = game.getCurrentGameSnapshot().player.getX();
+        camera.position.y = game.getCurrentGameSnapshot().player.getY();
         camera.update();
         tileRender.setView(camera);
 
@@ -126,7 +126,7 @@ public class MapScreen extends AbstractScreen {
         tileRender.getBatch().begin();
         arrow.update();
         arrow.draw(tileRender.getBatch());
-        game.player.getRoom().drawClues(delta, getTileRenderer().getBatch());
+        game.getCurrentGameSnapshot().player.getRoom().drawClues(delta, getTileRenderer().getBatch());
 
         tileRender.getBatch().end();
 
@@ -154,7 +154,7 @@ public class MapScreen extends AbstractScreen {
      * This is called when the player decides to move to another room
      */
     public void initialiseRoomTransition() {
-        game.gameSnapshot.setAllUnlocked();
+        game.getCurrentGameSnapshot().setAllUnlocked();
         roomTransition = true;
     }
 
@@ -186,14 +186,14 @@ public class MapScreen extends AbstractScreen {
                 animTimer += delta;
 
                 if (animTimer >= ANIM_TIME) {
-                    game.player.moveRoom();
-                    currentNPCs = game.gameSnapshot.map.getNPCs(game.player.getRoom());
-                    getTileRenderer().setMap(game.player.getRoom().getTiledMap());
+                    game.getCurrentGameSnapshot().player.moveRoom();
+                    currentNPCs = game.getCurrentGameSnapshot().map.getNPCs(game.getCurrentGameSnapshot().player.getRoom());
+                    getTileRenderer().setMap(game.getCurrentGameSnapshot().player.getRoom().getTiledMap());
                     getTileRenderer().clearPeople();
                     getTileRenderer().addPerson(
                         (List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCs)
                     );
-                    getTileRenderer().addPerson(game.player);
+                    getTileRenderer().addPerson(game.getCurrentGameSnapshot().player);
                 }
 
                 if (animTimer > ANIM_TIME) {
@@ -208,9 +208,9 @@ public class MapScreen extends AbstractScreen {
             }
         }
 
-        if (game.player.roomChange) {
+        if (game.getCurrentGameSnapshot().player.roomChange) {
             initialiseRoomTransition();
-            game.player.roomChange = false;
+            game.getCurrentGameSnapshot().player.roomChange = false;
         }
     }
 

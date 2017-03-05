@@ -21,15 +21,14 @@ public class SuspectTest {
         Vector2Int position = new Vector2Int(0, 1);
 
         MIRCH game = new MIRCH();
-        game.gameSnapshot =
-            new GameSnapshot(
-                game,
-                new Map(game),
-                new ArrayList<Room>(),
-                new ArrayList<Suspect>(),
-                null
-            );
-        game.gameSnapshot.victim =
+        game.setGameSnapshot(new GameSnapshot(
+            game,
+            new Map(game),
+            new ArrayList<Room>(),
+            new ArrayList<Suspect>(),
+            null
+        ));
+        game.getCurrentGameSnapshot().victim =
             new Suspect(game, "Test", "test", "Colin.png", new Vector2Int(0, 0), null);
         game.guiController = new GUIController(game);
         game.guiController.narratorScreen = new NarratorScreen(game, new Skin());

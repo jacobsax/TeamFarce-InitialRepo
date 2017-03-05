@@ -20,13 +20,10 @@ import java.util.Random;
  * @author jacobwunwin
  */
 public class MIRCH extends Game {
-    public GameSnapshot gameSnapshot;
+    private ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
+    private int currentSnapshot = 0;
+    private int PLAYERNO = 2;
     public GUIController guiController;
-
-    public ArrayList<Room> rooms;
-    public ArrayList<Suspect> characters;
-
-    public Player player;
 
     /**
      * Initialises all variables in the game and sets up the game for play.
@@ -40,7 +37,49 @@ public class MIRCH extends Game {
             database = new ScenarioBuilderDatabase("db.db");
 
             try {
-                gameSnapshot = ScenarioBuilder.generateGame(this, database, new Random());
+                for (int i = 0; i < PLAYERNO; i++){
+
+                    this.gameSnapshots.add(ScenarioBuilder.generateGame(this, database, new Random()));
+
+                    this.currentSnapshot = i; //move to the game snapshot we just added
+
+                    // generate RenderItems from each room
+                    getCurrentGameSnapshot().mirchRooms = new ArrayList<>();
+                    for (Room room: getCurrentGameSnapshot().getRooms()) {
+                        getCurrentGameSnapshot().mirchRooms.add(room); // create a new renderItem for the room
+                    }
+
+                    // generate RenderItems for each prop
+
+                    // generate RenderItems for each suspect
+                    getCurrentGameSnapshot().characters = new ArrayList<>();
+                    for (Suspect suspect: getCurrentGameSnapshot().getSuspects()) {
+                        getCurrentGameSnapshot().characters.add(suspect);
+                    }
+
+                    getCurrentGameSnapshot().map.placeNPCsInRooms(getCurrentGameSnapshot().characters);
+
+                    // initialise the player sprite
+                    Dialogue playerDialogue = null;
+                    try {
+                        playerDialogue = new Dialogue("Player.JSON", true);
+                    } catch (Dialogue.InvalidDialogueException e) {
+                        System.out.print(e.getMessage());
+                        System.exit(0);
+                    }
+
+                    getCurrentGameSnapshot().player =
+                        new Player(
+                            this,
+                            "Bob",
+                            "The player to beat all players",
+                            "Detective_sprite.png",
+                            playerDialogue
+                        );
+
+                    getCurrentGameSnapshot().player.setTileCoordinates(7, 10);
+                    getCurrentGameSnapshot().player.setRoom(getCurrentGameSnapshot().mirchRooms.get(0));
+                }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -50,41 +89,6 @@ public class MIRCH extends Game {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-
-        // generate RenderItems from each room
-        rooms = new ArrayList<>();
-        for (Room room: gameSnapshot.getRooms()) {
-            rooms.add(room); // create a new renderItem for the room
-        }
-
-        // generate RenderItems for each prop
-
-        // generate RenderItems for each suspect
-        characters = new ArrayList<>();
-        for (Suspect suspect: gameSnapshot.getSuspects()) {
-            characters.add(suspect);
-        }
-
-        gameSnapshot.map.placeNPCsInRooms(characters);
-
-        // initialise the player sprite
-        Dialogue playerDialogue = null;
-        try {
-            playerDialogue = new Dialogue("Player.JSON", true);
-        } catch (Dialogue.InvalidDialogueException e) {
-            System.out.print(e.getMessage());
-            System.exit(0);
-        }
-        player =
-            new Player(
-                this,
-                "Bob",
-                "The player to beat all players",
-                "Detective_sprite.png",
-                playerDialogue
-            );
-        player.setTileCoordinates(7, 10);
-        this.player.setRoom(rooms.get(0));
 
         // Setup screens
         this.guiController = new GUIController(this);
@@ -105,4 +109,26 @@ public class MIRCH extends Game {
     public void dispose() {
 
     }
+
+    /**
+     * Finds and returns the current game snapshot.
+     * @return
+     * @author TeamFARCE - jacobwunwin
+     */
+    public GameSnapshot getCurrentGameSnapshot() {
+        return this.gameSnapshots.get(this.currentSnapshot);
+    }
+
+    /*
+     * Moves the game to the next game snapshot
+     * @author TeamFARCE - jacobwunwin
+     */
+    public void nextGameSnapshot(){
+        this.currentSnapshot += 1; //increment the current snapshot pointer
+        //move the snapshot pointer back to 0 if its reached the end of the list
+        if (this.currentSnapshot >= this.gameSnapshots.size()){
+            this.currentSnapshot = 0;
+        }
+    }
+
 }

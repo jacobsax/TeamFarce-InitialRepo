@@ -15,7 +15,7 @@ public class JournalTest extends GameTest {
     @Test
     public void addClue() {
         MIRCH game = new MIRCH();
-        game.gameSnapshot = new GameSnapshot(game, null, null, new ArrayList<Suspect>(), null);
+        game.setGameSnapshot(new GameSnapshot(game, null, null, new ArrayList<Suspect>(), null));
 
         Journal journal = new Journal(game);
         Clue clue = new Clue("Clue name", "Description", "clueSheet.png", 0, 0, false);
@@ -28,7 +28,7 @@ public class JournalTest extends GameTest {
     @Test
     public void getClues() {
         MIRCH game = new MIRCH();
-        game.gameSnapshot = new GameSnapshot(game, null, null, new ArrayList<Suspect>(), null);
+        game.setGameSnapshot(new GameSnapshot(game, null, null, new ArrayList<Suspect>(), null));
 
         Journal journal = new Journal(game);
         ArrayList<Clue> cluesList = new ArrayList<>();

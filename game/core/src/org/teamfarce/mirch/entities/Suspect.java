@@ -61,7 +61,7 @@ public class Suspect extends AbstractPerson {
         this.beenAccused = true;
         // clear the dialogue tree here
         if (this.killer == false || hasEvidence == false) {
-            this.game.gameSnapshot.scoreTracker.addIncorrectAccusation();
+            this.game.getCurrentGameSnapshot().scoreTracker.addIncorrectAccusation();
         }
         return (this.killer) && (hasEvidence);
     }

@@ -290,8 +290,8 @@ public class Room {
              * Check to see if the player is standing in the target destination
              */
             if (
-                mirchRef.player.getTileCoordinates().x == x
-                    && mirchRef.player.getTileCoordinates().y == y
+                mirchRef.getCurrentGameSnapshot().player.getTileCoordinates().x == x
+                    && mirchRef.getCurrentGameSnapshot().player.getTileCoordinates().y == y
             ) {
                 return false;
             }
@@ -299,7 +299,7 @@ public class Room {
             /*
              * Check to see if any NPCs are standing in the target destination
              */
-            for (Suspect suspect: mirchRef.characters) {
+            for (Suspect suspect: mirchRef.getCurrentGameSnapshot().characters) {
 
                 if (
                     suspect.getRoom() == this && suspect.getTileCoordinates().x == x
