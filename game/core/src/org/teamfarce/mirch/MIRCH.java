@@ -3,7 +3,6 @@ package org.teamfarce.mirch;
 import com.badlogic.gdx.Game;
 import org.teamfarce.mirch.ScenarioBuilder.ScenarioBuilderException;
 import org.teamfarce.mirch.dialogue.Dialogue;
-import org.teamfarce.mirch.entities.Player;
 import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.map.Room;
 
@@ -40,27 +39,6 @@ public class MIRCH extends Game {
 
                     this.currentSnapshot = i; // move to the game snapshot we just added
 
-                    // initialise the player sprite
-                    Dialogue playerDialogue = null;
-                    try {
-                        playerDialogue = new Dialogue("Player.JSON", true);
-                    } catch (Dialogue.InvalidDialogueException e) {
-                        System.out.print(e.getMessage());
-                        System.exit(0);
-                    }
-
-                    getCurrentGameSnapshot().player =
-                        new Player(
-                            this,
-                            "Bob",
-                            "The player to beat all players",
-                            "Detective_sprite.png",
-                            playerDialogue
-                        );
-
-                    getCurrentGameSnapshot().player.setTileCoordinates(7, 10);
-                    getCurrentGameSnapshot().player
-                        .setRoom(getCurrentGameSnapshot().rooms.get(0));
                 }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
