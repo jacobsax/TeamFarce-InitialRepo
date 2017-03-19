@@ -39,7 +39,6 @@ public class GameSnapshot {
     public Player player;
     public ArrayList<Suspect> characters;
     public List<Room> rooms;
-    public ArrayList<Room> mirchRooms;
 
     /**
      * Initialises function.

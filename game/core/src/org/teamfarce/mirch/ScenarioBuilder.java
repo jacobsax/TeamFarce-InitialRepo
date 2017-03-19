@@ -21,10 +21,9 @@ public class ScenarioBuilder {
      * @param dataCharacters
      * @return
      */
-    public static
-        CharacterData
-        generateCharacters(MIRCH game, HashMap<Integer, DataCharacter> dataCharacters)
-            throws ScenarioBuilderException {
+    public static CharacterData generateCharacters(
+        MIRCH game, HashMap<Integer, DataCharacter> dataCharacters
+    ) throws ScenarioBuilderException {
         CharacterData data = new CharacterData();
 
         List<Suspect> posKillers = new ArrayList<>();

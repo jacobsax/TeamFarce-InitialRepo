@@ -14,10 +14,6 @@ import java.util.Random;
 /**
  * MIRCH is used to generate all graphics in the program. It initialises the scenario generator and
  * game state and provides all interactions with the back end of the program.
- *
- * Lorem Ipsum executable file: http://lihq.me/Downloads/Assessment3/Game.zip
- *
- * @author jacobwunwin
  */
 public class MIRCH extends Game {
     private ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
@@ -43,15 +39,6 @@ public class MIRCH extends Game {
                         .add(ScenarioBuilder.generateGame(this, database, new Random()));
 
                     this.currentSnapshot = i; // move to the game snapshot we just added
-
-                    // generate RenderItems from each room
-                    getCurrentGameSnapshot().mirchRooms = new ArrayList<>();
-                    for (Room room: getCurrentGameSnapshot().getRooms()) {
-                        getCurrentGameSnapshot().mirchRooms.add(room); // create a new renderItem
-                                                                       // for the room
-                    }
-
-                    // generate RenderItems for each prop
 
                     // generate RenderItems for each suspect
                     getCurrentGameSnapshot().characters = new ArrayList<>();
@@ -82,7 +69,7 @@ public class MIRCH extends Game {
 
                     getCurrentGameSnapshot().player.setTileCoordinates(7, 10);
                     getCurrentGameSnapshot().player
-                        .setRoom(getCurrentGameSnapshot().mirchRooms.get(0));
+                        .setRoom(getCurrentGameSnapshot().rooms.get(0));
                 }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
