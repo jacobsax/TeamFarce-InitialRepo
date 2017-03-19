@@ -145,11 +145,9 @@ public class ScenarioBuilder {
      * @return GameSnapshot - The generate gamesnapshot
      * @throws ScenarioBuilderException
      */
-    public static
-        GameSnapshot
-        generateGame(MIRCH game, ScenarioBuilderDatabase database, Random random)
-            throws ScenarioBuilderException {
-
+    public static GameSnapshot generateGame(
+        MIRCH game, ScenarioBuilderDatabase database, Random random
+    ) throws ScenarioBuilderException {
         List<Clue> constructedClues = new ArrayList<>();
 
         Object[] motives = database.motives.values().toArray();
@@ -193,6 +191,9 @@ public class ScenarioBuilder {
         snapshot.victim = victim;
         snapshot.murderer = murderer;
         snapshot.meansClue = meansClue;
+
+        snapshot.map.placeNPCsInRooms(aliveSuspects);
+
         return snapshot;
     }
 

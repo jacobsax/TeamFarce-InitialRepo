@@ -40,9 +40,6 @@ public class MIRCH extends Game {
 
                     this.currentSnapshot = i; // move to the game snapshot we just added
 
-                    getCurrentGameSnapshot().map
-                        .placeNPCsInRooms(getCurrentGameSnapshot().suspects);
-
                     // initialise the player sprite
                     Dialogue playerDialogue = null;
                     try {
