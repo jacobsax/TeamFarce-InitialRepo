@@ -299,7 +299,7 @@ public class Room {
             /*
              * Check to see if any NPCs are standing in the target destination
              */
-            for (Suspect suspect: mirchRef.getCurrentGameSnapshot().characters) {
+            for (Suspect suspect: mirchRef.getCurrentGameSnapshot().suspects) {
 
                 if (
                     suspect.getRoom() == this && suspect.getTileCoordinates().x == x

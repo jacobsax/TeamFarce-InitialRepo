@@ -40,14 +40,8 @@ public class MIRCH extends Game {
 
                     this.currentSnapshot = i; // move to the game snapshot we just added
 
-                    // generate RenderItems for each suspect
-                    getCurrentGameSnapshot().characters = new ArrayList<>();
-                    for (Suspect suspect: getCurrentGameSnapshot().getSuspects()) {
-                        getCurrentGameSnapshot().characters.add(suspect);
-                    }
-
                     getCurrentGameSnapshot().map
-                        .placeNPCsInRooms(getCurrentGameSnapshot().characters);
+                        .placeNPCsInRooms(getCurrentGameSnapshot().suspects);
 
                     // initialise the player sprite
                     Dialogue playerDialogue = null;
