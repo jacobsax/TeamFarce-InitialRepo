@@ -17,7 +17,7 @@ import java.util.Random;
 public class MIRCH extends Game {
     private ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
     private int currentSnapshot = 0;
-    private int PLAYERNO = 2;
+    private static final int PLAYERNO = 2;
     public GUIController guiController;
 
     /**
@@ -33,12 +33,8 @@ public class MIRCH extends Game {
 
             try {
                 for (int i = 0; i < PLAYERNO; i++) {
-
                     this.gameSnapshots
                         .add(ScenarioBuilder.generateGame(this, database, new Random()));
-
-                    this.currentSnapshot = i; // move to the game snapshot we just added
-
                 }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
