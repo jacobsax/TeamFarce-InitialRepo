@@ -31,15 +31,13 @@ public class GameSnapshot {
     List<Clue> clues;
 
     int currentPersonality;
-    private List<Suspect> suspects;
     private GameState state;
     private Suspect interviewSuspect = null;
 
     public final ScoreTracker scoreTracker = new ScoreTracker();
     public Player player;
-    public ArrayList<Suspect> characters;
     public List<Room> rooms;
-    public ArrayList<Room> mirchRooms;
+    public List<Suspect> suspects;
 
     /**
      * Initialises function.

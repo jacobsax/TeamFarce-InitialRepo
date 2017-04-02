@@ -6,6 +6,7 @@ import org.teamfarce.mirch.ScenarioBuilderDatabase.DataMotive;
 import org.teamfarce.mirch.dialogue.Dialogue;
 import org.teamfarce.mirch.entities.Clue;
 import org.teamfarce.mirch.entities.Suspect;
+import org.teamfarce.mirch.entities.Player;
 import org.teamfarce.mirch.map.Map;
 import org.teamfarce.mirch.map.Room;
 
@@ -21,10 +22,9 @@ public class ScenarioBuilder {
      * @param dataCharacters
      * @return
      */
-    public static
-        CharacterData
-        generateCharacters(MIRCH game, HashMap<Integer, DataCharacter> dataCharacters)
-            throws ScenarioBuilderException {
+    public static CharacterData generateCharacters(
+        MIRCH game, HashMap<Integer, DataCharacter> dataCharacters
+    ) throws ScenarioBuilderException {
         CharacterData data = new CharacterData();
 
         List<Suspect> posKillers = new ArrayList<>();
@@ -146,11 +146,9 @@ public class ScenarioBuilder {
      * @return GameSnapshot - The generate gamesnapshot
      * @throws ScenarioBuilderException
      */
-    public static
-        GameSnapshot
-        generateGame(MIRCH game, ScenarioBuilderDatabase database, Random random)
-            throws ScenarioBuilderException {
-
+    public static GameSnapshot generateGame(
+        MIRCH game, ScenarioBuilderDatabase database, Random random
+    ) throws ScenarioBuilderException {
         List<Clue> constructedClues = new ArrayList<>();
 
         Object[] motives = database.motives.values().toArray();
@@ -194,6 +192,28 @@ public class ScenarioBuilder {
         snapshot.victim = victim;
         snapshot.murderer = murderer;
         snapshot.meansClue = meansClue;
+
+        snapshot.map.placeNPCsInRooms(aliveSuspects);
+
+        Dialogue playerDialogue = null;
+        try {
+            playerDialogue = new Dialogue("Player.JSON", true);
+        } catch (Dialogue.InvalidDialogueException e) {
+            System.out.print(e.getMessage());
+            System.exit(0);
+        }
+
+        snapshot.player = new Player(
+            game,
+            "Bob",
+            "The player to beat all players",
+            "Detective_sprite.png",
+            playerDialogue
+        );
+
+        snapshot.player.setTileCoordinates(7, 10);
+        snapshot.player.setRoom(rooms.get(0));
+
         return snapshot;
     }
 

@@ -3,7 +3,6 @@ package org.teamfarce.mirch;
 import com.badlogic.gdx.Game;
 import org.teamfarce.mirch.ScenarioBuilder.ScenarioBuilderException;
 import org.teamfarce.mirch.dialogue.Dialogue;
-import org.teamfarce.mirch.entities.Player;
 import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.map.Room;
 
@@ -14,15 +13,11 @@ import java.util.Random;
 /**
  * MIRCH is used to generate all graphics in the program. It initialises the scenario generator and
  * game state and provides all interactions with the back end of the program.
- *
- * Lorem Ipsum executable file: http://lihq.me/Downloads/Assessment3/Game.zip
- *
- * @author jacobwunwin
  */
 public class MIRCH extends Game {
     private ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
     private int currentSnapshot = 0;
-    private int PLAYERNO = 2;
+    private static final int PLAYERNO = 2;
     public GUIController guiController;
 
     /**
@@ -38,51 +33,8 @@ public class MIRCH extends Game {
 
             try {
                 for (int i = 0; i < PLAYERNO; i++) {
-
                     this.gameSnapshots
                         .add(ScenarioBuilder.generateGame(this, database, new Random()));
-
-                    this.currentSnapshot = i; // move to the game snapshot we just added
-
-                    // generate RenderItems from each room
-                    getCurrentGameSnapshot().mirchRooms = new ArrayList<>();
-                    for (Room room: getCurrentGameSnapshot().getRooms()) {
-                        getCurrentGameSnapshot().mirchRooms.add(room); // create a new renderItem
-                                                                       // for the room
-                    }
-
-                    // generate RenderItems for each prop
-
-                    // generate RenderItems for each suspect
-                    getCurrentGameSnapshot().characters = new ArrayList<>();
-                    for (Suspect suspect: getCurrentGameSnapshot().getSuspects()) {
-                        getCurrentGameSnapshot().characters.add(suspect);
-                    }
-
-                    getCurrentGameSnapshot().map
-                        .placeNPCsInRooms(getCurrentGameSnapshot().characters);
-
-                    // initialise the player sprite
-                    Dialogue playerDialogue = null;
-                    try {
-                        playerDialogue = new Dialogue("Player.JSON", true);
-                    } catch (Dialogue.InvalidDialogueException e) {
-                        System.out.print(e.getMessage());
-                        System.exit(0);
-                    }
-
-                    getCurrentGameSnapshot().player =
-                        new Player(
-                            this,
-                            "Bob",
-                            "The player to beat all players",
-                            "Detective_sprite.png",
-                            playerDialogue
-                        );
-
-                    getCurrentGameSnapshot().player.setTileCoordinates(7, 10);
-                    getCurrentGameSnapshot().player
-                        .setRoom(getCurrentGameSnapshot().mirchRooms.get(0));
                 }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
