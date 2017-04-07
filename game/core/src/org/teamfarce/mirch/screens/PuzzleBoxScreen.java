@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,6 +20,7 @@ import org.teamfarce.mirch.Assets;
 import org.teamfarce.mirch.GameSnapshot;
 import org.teamfarce.mirch.GameState;
 import org.teamfarce.mirch.MIRCH;
+import org.teamfarce.mirch.screens.elements.PuzzleBox;
 
 /**
  * @author Team FARCE - Jacob W Unwin
@@ -42,19 +44,22 @@ public class PuzzleBoxScreen extends AbstractScreen {
      */
     private GameSnapshot gameSnapshot;
 
+    public PuzzleBox puzzleBox;
+
+    private boolean lastTouched;
+
     /**
      * Constructor for the menu
      *
      * @param game - The game object the menu is being loaded for
      */
-    public MainMenuScreen(final MIRCH game, Skin uiSkin) {
-
+    public PuzzleBoxScreen(final MIRCH game, Skin uiSkin) {
         super(game);
         this.gameSnapshot = game.getCurrentGameSnapshot();
+        this.lastTouched = false;
         this.stage = this.initStage();
+        this.puzzleBox = new PuzzleBox(new Vector2(200, 100), 200, 3, "puzzle_tiles/", this.stage);
     }
-
-
 
     /**
      * Initialises the new stage.
@@ -65,7 +70,7 @@ public class PuzzleBoxScreen extends AbstractScreen {
     }
 
     /**
-     * This method is called to render the main menu to the stage
+     * This method is called to render the screen to the stage
      */
     public void render(float delta) {
         // Determining the background colour of the menu
@@ -114,23 +119,6 @@ public class PuzzleBoxScreen extends AbstractScreen {
     public void resume() {
 
     }
-
-	/**
-	* Default empty PuzzleBoxScreen constructor
-	*/
-	public PuzzleBoxScreen() {
-		super();
-	}
-
-	/**
-	* Default PuzzleBoxScreen constructor
-	*/
-	public PuzzleBoxScreen(Stage stage, GameSnapshot gameSnapshot, Stage initStage) {
-		super();
-		this.stage = stage;
-		this.gameSnapshot = gameSnapshot;
-		this.initStage = initStage;
-	}
 
 	/**
 	* Returns value of BUTTON_WIDTH
@@ -188,19 +176,4 @@ public class PuzzleBoxScreen extends AbstractScreen {
 		this.gameSnapshot = gameSnapshot;
 	}
 
-	/**
-	* Returns value of initStage
-	* @return
-	*/
-	public Stage getInitStage() {
-		return initStage;
-	}
-
-	/**
-	* Sets new value of initStage
-	* @param
-	*/
-	public void setInitStage(Stage initStage) {
-		this.initStage = initStage;
-	}
 };

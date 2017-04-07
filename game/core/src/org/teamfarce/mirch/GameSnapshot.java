@@ -45,7 +45,7 @@ public class GameSnapshot {
     GameSnapshot(MIRCH game, Map map, List<Room> rooms, List<Suspect> suspects, List<Clue> clues) {
         this.game = game;
         this.suspects = suspects;
-        this.state = GameState.menu;
+        this.state = GameState.puzzle;
         this.clues = clues;
         this.map = map;
         this.rooms = rooms;
