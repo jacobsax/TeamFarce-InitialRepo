@@ -20,7 +20,7 @@ public class GUIController {
      * Global skin used to render Scene2D controls
      */
     public Skin uiSkin;
-
+    
     /**
      * State of the game last time update() was called
      */
