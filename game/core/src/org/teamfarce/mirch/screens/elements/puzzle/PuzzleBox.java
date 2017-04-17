@@ -1,4 +1,4 @@
-package org.teamfarce.mirch.screens.elements;
+package org.teamfarce.mirch.screens.elements.puzzle;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -58,6 +60,7 @@ public class PuzzleBox{
                     int xPos = (int)this.startPos.x + (i * this.tileWidth);
                     int yPos = (int)this.startPos.y + (j* this.tileWidth);
                     this.puzzle[i][j].setPosition(xPos, yPos);
+                    this.addClickListner(this.puzzle[i][j], new Vector2(xPos, yPos));
                     stage.addActor(this.puzzle[i][j]);
                 }
             }
@@ -75,43 +78,17 @@ public class PuzzleBox{
         }
 	}
 
-	public Image getTile(int xPos, int yPos){
-	    return this.puzzle [xPos][yPos];
+	public void addClickListner(Image image, Vector2 position){
+	    image.addListener(new ClickListener() {
+            public void click(Actor actor, float x, float y) {
+	            shiftTileSelected(position);
+	            System.out.println("tile clicked");
+	        }
+	    });
 	}
 
-	/**
-	 * Calculates the array position of the tile enclosed by the given mouse co-ordinates
-	 * if a tile is there and returns this as a LibGDX.Vector2. Otherwise returns (-1, -1)
-	 * to signify that no tile was found.
-	 *
-	 * @param mouseX
-	 * @param mouseY
-	 * @return Vector2 of the tile clicked on, or (-1, -1) if no tile has been clicked on
-	 */
-	public Vector2 tileClickedOn (int mouseX, int mouseY){
-	    Vector2 tile = new Vector2(-1, -1);
-	    for (int i = 0; i < 3; i++){
-	        for (int j = 0; j < 3; j++){
-	            Vector2 currentTileStart = new Vector2();
-	            currentTileStart.x = this.startPos.x + (i * this.tileWidth);
-	            currentTileStart.y = this.startPos.y + (j * this.tileWidth);
-
-	            Vector2 currentTileEnd = new Vector2();
-	            currentTileEnd.x = currentTileStart.x + this.tileWidth;
-	            currentTileEnd.y = currentTileStart.y + this.tileWidth;
-
-	            if ((mouseX > currentTileStart.x) && (mouseX < currentTileEnd.x)){
-	                if ((mouseY > currentTileStart.y) && (mouseY < currentTileEnd.y)){
-
-	                    if (this.puzzle[i][j] != null){
-	                        tile.x = i;
-	                        tile.y = j;
-	                    }
-	                }
-	            }
-	        }
-	    }
-	    return tile;
+	public Image getTile(int xPos, int yPos){
+	    return this.puzzle [xPos][yPos];
 	}
 
 	/**
@@ -171,18 +148,6 @@ public class PuzzleBox{
 	        }
 	    }
 	    return move;
-	}
-
-	/**
-	 * Shifts the clicked tile to the available adjacent empty slot (if any).
-	 * @param mouseX
-	 * @param mouseY
-	 * @return Boolean True if tile moved, False if tile left stationary
-	 */
-	public boolean shiftTileClicked(int mouseX, int mouseY){
-	    Vector2 tile = this.tileClickedOn(mouseX, mouseY);
-
-	    return this.shiftTileSelected(tile);
 	}
 
 	/**

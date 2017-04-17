@@ -20,7 +20,7 @@ import org.teamfarce.mirch.Assets;
 import org.teamfarce.mirch.GameSnapshot;
 import org.teamfarce.mirch.GameState;
 import org.teamfarce.mirch.MIRCH;
-import org.teamfarce.mirch.screens.elements.PuzzleBox;
+import org.teamfarce.mirch.screens.elements.puzzle.PuzzleBox;
 
 /**
  * @author Team FARCE - Jacob W Unwin
