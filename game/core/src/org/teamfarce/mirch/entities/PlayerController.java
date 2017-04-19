@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import org.teamfarce.mirch.MIRCH;
+import org.teamfarce.mirch.GameState;
 import org.teamfarce.mirch.Settings;
 import org.teamfarce.mirch.Vector2Int;
 import org.teamfarce.mirch.screens.MapScreen;
@@ -108,6 +109,11 @@ public class PlayerController extends InputAdapter {
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
             this.south = false;
             return true;
+        }
+
+        if (keycode == Input.Keys.N) {
+            this.game.nextGameSnapshot();
+            this.game.getCurrentGameSnapshot().setState(GameState.map);
         }
 
         return false;
