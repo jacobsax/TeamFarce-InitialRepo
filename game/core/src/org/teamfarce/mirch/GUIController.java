@@ -7,8 +7,6 @@ import org.teamfarce.mirch.screens.*;
 
 /**
  * Generates and controls all GUI screens from the GUI controller.
- *
- * @author jasonmash
  */
 public class GUIController {
     /**

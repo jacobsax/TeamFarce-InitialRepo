@@ -12,9 +12,6 @@ import org.teamfarce.mirch.dialogue.Dialogue;
 
 import java.util.*;
 
-/**
- * Created by brookehatton on 01/02/2017.
- */
 public abstract class AbstractPerson extends MapEntity {
     /**
      * The height of the texture region for each person
