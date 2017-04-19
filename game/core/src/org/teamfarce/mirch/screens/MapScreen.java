@@ -104,18 +104,26 @@ public class MapScreen extends AbstractScreen {
         this.statusBar = new StatusBar(game.getCurrentGameSnapshot(), uiSkin);
     }
 
+    private PlayerController getPlayerController() {
+        return this.playerController;
+    }
+
+    private StatusBar getStatusBar() {
+        return this.statusBar;
+    }
+
     @Override
     public void show() {
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(statusBar.stage);
-        multiplexer.addProcessor(playerController);
+        multiplexer.addProcessor(this.getStatusBar().stage);
+        multiplexer.addProcessor(this.getPlayerController());
         Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
     public void render(float delta) {
         game.getCurrentGameSnapshot().scoreTracker.incrementGameTicks();
-        playerController.update(delta);
+        this.getPlayerController().update(delta);
         game.getCurrentGameSnapshot().player.update(delta);
 
         // loop through each suspect character, moving them randomly
@@ -126,17 +134,17 @@ public class MapScreen extends AbstractScreen {
         camera.position.x = game.getCurrentGameSnapshot().player.getX();
         camera.position.y = game.getCurrentGameSnapshot().player.getY();
         camera.update();
-        tileRender.setView(camera);
+        this.getTileRenderer().setView(camera);
 
-        tileRender.render();
-        tileRender.getBatch().begin();
+        this.getTileRenderer().render();
+        this.getTileRenderer().getBatch().begin();
         arrow.update();
-        arrow.draw(tileRender.getBatch());
+        arrow.draw(this.getTileRenderer().getBatch());
         game.getCurrentGameSnapshot().player
             .getRoom()
             .drawClues(delta, getTileRenderer().getBatch());
 
-        tileRender.getBatch().end();
+        this.getTileRenderer().getBatch().end();
 
         updateTransition(delta);
 
@@ -150,7 +158,7 @@ public class MapScreen extends AbstractScreen {
         spriteBatch.end();
 
         if (!grabScreenshot) {
-            statusBar.render();
+            this.getStatusBar().render();
         }
 
         if (grabScreenshot) {
@@ -236,7 +244,7 @@ public class MapScreen extends AbstractScreen {
 
     @Override
     public void resize(int width, int height) {
-        statusBar.resize(width, height);
+        this.getStatusBar().resize(width, height);
     }
 
     @Override
@@ -256,7 +264,7 @@ public class MapScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        statusBar.dispose();
+        this.getStatusBar().dispose();
     }
 
     public OrthogonalTiledMapRendererWithPeople getTileRenderer() {
