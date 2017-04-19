@@ -58,7 +58,7 @@ public class PuzzleBoxScreen extends AbstractScreen {
         this.gameSnapshot = game.getCurrentGameSnapshot();
         this.lastTouched = false;
         this.stage = this.initStage();
-        this.puzzleBox = new PuzzleBox(new Vector2(200, 100), 200, 3, "puzzle_tiles/", this.stage);
+        this.puzzleBox = new PuzzleBox(new Vector2(350, 100), 160, 4, "puzzle_tiles/", this.stage);
     }
 
     /**
@@ -84,7 +84,11 @@ public class PuzzleBoxScreen extends AbstractScreen {
     @Override
     public void show() {
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this.stage);
+        
+        Gdx.input.setInputProcessor(multiplexer);
+        
+        System.out.println("input set to puzzle box");
     }
 
     /**

@@ -63,6 +63,10 @@ public class Vector2Int {
             return false;
         return true;
     }
+    
+    public Vector2Int plus(Vector2Int other){
+    	return new Vector2Int(this.x + other.x, this.y + other.y);
+    }
 
     /**
      * This method returns a String representation of the Vector2Int object
