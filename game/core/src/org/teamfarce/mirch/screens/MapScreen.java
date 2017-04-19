@@ -77,8 +77,7 @@ public class MapScreen extends AbstractScreen {
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, w, h);
         this.camera.update();
-        this.playerController =
-            new PlayerController(game.getCurrentGameSnapshot().player, game, camera);
+        this.playerController = new PlayerController(game, camera);
         this.spriteBatch = new SpriteBatch();
 
         Pixmap pixMap =
