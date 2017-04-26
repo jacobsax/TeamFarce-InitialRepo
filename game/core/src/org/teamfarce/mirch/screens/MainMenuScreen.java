@@ -38,10 +38,8 @@ public class MainMenuScreen extends AbstractScreen {
      * the stage to render the menu to
      */
     public Stage stage;
-    /**
-     * This is the referencing to the game snapshot
-     */
-    private GameSnapshot gameSnapshot;
+    
+    public MIRCH game;
 
     /**
      * Constructor for the menu
@@ -51,7 +49,7 @@ public class MainMenuScreen extends AbstractScreen {
     public MainMenuScreen(final MIRCH game, Skin uiSkin) {
 
         super(game);
-        this.gameSnapshot = game.getCurrentGameSnapshot();
+        this.game = game;
 
         // Initialising new stage
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
@@ -82,22 +80,32 @@ public class MainMenuScreen extends AbstractScreen {
             text.getHeight()
         );
 
-        TextButton newGameButton = new TextButton("New Game", uiSkin);
+        TextButton newGameButton = new TextButton("New Single-Player Game", uiSkin);
 
         // Creating the buttons and setting their positions
         newGameButton.setPosition(
             (Gdx.graphics.getWidth() / 2) - (BUTTON_WIDTH / 2),
-            (Gdx.graphics.getHeight() / 2) + CENTER_MARGIN
+            (Gdx.graphics.getHeight() / 2) + CENTER_MARGIN + 100
         );
         newGameButton.getLabel().setFontScale(3 / 2, 3 / 2);
         newGameButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+        
+        TextButton newMultiplayerButton = new TextButton("New Mult-Player Game", uiSkin);
+
+        // Creating the buttons and setting their positions
+        newMultiplayerButton.setPosition(
+            (Gdx.graphics.getWidth() / 2) - (BUTTON_WIDTH / 2),
+            (Gdx.graphics.getHeight() / 2) + CENTER_MARGIN
+        );
+        newMultiplayerButton.getLabel().setFontScale(3 / 2, 3 / 2);
+        newMultiplayerButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
         TextButton quit = new TextButton("Quit", uiSkin);
         quit.getLabel().setFontScale(3 / 2, 3 / 2);
         quit.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         quit.setPosition(
             (Gdx.graphics.getWidth() / 2) - (BUTTON_WIDTH / 2),
-            (Gdx.graphics.getHeight() / 2) - BUTTON_HEIGHT - CENTER_MARGIN
+            (Gdx.graphics.getHeight() / 4) - BUTTON_HEIGHT - CENTER_MARGIN
         );
 
         // Making the "New Game" button clickable and causing it to start the game
@@ -105,7 +113,18 @@ public class MainMenuScreen extends AbstractScreen {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    gameSnapshot.setState(GameState.narrator);
+                	game.trimPlayers(1);
+                	game.getCurrentGameSnapshot().setState(GameState.map);
+                }
+            }
+        );
+        
+     // Making the "New Game" button clickable and causing it to start the game
+        newMultiplayerButton.addListener(
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                	game.getCurrentGameSnapshot().setState(GameState.map);
                 }
             }
         );
@@ -124,6 +143,7 @@ public class MainMenuScreen extends AbstractScreen {
         stage.addActor(background);
         stage.addActor(text);
         stage.addActor(newGameButton);
+        stage.addActor(newMultiplayerButton);
         stage.addActor(quit);
     }
 
