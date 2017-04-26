@@ -58,7 +58,7 @@ public class PuzzleBoxScreen extends AbstractScreen {
         this.gameSnapshot = game.getCurrentGameSnapshot();
         this.lastTouched = false;
         this.stage = this.initStage();
-        this.puzzleBox = new PuzzleBox(new Vector2(350, 100), 160, 4, "puzzle_tiles/", this.stage);
+        this.puzzleBox = new PuzzleBox(new Vector2(350, 100), 160, 4, "puzzle_tiles/", this.stage, game);
     }
 
     /**

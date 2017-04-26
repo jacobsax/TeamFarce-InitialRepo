@@ -61,7 +61,7 @@ public class GUIController {
     GUIController(MIRCH game) {
         this.game = game;
 
-        uiSkin = new Skin(Gdx.files.internal("skins/skin_pretty/skin.json")); // load ui skin from
+        this.uiSkin = new Skin(Gdx.files.internal("skins/skin_pretty/skin.json")); // load ui skin from
                                                                               // assets
     }
 

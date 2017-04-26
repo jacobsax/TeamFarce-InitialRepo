@@ -6,6 +6,8 @@ import org.teamfarce.mirch.Vector2Int;
 import org.teamfarce.mirch.dialogue.Dialogue;
 import org.teamfarce.mirch.map.Room;
 import org.teamfarce.mirch.screens.MapScreen;
+import org.teamfarce.mirch.screens.PuzzleBoxScreen;
+import org.teamfarce.mirch.screens.elements.puzzle.PuzzleBox;
 
 /**
  * Created by brookehatton on 31/01/2017.
@@ -312,8 +314,11 @@ public class Player extends AbstractPerson {
                     this.getTileCoordinates().x,
                     this.getTileCoordinates().y
                 );
-
-            this.setRoom(newRoomData.getNewRoom());
+            
+            Room temp = newRoomData.getNewRoom();
+            
+            
+            this.setRoom(temp);
 
             if (newRoomData.newDirection != null) {
                 direction = newRoomData.newDirection;
@@ -324,6 +329,13 @@ public class Player extends AbstractPerson {
                 newRoomData.newTileCoordinates.x,
                 newRoomData.newTileCoordinates.y
             );
+            
+            
+            if (temp.getName() == "Secret Room"){
+            	System.out.println("ENTERED secret room");
+            	this.game.guiController.puzzleboxScreen = new PuzzleBoxScreen(this.game, this.game.guiController.uiSkin);
+            	this.game.getCurrentGameSnapshot().setState(GameState.puzzle);
+            }
         }
     }
 
