@@ -2,6 +2,7 @@ package org.teamfarce.mirch.screens.elements;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -39,6 +40,7 @@ public class StatusBar {
 
     private TextButton scoreLabel;
     private TextButton personalityMeter;
+    private TextButton playerLabel;
     
     MIRCH game;
 
@@ -67,6 +69,11 @@ public class StatusBar {
 
         personalityMeter = new TextButton(getPersonalityMeterValue(), uiSkin);
         statusBar.add(personalityMeter).uniform();
+        
+        playerLabel = new TextButton("Player: " + this.game.currentSnapshot, uiSkin);
+        statusBar.add(playerLabel).uniform();
+        
+        
 
         /* Event handlers */
         // add a listener for the show interview log button
@@ -122,6 +129,19 @@ public class StatusBar {
     public void render() {
         scoreLabel.setText("Score: " + this.game.getCurrentGameSnapshot().getScore());
         personalityMeter.setText(getPersonalityMeterValue());
+        playerLabel.setText("Player: " + this.game.currentSnapshot);
+        
+        switch (this.game.currentSnapshot){
+	        case 0 :
+	        	    playerLabel.setColor(Color.BLUE);
+	        		break;
+	        		
+	        case 1 :
+	        	    playerLabel.setColor(Color.RED);
+	        		break;
+        }
+        	
+        
         stage.act();
 
         stage.draw();

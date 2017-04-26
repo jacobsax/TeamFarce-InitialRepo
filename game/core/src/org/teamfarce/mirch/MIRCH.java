@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class MIRCH extends Game {
     ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
-    private int currentSnapshot = 0;
+    public int currentSnapshot = 0;
     private int PLAYERNO = 2;
     public GUIController guiController;
 
@@ -26,7 +26,6 @@ public class MIRCH extends Game {
      */
     @Override
     public void create() {
-        long seed = System.currentTimeMillis();
         Assets.load();
 
         this.generate(2);
@@ -34,6 +33,8 @@ public class MIRCH extends Game {
     
     public void generate(int no){
     	this.PLAYERNO = no;
+        long seed = System.currentTimeMillis();
+
     	ScenarioBuilderDatabase database;
         try {
             database = new ScenarioBuilderDatabase("db.db");
