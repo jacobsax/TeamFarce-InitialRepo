@@ -91,7 +91,6 @@ public class ScoreTracker {
     /**
      * Combine all of the parameters into a single score.
      *
-     * @param currentTime The end time to use to calculate the total time.
      * @param scoreCalculator The score calculator to use.
      * @return The resulting score.
      */

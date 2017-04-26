@@ -51,7 +51,7 @@ public class PuzzleBoxScreen extends AbstractScreen {
     /**
      * Constructor for the menu
      *
-     * @param game - The game object the menu is being loaded for
+     * @param game The game object the menu is being loaded for
      */
     public PuzzleBoxScreen(final MIRCH game, Skin uiSkin) {
         super(game);
@@ -85,9 +85,9 @@ public class PuzzleBoxScreen extends AbstractScreen {
     public void show() {
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this.stage);
-        
+
         Gdx.input.setInputProcessor(multiplexer);
-        
+
         System.out.println("input set to puzzle box");
     }
 
@@ -124,60 +124,60 @@ public class PuzzleBoxScreen extends AbstractScreen {
 
     }
 
-	/**
-	* Returns value of BUTTON_WIDTH
-	* @return
-	*/
-	public static int getBUTTON_WIDTH() {
-		return BUTTON_WIDTH;
-	}
+    /**
+    * Returns value of BUTTON_WIDTH
+    * @return
+    */
+    public static int getBUTTON_WIDTH() {
+        return BUTTON_WIDTH;
+    }
 
-	/**
-	* Returns value of BUTTON_HEIGHT
-	* @return
-	*/
-	public static int getBUTTON_HEIGHT() {
-		return BUTTON_HEIGHT;
-	}
+    /**
+    * Returns value of BUTTON_HEIGHT
+    * @return
+    */
+    public static int getBUTTON_HEIGHT() {
+        return BUTTON_HEIGHT;
+    }
 
-	/**
-	* Returns value of CENTER_MARGIN
-	* @return
-	*/
-	public static int getCENTER_MARGIN() {
-		return CENTER_MARGIN;
-	}
+    /**
+    * Returns value of CENTER_MARGIN
+    * @return
+    */
+    public static int getCENTER_MARGIN() {
+        return CENTER_MARGIN;
+    }
 
-	/**
-	* Returns value of stage
-	* @return
-	*/
-	public Stage getStage() {
-		return stage;
-	}
+    /**
+    * Returns value of stage
+    * @return
+    */
+    public Stage getStage() {
+        return stage;
+    }
 
-	/**
-	* Sets new value of stage
-	* @param
-	*/
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
+    /**
+    * Sets new value of stage
+    * @param stage The stage to set.
+    */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
-	/**
-	* Returns value of gameSnapshot
-	* @return
-	*/
-	public GameSnapshot getGameSnapshot() {
-		return gameSnapshot;
-	}
+    /**
+    * Returns value of gameSnapshot
+    * @return
+    */
+    public GameSnapshot getGameSnapshot() {
+        return gameSnapshot;
+    }
 
-	/**
-	* Sets new value of gameSnapshot
-	* @param
-	*/
-	public void setGameSnapshot(GameSnapshot gameSnapshot) {
-		this.gameSnapshot = gameSnapshot;
-	}
+    /**
+    * Sets new value of gameSnapshot
+    * @param gameSnapshot The snapshot to set.
+    */
+    public void setGameSnapshot(GameSnapshot gameSnapshot) {
+        this.gameSnapshot = gameSnapshot;
+    }
 
 };

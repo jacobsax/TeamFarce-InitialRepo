@@ -382,7 +382,7 @@ public class Room {
     /**
      * This returns the tiledMap for this room
      *
-     * @return - (TiledMap) the map relating to this room.
+     * @return the map relating to this room.
      */
     public TiledMap getTiledMap() {
         return this.map;
@@ -403,7 +403,7 @@ public class Room {
      * This will check the map for any potential hiding locations, and returns them as a list of
      * coordinates
      *
-     * @return (List<Vector2Int>) list of coordinates of the hideable tiles
+     * @return list of coordinates of the hideable tiles
      */
     public List<Vector2Int> getHidingSpots() {
         if (hidingSpots != null)

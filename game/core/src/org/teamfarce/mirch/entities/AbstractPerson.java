@@ -262,8 +262,8 @@ public abstract class AbstractPerson extends MapEntity {
      * This is the a* Path finding algorithm. It finds the best possible path from the Persons
      * current position to the defined destination position.
      *
-     * @param destination - The goal location
-     * @return List<Vector2Int> the list of tiles to move to, from their current location to the
+     * @param destination The goal location
+     * @return the list of tiles to move to, from their current location to the
      * goal destination.
      */
     public List<Vector2Int> aStarPath(Vector2Int destination) {
@@ -372,10 +372,10 @@ public abstract class AbstractPerson extends MapEntity {
      * This method is called once the A* Pathfinding algorithm has been completed. It reconstructs
      * the path from the goal to the start point
      *
-     * @param cameFrom - A map of a node(key) , and the value being the node that we came from to
+     * @param cameFrom A map of a node(key) , and the value being the node that we came from to
      * get to the key node.
-     * @param current - The final node. The goal destination
-     * @return List<Vector2Int> this is the list of tiles that are needed to be walked on to reach
+     * @param current The final node. The goal destination
+     * @return this is the list of tiles that are needed to be walked on to reach
      * the goal
      */
     public List<Vector2Int> reconstructPath(
@@ -431,8 +431,10 @@ public abstract class AbstractPerson extends MapEntity {
 
     /**
      * The state of the person explains what they are currently doing.
+     * <ul>
      * <li>{@link #WALKING}</li>
      * <li>{@link #STANDING}</li>
+     * </ul>
      */
     public enum PersonState {
         /**
@@ -456,9 +458,9 @@ public abstract class AbstractPerson extends MapEntity {
         /**
          * This method compares the 2 objects.
          *
-         * @param o1 - The first object to compare
-         * @param o2 - The second object to compare
-         * @return (int) if <0 o1 is considered to be first in the list
+         * @param o1 The first object to compare
+         * @param o2 The second object to compare
+         * @return The difference between the entities' y coordinates,
          */
         @Override
         public int compare(AbstractPerson o1, AbstractPerson o2) {
