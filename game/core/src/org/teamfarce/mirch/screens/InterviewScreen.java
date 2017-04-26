@@ -418,6 +418,8 @@ public class InterviewScreen extends AbstractScreen {
             suspect = null;
             this.game.getCurrentGameSnapshot().setSuspectForInterview(null);
             game.getCurrentGameSnapshot().player.clearTalkTo();
+            this.game.nextGameSnapshot();
+            this.game.getCurrentGameSnapshot().setState(GameState.map);
             break;
         }
     }

@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class MIRCH extends Game {
     ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
-    private int currentSnapshot = 0;
+    public int currentSnapshot = 0;
     private int PLAYERNO = 2;
     public GUIController guiController;
 
