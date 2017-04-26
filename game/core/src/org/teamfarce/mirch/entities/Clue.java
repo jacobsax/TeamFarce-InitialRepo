@@ -11,12 +11,12 @@ public class Clue extends MapEntity {
     /**
      * This stores whether this clue is a motive clue
      */
-    private boolean motiveClue = false;
+    public boolean motiveClue = false;
 
     /**
      * This stores whether this clue is the murder weapon
      */
-    private boolean meansClue = false;
+    public boolean meansClue = false;
 
     /**
      * This stores the tile location of the clue asset on the clue sprite sheet
@@ -54,8 +54,10 @@ public class Clue extends MapEntity {
         this.resourceY = resourceY;
         setSize(Settings.TILE_SIZE, Settings.TILE_SIZE);
 
-        if (name.contains("Motive"))
+        if (name.contains("Motive")){
             motiveClue = true;
+            System.out.println("Is motive");
+        }
 
         this.meansClue = meansClue;
     }

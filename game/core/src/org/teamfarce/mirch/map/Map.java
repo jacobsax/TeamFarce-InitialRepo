@@ -15,6 +15,7 @@ import java.util.Random;
  */
 public class Map {
     MIRCH game;
+    public Room secretRoom;
 
     List<Room> rooms = new ArrayList<Room>();
 
@@ -37,7 +38,7 @@ public class Map {
         Room lakeHouse = new Room(7, "lakehouse.tmx", "Lakehouse", this.game);
         Room outside = new Room(8, "outside.tmx", "Outside Ron Cooke Hub", this.game);
         Room pod = new Room(9, "pod.tmx", "Pod", this.game);
-        Room secretRoom = new Room(10, "secretRoom.tmx", "Secret Room", this.game);
+        this.secretRoom = new Room(10, "secretRoom.tmx", "Secret Room", this.game);
 
         mainRoom
             .addTransition(
@@ -156,8 +157,7 @@ public class Map {
                 computerRoom,
                 lakeHouse,
                 outside,
-                pod,
-                secretRoom
+                pod
             );
 
         /**

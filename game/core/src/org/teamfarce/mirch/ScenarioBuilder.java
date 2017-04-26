@@ -192,6 +192,19 @@ public class ScenarioBuilder {
         snapshot.victim = victim;
         snapshot.murderer = murderer;
         snapshot.meansClue = meansClue;
+        
+        Clue secretClue = new Clue(
+        		"My Signed Confession and Motives", 
+        		"It is with great regret that I must confirm that I, " + murderer.getName() +
+        		", committed this truly heinous crime.",
+        		"clueSheet.png", 
+        		0, 2, 
+        		true);
+        Vector2Int randHidingSpot = map.secretRoom.getRandHidingSpot(random);
+        secretClue.setTileCoordinates(randHidingSpot);
+        secretClue.motiveClue = true;
+        secretClue.meansClue = true;
+        map.secretRoom.addClue(secretClue);
 
         snapshot.map.placeNPCsInRooms(aliveSuspects, random);
 
