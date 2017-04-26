@@ -17,6 +17,7 @@ import org.teamfarce.mirch.entities.Suspect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This class defines a room which is a game representation of a real world room in the Ron Cooke
@@ -451,11 +452,11 @@ public class Room {
      * @return (Vector2Int) Coordinates of the tile where the clue is to be hidden, null if there
      * are none available
      */
-    public Vector2Int getRandHidingSpot() {
+    public Vector2Int getRandHidingSpot(Random random) {
 
         if (!this.getHidingSpots().isEmpty()) {
             List<Vector2Int> potentialHidingSpots = getHidingSpots();
-            Collections.shuffle(potentialHidingSpots);
+            Collections.shuffle(potentialHidingSpots, random);
 
             return potentialHidingSpots.get(0);
 
@@ -502,7 +503,7 @@ public class Room {
      *
      * @return (Vector2Int) the random walkable tile generated.
      */
-    public Vector2Int getRandomLocation() {
+    public Vector2Int getRandomLocation(Random random) {
         int roomWidth = ((TiledMapTileLayer) getTiledMap().getLayers().get(0)).getWidth();
         int roomHeight = ((TiledMapTileLayer) getTiledMap().getLayers().get(0)).getHeight();
 
@@ -516,7 +517,7 @@ public class Room {
             }
         }
 
-        Collections.shuffle(possibleLocations);
+        Collections.shuffle(possibleLocations, random);
 
         return possibleLocations.get(0);
     }

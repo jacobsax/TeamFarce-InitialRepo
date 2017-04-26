@@ -26,6 +26,7 @@ public class MIRCH extends Game {
      */
     @Override
     public void create() {
+        long seed = System.currentTimeMillis();
         Assets.load();
 
         ScenarioBuilderDatabase database;
@@ -35,7 +36,7 @@ public class MIRCH extends Game {
             try {
                 for (int i = 0; i < PLAYERNO; i++) {
                     this.gameSnapshots
-                        .add(ScenarioBuilder.generateGame(this, database, new Random()));
+                        .add(ScenarioBuilder.generateGame(this, database, new Random(seed)));
                 }
             } catch (ScenarioBuilderException e) {
                 // TODO Auto-generated catch block
