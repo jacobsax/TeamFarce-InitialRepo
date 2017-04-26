@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import org.teamfarce.mirch.MIRCH;
+import org.teamfarce.mirch.GameState;
 import org.teamfarce.mirch.Settings;
 import org.teamfarce.mirch.Vector2Int;
 import org.teamfarce.mirch.screens.MapScreen;
@@ -29,11 +30,6 @@ public class PlayerController extends InputAdapter {
     private boolean north, south, west, east;
 
     /**
-     * This stores the player that the controller controls
-     */
-    private Player player;
-
-    /**
      * This stores the game that is running
      */
     private MIRCH game;
@@ -43,8 +39,7 @@ public class PlayerController extends InputAdapter {
      *
      * @param player - The player that we want this controller to control
      */
-    public PlayerController(Player player, MIRCH game, OrthographicCamera camera) {
-        this.player = player;
+    public PlayerController(MIRCH game, OrthographicCamera camera) {
         this.camera = camera;
         this.game = game;
     }
@@ -116,6 +111,11 @@ public class PlayerController extends InputAdapter {
             return true;
         }
 
+        if (keycode == Input.Keys.N) {
+            this.game.nextGameSnapshot();
+            this.game.getCurrentGameSnapshot().setState(GameState.map);
+        }
+
         return false;
     }
 
@@ -124,7 +124,7 @@ public class PlayerController extends InputAdapter {
         // ignore if its not left mouse button or first touch pointer
         if (button != Input.Buttons.LEFT || pointer > 0)
             return false;
-        player.interact(screenPosToTile(screenX, screenY));
+        this.game.getCurrentGameSnapshot().player.interact(screenPosToTile(screenX, screenY));
         return true;
     }
 
@@ -151,6 +151,8 @@ public class PlayerController extends InputAdapter {
      * logic Thread.
      */
     public void update(float delta) {
+        final Player player = this.game.getCurrentGameSnapshot().player;
+
         if (!south && !north && !east && !west) {
             timer = 0;
         }

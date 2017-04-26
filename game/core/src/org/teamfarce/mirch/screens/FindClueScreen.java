@@ -20,8 +20,6 @@ import org.teamfarce.mirch.screens.elements.StatusBar;
  * This class displays a clue with its information when it has just been found
  */
 public class FindClueScreen extends AbstractScreen {
-
-    private GameSnapshot snapshot;
     private Skin uiSkin;
 
     private Stage clueStage;
@@ -57,9 +55,8 @@ public class FindClueScreen extends AbstractScreen {
      */
     public FindClueScreen(MIRCH game, Skin uiSkin) {
         super(game);
-        this.snapshot = game.getCurrentGameSnapshot();
-        this.uiSkin = uiSkin;
 
+        this.uiSkin = uiSkin;
         statusBar = new StatusBar(game.getCurrentGameSnapshot(), uiSkin);
     }
 
