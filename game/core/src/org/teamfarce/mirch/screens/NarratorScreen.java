@@ -75,7 +75,7 @@ public class NarratorScreen extends AbstractScreen {
         // Set introduction speech
         //setSpeech(introSpeech);
         setButton(
-            "Start Game",
+            "Single Player",
             new Runnable() {
                 @Override
                 public void run() {
@@ -83,6 +83,16 @@ public class NarratorScreen extends AbstractScreen {
                 }
             }
         );
+        
+        setButton(
+                "Multi-player",
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        game.getCurrentGameSnapshot().setState(GameState.map);
+                    }
+                }
+            );
     }
 
     /**
