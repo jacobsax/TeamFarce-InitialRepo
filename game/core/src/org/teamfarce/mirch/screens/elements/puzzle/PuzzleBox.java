@@ -3,6 +3,8 @@ package org.teamfarce.mirch.screens.elements.puzzle;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.teamfarce.mirch.MIRCH;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -39,9 +41,9 @@ public class PuzzleBox{
 	/**
 	* Initialises the Puzzle Box
 	*/
-	public PuzzleBox(Vector2 startPos, int tileWidth, int gridSize, String folderLocation, Stage stage) {
+	public PuzzleBox(Vector2 startPos, int tileWidth, int gridSize, String folderLocation, Stage stage, MIRCH game) {
 		super();
 		this.stage = stage;
-		this.gridManager = new GridManager(gridSize, folderLocation, startPos, tileWidth , stage);
+		this.gridManager = new GridManager(gridSize, folderLocation, startPos, tileWidth , stage, game);
 	}
 }

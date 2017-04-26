@@ -373,8 +373,9 @@ public class Room {
     public String getMatRotation(int x, int y) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Doors");
 
-        if (layer.getCell(x, y) == null)
+        if (layer.getCell(x, y) == null){
             return null;
+        }
 
         return (String) layer.getCell(x, y).getTile().getProperties().get("dir");
     }
@@ -590,7 +591,7 @@ public class Room {
          * @return (Room) value of newRoom
          */
         public Room getNewRoom() {
-            return newRoom;
+			return newRoom;
         }
     }
 }

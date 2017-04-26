@@ -3,7 +3,9 @@ package org.teamfarce.mirch.screens.elements.puzzle;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.teamfarce.mirch.MIRCH;
 import org.teamfarce.mirch.Vector2Int;
+import org.teamfarce.mirch.entities.Player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +23,7 @@ public class GridManager {
     ArrayList<Tile> tiles;
     public Vector2Int emptyTile;
     int gridSize;
+    MIRCH game;
 
     /**
      * Initiates the grid size, requires the folder location of tile images.
@@ -32,8 +35,9 @@ public class GridManager {
      * @param tileSize
      * @param stage
      */
-    public GridManager(int gridSize, String folderLocation, Vector2 gridOffset, float tileSize, Stage stage){
-        this.tiles = new ArrayList<Tile>();
+    public GridManager(int gridSize, String folderLocation, Vector2 gridOffset, float tileSize, Stage stage, MIRCH game){
+        this.game = game;
+    	this.tiles = new ArrayList<Tile>();
         this.gridSize = gridSize;
         int count = 0;
         int lost = 13;
@@ -71,10 +75,10 @@ public class GridManager {
     public void shuffleTiles(){
         Random rand = new Random();
 
-        for (int i = 0; i < 50; i++){
+        for (int i = 0; i < 1; i++){
             int randomNum = rand.nextInt(this.tiles.size() - 1);
             if (this.tiles.get(randomNum) != null){
-                this.shiftTile(randomNum);
+                this.rootShiftTile(randomNum);
             }
         }
     }
@@ -134,6 +138,14 @@ public class GridManager {
         }
         return move;
     }
+    
+    public void rootShiftTile(int id){
+    	System.out.println(id);
+        Vector2Int movableDirection = this.getMovableDirection(this.tileFromId(id));
+        System.out.println(movableDirection);
+        this.tileFromId(id).shiftGridLocation(movableDirection);
+        Gdx.app.log("Tile Shift triggered", "position (" + movableDirection.x + ", " + movableDirection.y + ")");
+    }
 
     /**
      * If possible, shifts the tile denoted by the tile id to an adjacent
@@ -141,12 +153,11 @@ public class GridManager {
      * @param id - the unique id of the tile
      */
     public void shiftTile(int id){
-        System.out.println(id);
-        Vector2Int movableDirection = this.getMovableDirection(this.tileFromId(id));
-        System.out.println(movableDirection);
-        this.tileFromId(id).shiftGridLocation(movableDirection);
-        Gdx.app.log("Tile Shift triggered", "position (" + movableDirection.x + ", " + movableDirection.y + ")");
-        System.out.print(this.gridSolved());
+        this.rootShiftTile(id);
+        
+        if (this.gridSolved()){
+        	this.game.setScreen(this.game.guiController.mapScreen);
+        }
     }
 
     /**
