@@ -39,6 +39,8 @@ public class GUIController {
      */
     public AbstractScreen interviewScreen;
 
+    public AbstractScreen puzzleboxScreen;
+
     /**
      * Used to draw the narrator and his text
      */
@@ -73,6 +75,7 @@ public class GUIController {
         narratorScreen = new NarratorScreen(game, uiSkin);
         findClueScreen = new FindClueScreen(game, uiSkin);
         menuScreen = new MainMenuScreen(game, uiSkin);
+        this.puzzleboxScreen = new PuzzleBoxScreen(game, uiSkin);
     }
 
     /**
@@ -130,6 +133,9 @@ public class GUIController {
                 break;
             case findClue:
                 this.game.setScreen(findClueScreen);
+                break;
+            case puzzle:
+                this.game.setScreen(puzzleboxScreen);
                 break;
             default:
                 break;

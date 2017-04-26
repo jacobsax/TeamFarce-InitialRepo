@@ -6,6 +6,7 @@ import org.teamfarce.mirch.entities.Player;
 import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.map.Map;
 import org.teamfarce.mirch.map.Room;
+import org.teamfarce.mirch.screens.elements.puzzle.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
