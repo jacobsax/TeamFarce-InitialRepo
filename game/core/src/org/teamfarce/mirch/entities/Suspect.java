@@ -50,6 +50,7 @@ public class Suspect extends AbstractPerson {
     /**
      * Accuse the suspect.
      *
+     * <p>
      * This should take into account whether the player has sufficient evidence and whether the
      * suspect is actually the murderer.
      * </p>

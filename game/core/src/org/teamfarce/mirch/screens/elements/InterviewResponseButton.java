@@ -47,10 +47,10 @@ public class InterviewResponseButton {
 
     /**
      * Event handler interface Used for defining the click event handler on a
-     * InterviewResponseButton
+     * InterviewResponseButton.
      *
      * Initialising an event handler: InterviewResponseButton.EventHandler eventHandler = (String
-     * name) -> { System.out.println(name + " was pressed"); };
+     * name) -&gt; { System.out.println(name + " was pressed"); };
      *
      * Usage: Used in InterviewResponseBox class on button click
      * InterviewResponseButton.eventHandler.trigger();
