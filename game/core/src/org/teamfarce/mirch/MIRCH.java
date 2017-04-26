@@ -5,6 +5,7 @@ import org.teamfarce.mirch.ScenarioBuilder.ScenarioBuilderException;
 import org.teamfarce.mirch.dialogue.Dialogue;
 import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.map.Room;
+import org.teamfarce.mirch.screens.JournalScreen;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Random;
  * game state and provides all interactions with the back end of the program.
  */
 public class MIRCH extends Game {
-    private ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
+    ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
     private int currentSnapshot = 0;
     private static final int PLAYERNO = 2;
     public GUIController guiController;
@@ -85,6 +86,7 @@ public class MIRCH extends Game {
         if (this.currentSnapshot >= this.gameSnapshots.size()) {
             this.currentSnapshot = 0;
         }
+
     }
 
     /**

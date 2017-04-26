@@ -70,7 +70,10 @@ public class GUIController {
      */
     public void initScreens() {
         mapScreen = new MapScreen(game, uiSkin);
-        journalScreen = new JournalScreen(game, uiSkin);
+        for (int i = 0; i < game.gameSnapshots.size(); i++){
+            game.gameSnapshots.get(i).journalScreen = new JournalScreen(game, uiSkin);
+
+        }
         interviewScreen = new InterviewScreen(game, uiSkin);
         narratorScreen = new NarratorScreen(game, uiSkin);
         findClueScreen = new FindClueScreen(game, uiSkin);
@@ -108,13 +111,13 @@ public class GUIController {
                 this.game.setScreen(narratorScreen);
                 break;
             case journalClues:
-                this.game.setScreen(journalScreen);
+                this.game.setScreen(game.getCurrentGameSnapshot().journalScreen);
                 break;
             case journalNotepad:
-                this.game.setScreen(journalScreen);
+                this.game.setScreen(game.getCurrentGameSnapshot().journalScreen);
                 break;
             case journalQuestions:
-                this.game.setScreen(journalScreen);
+                this.game.setScreen(game.getCurrentGameSnapshot().journalScreen);
                 break;
             case interviewStart:
                 this.game.setScreen(interviewScreen);
