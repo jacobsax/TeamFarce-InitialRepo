@@ -111,7 +111,13 @@ public class GameSnapshot {
      */
 
     public int getScore() {
-        return this.scoreTracker.collectScore(new ScoreCalculator());
+        final int score = this.scoreTracker.collectScore(new ScoreCalculator());
+
+        if (score <= 0) {
+            this.showLoseScreen();
+        }
+
+        return score;
     }
 
     /**
