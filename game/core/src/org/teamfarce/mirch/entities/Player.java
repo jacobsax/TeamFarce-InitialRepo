@@ -56,6 +56,11 @@ public class Player extends AbstractPerson {
         this.state = PersonState.STANDING;
     }
 
+    @Override
+    public float animTime() {
+        return 0.1f;
+    }
+
     /**
      * This Moves the player to a new tile.
      *
