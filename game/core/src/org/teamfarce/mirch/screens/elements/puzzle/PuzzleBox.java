@@ -44,33 +44,4 @@ public class PuzzleBox{
 		this.stage = stage;
 		this.gridManager = new GridManager(gridSize, folderLocation, startPos, tileWidth , stage);
 	}
-
-	/**
-	 * Returns a limited minimum value
-	 * @param f
-	 * @param min
-	 * @return
-	 */
-	public int minLimitInt(int f, int min){
-	    if (f >= min){
-	        return f;
-	    } else {
-	        return min;
-	    }
-	}
-
-	public int maxLimitInt(int value, int max){
-	    if (value <= max){
-	        return value;
-	    } else {
-	        return max;
-	    }
-	}
-
-	public int combinedLimitInt(int value, int min, int max){
-	    return this.maxLimitInt(this.minLimitInt(value, min), max);
-	}
-
-	
-
 }

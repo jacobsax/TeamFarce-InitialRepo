@@ -12,16 +12,34 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+/**
+ * 
+ * @author Team Farce - Jacob Unwin
+ * Manages the puzzle box grid, allowing for a puzzle
+ * to be generated, randomized and then solved
+ *
+ */
 public class GridManager {
     ArrayList<Tile> tiles;
     public Vector2Int emptyTile;
     int gridSize;
 
+    /**
+     * Initiates the grid size, requires the folder location of tile images.
+     * Tile images should have standardised namings of bxy.jpg - where b is a constant character,
+     * x is the x position of the tile in the grid and y is the y position.
+     * @param gridSize
+     * @param folderLocation
+     * @param gridOffset
+     * @param tileSize
+     * @param stage
+     */
     public GridManager(int gridSize, String folderLocation, Vector2 gridOffset, float tileSize, Stage stage){
         this.tiles = new ArrayList<Tile>();
         this.gridSize = gridSize;
         int count = 0;
         int lost = 13;
+        //loop through the empty grid and generate all Tile objects
         for (int i = 0; i < gridSize; i++){
             for (int j = 0; j < gridSize; j++){
             	if (count != lost){
@@ -29,9 +47,10 @@ public class GridManager {
 	                Tile newTile = new Tile(filename, new Vector2Int(i, j), gridOffset, tileSize, this.tiles.size());
 	                
 	                final int id = this.tiles.size();
+	                //add a touch listner to listen for clicks on tiles
 	                newTile.tileImage.addListener(new InputListener() {
 	                    public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	                        Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
+	                        Gdx.app.log("Puzzle box tile", "touch started at (" + x + ", " + y + ")");
 	                        shiftTile(id);
 	                        return false;
 	                    }
@@ -48,10 +67,13 @@ public class GridManager {
         this.shuffleTiles();
     }
     
+    /**
+     * Randomly shuffles tiles to new positon
+     */
     public void shuffleTiles(){
         Random rand = new Random();
 
-    	for (int i = 0; i < 40; i++){
+    	for (int i = 0; i < 50; i++){
     		int randomNum = rand.nextInt(this.tiles.size() - 1);
     		if (this.tiles.get(randomNum) != null){
     			this.shiftTile(randomNum);
@@ -59,6 +81,10 @@ public class GridManager {
     	}
     }
 
+    /**
+     * Returns boolean true if the puzzle is solved, false otherwise
+     * @return
+     */
     public boolean gridSolved(){
     	boolean solved = true;
     	
@@ -110,6 +136,11 @@ public class GridManager {
 	    return move;
 	}
 	
+	/**
+	 * If possible, shifts the tile denoted by the tile id to an adjacent
+	 * free space
+	 * @param id - the unique id of the tile
+	 */
 	public void shiftTile(int id){
 		System.out.println(id);
 		Vector2Int movableDirection = this.getMovableDirection(this.tileFromId(id));
@@ -119,10 +150,20 @@ public class GridManager {
         System.out.print(this.gridSolved());
 	}
 	
+	/**
+	 * Returns the tile object from its unique id.
+	 * @param id
+	 * @return
+	 */
 	public Tile tileFromId(int id){
 		return this.tiles.get(id);
 	}
     
+	/**
+	 * Convert the list which stores the Tile objects to a 2D array of
+	 * Tile objects
+	 * @return
+	 */
     public Tile[][] convertTo2DArray(){
     	Tile[][] grid = new Tile[this.gridSize][this.gridSize];
     	for (int i = 0; i < this.gridSize; i++){
@@ -133,6 +174,11 @@ public class GridManager {
     	return grid;
     }
 
+    /**
+     * Returns a Tile from its grid location
+     * @param pos
+     * @return
+     */
     public Tile getTile(Vector2Int pos){
     	System.out.println("Finding tile vrom VectorInt Position");
     	System.out.println(pos);
