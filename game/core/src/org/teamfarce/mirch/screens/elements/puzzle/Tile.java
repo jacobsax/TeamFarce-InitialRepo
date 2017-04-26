@@ -33,14 +33,29 @@ public class Tile {
     }
     
     public void updateGridLocation(Vector2Int gridPos){
-    	this.gridPos = gridPos;
+    	this.gridPos = new Vector2Int(gridPos.x, gridPos.y);
     	float newX =  this.gridOffset.x + (this.gridPos.x * this.tileSize);
     	float newY = this.gridOffset.y + (this.gridPos.y * this.tileSize);
     	this.tileImage.setPosition(newX, newY);
     }
+    
+    public void shiftGridLocation(Vector2Int shift){
+    	Vector2Int newGridPos = this.gridPos;
+    	newGridPos.x += shift.x;
+    	newGridPos.y += shift.y;
+    	this.updateGridLocation(newGridPos);
+    }
 
     Image getImage(){
         return this.tileImage;
+    }
+    
+    public boolean inCorrectPosition(){
+    	if ((this.gridPos.x == this.correctGridPos.x) && (this.gridPos.y == this.correctGridPos.y)){
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
     
     public Vector2Int getGridPosition(){
