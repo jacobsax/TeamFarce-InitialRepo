@@ -1,6 +1,7 @@
 package org.teamfarce.mirch.screens.elements.puzzle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.teamfarce.mirch.Vector2Int;
 
@@ -44,6 +45,18 @@ public class GridManager {
                 count++;
             }
         }
+        this.shuffleTiles();
+    }
+    
+    public void shuffleTiles(){
+        Random rand = new Random();
+
+    	for (int i = 0; i < 40; i++){
+    		int randomNum = rand.nextInt(this.tiles.size() - 1);
+    		if (this.tiles.get(randomNum) != null){
+    			this.shiftTile(randomNum);
+    		}
+    	}
     }
 
     public boolean gridSolved(){
