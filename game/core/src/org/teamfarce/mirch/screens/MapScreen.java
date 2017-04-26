@@ -88,7 +88,7 @@ public class MapScreen extends AbstractScreen {
 
         BLACK_BACKGROUND = new Sprite(new Texture(pixMap));
 
-        this.statusBar = new StatusBar(game.getCurrentGameSnapshot(), uiSkin);
+        this.statusBar = new StatusBar(game, uiSkin);
     }
 
     private PlayerController getPlayerController() {
