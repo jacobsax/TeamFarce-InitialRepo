@@ -37,8 +37,12 @@ public class Map {
         Room lakeHouse = new Room(7, "lakehouse.tmx", "Lakehouse", this.game);
         Room outside = new Room(8, "outside.tmx", "Outside Ron Cooke Hub", this.game);
         Room pod = new Room(9, "pod.tmx", "Pod", this.game);
+        Room secretRoom = new Room(10, "secretRoom.tmx", "Secret Room", this.game);
 
         mainRoom
+            .addTransition(
+                new Room.Transition().setFrom(27,9).setTo(secretRoom, 1, 7, Direction.EAST)
+            )
             .addTransition(
                 new Room.Transition().setFrom(17, 17).setTo(portersOffice, 1, 5, Direction.EAST)
             ) // To Porters Office
@@ -136,6 +140,11 @@ public class Map {
                 new Room.Transition().setFrom(18, 10).setTo(outside, 9, 12, Direction.EAST)
             ); // To Outside
 
+        secretRoom
+            .addTransition(
+                new Room.Transition().setFrom(1,7).setTo(mainRoom, 27, 9, Direction.WEST)
+        );
+
         List<Room> rooms =
             Arrays.asList(
                 mainRoom,
@@ -147,7 +156,8 @@ public class Map {
                 computerRoom,
                 lakeHouse,
                 outside,
-                pod
+                pod,
+                secretRoom
             );
 
         /**
