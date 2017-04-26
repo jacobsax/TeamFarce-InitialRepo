@@ -6,6 +6,7 @@ import org.teamfarce.mirch.entities.Player;
 import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.map.Map;
 import org.teamfarce.mirch.map.Room;
+import org.teamfarce.mirch.screens.AbstractScreen;
 import org.teamfarce.mirch.screens.elements.puzzle.Tile;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class GameSnapshot {
      * Holds the journal associated with this state.
      */
     public Journal journal;
+    public AbstractScreen journalScreen;
     public Map map;
     public Suspect victim;
     public Suspect murderer;
