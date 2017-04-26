@@ -163,8 +163,8 @@ public class Map {
     /**
      * This method returns a list of NPCs that are in the defined Room parameter
      *
-     * @param room - The room to check
-     * @return List<Suspect> The suspects that are in the room
+     * @param room The room to check
+     * @return The suspects that are in the room
      */
     public List<Suspect> getNPCs(Room room) {
         List<Suspect> npcsInRoom = new ArrayList<Suspect>();

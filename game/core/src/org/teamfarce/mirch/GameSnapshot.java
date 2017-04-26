@@ -194,10 +194,11 @@ public class GameSnapshot {
     /**
      * Adds the prop to the journal.
      *
+     * <p>
      * This tells the journal to keep a log of this prop.
      * </p>
      *
-     * @param //Clue The clue to add.
+     * @param clue The clue to add.
      */
     public void journalAddClue(Clue clue) {
         this.journal.foundClues.add(clue);

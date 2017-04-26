@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * The Journal stores relevant information to the players progress through the game.
  *
+ * <p>
  * This includes a list of all props discovered, and a log of all conversations.
  * </p>
  */
