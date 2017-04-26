@@ -23,7 +23,7 @@ public class ScenarioBuilder {
      * @return
      */
     public static CharacterData generateCharacters(
-        MIRCH game, HashMap<Integer, DataCharacter> dataCharacters
+        MIRCH game, HashMap<Integer, DataCharacter> dataCharacters, Random random
     ) throws ScenarioBuilderException {
         CharacterData data = new CharacterData();
 
@@ -66,8 +66,8 @@ public class ScenarioBuilder {
             }
         );
 
-        Collections.shuffle(posKillers);
-        Collections.shuffle(posVictims);
+        Collections.shuffle(posKillers, random);
+        Collections.shuffle(posVictims, random);
 
         posKillers.get(0).setKiller();
 
@@ -157,10 +157,10 @@ public class ScenarioBuilder {
 
         Map map = new Map(game);
 
-        List<Room> rooms = map.initialiseRooms();
+        List<Room> rooms = map.initialiseRooms(random);
 
         CharacterData characterData;
-        characterData = generateCharacters(game, database.characters);
+        characterData = generateCharacters(game, database.characters, random);
 
         Suspect victim = characterData.victim;
         Suspect murderer = characterData.murderer;
@@ -187,13 +187,13 @@ public class ScenarioBuilder {
             );
         constructedClues.add(meansClue);
 
-        distributeClues(constructedClues, rooms);
+        distributeClues(constructedClues, rooms, random);
         GameSnapshot snapshot = new GameSnapshot(game, map, rooms, aliveSuspects, constructedClues);
         snapshot.victim = victim;
         snapshot.murderer = murderer;
         snapshot.meansClue = meansClue;
 
-        snapshot.map.placeNPCsInRooms(aliveSuspects);
+        snapshot.map.placeNPCsInRooms(aliveSuspects, random);
 
         Dialogue playerDialogue = null;
         try {
@@ -223,14 +223,14 @@ public class ScenarioBuilder {
      * @param clues
      * @param rooms
      */
-    public static void distributeClues(List<Clue> clues, List<Room> rooms) {
+    public static void distributeClues(List<Clue> clues, List<Room> rooms, Random random) {
 
-        Collections.shuffle(clues);
+        Collections.shuffle(clues, random);
         int amountOfClues = clues.size();
 
         List<Room> loopRooms = new ArrayList<Room>();
         loopRooms.addAll(rooms);
-        Collections.shuffle(loopRooms);
+        Collections.shuffle(loopRooms, random);
 
         System.out.println("There are " + amountOfClues + " clues this game");
 
@@ -243,7 +243,7 @@ public class ScenarioBuilder {
                 Collections.shuffle(loopRooms);
             }
 
-            Vector2Int randHidingSpot = loopRooms.get(0).getRandHidingSpot();
+            Vector2Int randHidingSpot = loopRooms.get(0).getRandHidingSpot(random);
 
             if (randHidingSpot != null) {
                 clues.get(i).setTileCoordinates(randHidingSpot);

@@ -25,7 +25,7 @@ public class Map {
     /**
      * This function initialises all the rooms of the Ron Cooke Hub and their transitions
      */
-    public List<Room> initialiseRooms() {
+    public List<Room> initialiseRooms(Random random) {
         Room mainRoom = new Room(0, "mainroom.tmx", "Main Foyer", this.game);
         Room rch037 = new Room(1, "rch037.tmx", "RCH/037 Lecture Theatre", this.game);
         Room portersOffice = new Room(2, "portersoffice.tmx", "Porters Office", this.game);
@@ -153,7 +153,7 @@ public class Map {
         /**
          * Assign the murder room
          */
-        rooms.get(new Random().nextInt(rooms.size())).setMurderRoom();
+        rooms.get(random.nextInt(rooms.size())).setMurderRoom();
 
         this.rooms = rooms;
 
@@ -184,7 +184,7 @@ public class Map {
      *
      * @param NPCs - The NPCs to distribute
      */
-    public void placeNPCsInRooms(List<Suspect> NPCs) {
+    public void placeNPCsInRooms(List<Suspect> NPCs, Random random) {
         int amountOfRooms = rooms.size();
 
         List<Integer> roomsLeft = new ArrayList<>();
@@ -207,12 +207,12 @@ public class Map {
             /*
              * Pick a random room and put that NPC in it
              */
-            int toTake = new Random().nextInt(roomsLeft.size());
+            int toTake = random.nextInt(roomsLeft.size());
             int selectedRoom = roomsLeft.get(toTake);
             roomsLeft.remove(toTake);
 
             loopNpc.setRoom(rooms.get(selectedRoom));
-            Vector2Int position = loopNpc.getRoom().getRandomLocation();
+            Vector2Int position = loopNpc.getRoom().getRandomLocation(random);
             loopNpc.setTileCoordinates(position.x, position.y);
 
             System.out.println(
