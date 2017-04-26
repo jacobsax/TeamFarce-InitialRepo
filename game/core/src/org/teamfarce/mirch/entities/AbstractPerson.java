@@ -54,7 +54,19 @@ public abstract class AbstractPerson extends MapEntity {
     private Vector2Int startTile = new Vector2Int(0, 0);
     private Vector2Int endTile = new Vector2Int(0, 0);
     private float animTimer;
-    private float animTime = 0.35f;
+
+    /**
+     * Get the animation time for a single step.
+     * <p>
+     * This is intended to be overwritten by derivative implementations if the new entity should
+     * want to move faster than the default defined in this method. For reference the default
+     * value is 0.35.
+     * </p>
+     * @return The time in seconds.
+     */
+    public float animTime() {
+        return 0.35f;
+    }
 
     /**
      * Initialise the entity.
@@ -117,18 +129,18 @@ public abstract class AbstractPerson extends MapEntity {
                 Interpolation.linear.apply(
                     startTile.x * Settings.TILE_SIZE,
                     endTile.x * Settings.TILE_SIZE,
-                    animTimer / animTime
+                    animTimer / this.animTime()
                 ),
                 Interpolation.linear.apply(
                     startTile.y * Settings.TILE_SIZE,
                     endTile.y * Settings.TILE_SIZE,
-                    animTimer / animTime
+                    animTimer / this.animTime()
                 )
             );
 
             this.animTimer += delta;
 
-            if (animTimer > animTime) {
+            if (animTimer > this.animTime()) {
                 this.setTileCoordinates(endTile.x, endTile.y);
                 this.finishMove();
             }
@@ -137,16 +149,11 @@ public abstract class AbstractPerson extends MapEntity {
              * If they have a list of tiles to move to, move to the next tile in the list.
              */
             if (!toMoveTo.isEmpty()) {
-                animTime = 0.35f;
 
                 Vector2Int next = toMoveTo.get(0);
 
                 if (toMoveTo.size() >= 2) {
                     Vector2Int after = toMoveTo.get(1);
-
-                    if (after.getX() == getTileX() || after.getY() == getTileY()) {
-                        animTime = 0.25f;
-                    }
                 }
 
                 toMoveTo.remove(0);
@@ -211,8 +218,8 @@ public abstract class AbstractPerson extends MapEntity {
      * Updates the texture region based upon how far though the animation time it is.
      */
     public void updateTextureRegion() {
-        float quarter = animTime / 4;
-        float half = animTime / 2;
+        float quarter = this.animTime() / 4;
+        float half = this.animTime() / 2;
         float threeQuarters = quarter * 3;
 
         int row = 1;
