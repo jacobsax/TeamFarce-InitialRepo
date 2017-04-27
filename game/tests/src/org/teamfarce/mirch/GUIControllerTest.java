@@ -118,7 +118,6 @@ public class GUIControllerTest extends GameTest {
 
         // Check JournalScreen is active
         assertSame(guiController.currentState, GameState.journalClues);
-        assertSame(game.getScreen(), guiController.journalScreen);
         assertNotSame(game.getScreen(), guiController.mapScreen);
     }
 }
