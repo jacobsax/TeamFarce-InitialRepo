@@ -75,7 +75,7 @@ public class GridManager {
     public void shuffleTiles(){
         Random rand = new Random();
 
-        for (int i = 0; i < 1; i++){
+        for (int i = 0; i < 100; i++){
             int randomNum = rand.nextInt(this.tiles.size() - 1);
             if (this.tiles.get(randomNum) != null){
                 this.rootShiftTile(randomNum);

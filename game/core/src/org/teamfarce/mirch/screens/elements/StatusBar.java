@@ -129,7 +129,7 @@ public class StatusBar {
     public void render() {
         scoreLabel.setText("Score: " + this.game.getCurrentGameSnapshot().getScore());
         personalityMeter.setText(getPersonalityMeterValue());
-        playerLabel.setText("Player: " + this.game.currentSnapshot);
+        playerLabel.setText("Player: " + (this.game.currentSnapshot + 1));
         
         switch (this.game.currentSnapshot){
 	        case 0 :
