@@ -73,7 +73,7 @@ public class GameSnapshot {
                 room = r.getName();
             }
         }
-
+        
         // List of other detectives who could've possibly solved the crime
         String[] detectives = new String[] {
             "Richie Paper",
