@@ -42,6 +42,17 @@ public class GameSnapshot {
     public List<Room> rooms;
     public List<Suspect> suspects;
 
+    private static final String singlePlayerLooseMsg =
+        "You messed up mate.\n\n%s has deduced that it was %s who killed %s in the %s with %s.";
+
+    // List of other detectives who could've possibly solved the crime
+    private static final String[] detectives = new String[] {
+        "Richie Paper",
+        "Princess Fiona",
+        "Lilly Blort",
+        "Michael Dodders"
+    };
+
     /**
      * Initialises function.
      */
@@ -62,46 +73,36 @@ public class GameSnapshot {
      * game.
      */
     public void showLoseScreen() {
-        String murdererName = murderer.getName();
-        String victimName = victim.getName();
-        String room = "";
-        String weapon = meansClue.getName();
+        final String murdererName = murderer.getName();
+        final String victimName = victim.getName();
+        final String weapon = meansClue.getName();
+        final String otherDetective = detectives[new Random().nextInt(detectives.length)];
 
-        // Get the murder room name and the murder weapon
-        for (Room r: game.getCurrentGameSnapshot().map.getRooms()) {
-            if (r.isMurderRoom()) {
-                room = r.getName();
-            }
-        }
-        
-        // List of other detectives who could've possibly solved the crime
-        String[] detectives = new String[] {
-            "Richie Paper",
-            "Princess Fiona",
-            "Lilly Blort",
-            "Michael Dodders"
-        };
+        final String room = game
+            // First get a stream of the rooms in this game.
+            .getCurrentGameSnapshot()
+            .map
+            .getRooms()
+            .stream()
+            // Select the room which is the murder room.
+            .filter(r -> r.isMurderRoom())
+            .findFirst()
+            // We should be guaranteed to have one room which matches.
+            .get()
+            // We want its name.
+            .getName();
 
-        // Send the speech to the narrrator screen and display it
-        game.guiController.narratorScreen
-            .setSpeech(
-                "Oh No!\n \nDetective " + detectives[new Random().nextInt(detectives.length)]
-                    + " has solved the crime before you! They discovered that all along it was "
-                    + murdererName + " who killed " + victimName + " in the " + room + " with "
-                    + weapon + "\n \n"
-                    + "It's a real shame, I really thought you'd have gotten there first!\n \nOh well! Better luck next time!"
-            )
-            .setButton(
-                "End Game",
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        Gdx.app.exit();
-                    }
-                }
-            );
+        final String endMsg = String.format(
+            singlePlayerLooseMsg, otherDetective, murdererName, victimName, room, weapon
+        );
 
-        game.getCurrentGameSnapshot().setState(GameState.narrator);
+        this.game
+            .guiController
+            .narratorScreen
+            .setSpeech(endMsg)
+            .setButton("End Game", () -> Gdx.app.exit());
+
+        this.game.getCurrentGameSnapshot().setState(GameState.narrator);
     }
 
     /**
