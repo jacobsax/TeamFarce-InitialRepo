@@ -6,6 +6,7 @@ import org.teamfarce.mirch.map.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -26,7 +27,7 @@ public class ScenarioBuilderTest extends GameTest {
         rooms.add(new Room(2, "testMap.tmx", "Test Room3", null));
         rooms.add(new Room(3, "testMap.tmx", "Test Room4", null));
 
-        ScenarioBuilder.distributeClues(clues, rooms);
+        ScenarioBuilder.distributeClues(clues, rooms, new Random());
 
         for (Room r: rooms) {
             if (!(r.getClues().size() > 0)) {
@@ -51,7 +52,7 @@ public class ScenarioBuilderTest extends GameTest {
         rooms.add(new Room(2, "testMap.tmx", "Test Room3", null));
         rooms.add(new Room(3, "testMap.tmx", "Test Room4", null));
 
-        ScenarioBuilder.distributeClues(clues, rooms);
+        ScenarioBuilder.distributeClues(clues, rooms, new Random());
 
         for (Room r: rooms) {
             if (r.getClues().size() != 1) {
