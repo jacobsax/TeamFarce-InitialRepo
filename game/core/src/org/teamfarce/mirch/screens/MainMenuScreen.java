@@ -69,7 +69,7 @@ public class MainMenuScreen extends AbstractScreen {
         LabelStyle textStyle = new LabelStyle(font, Color.WHITE);
 
         // Creating the label containing text and determining its size and location on screen
-        Label text = new Label("Welcome to the Lorem Ipsum Murder Mystery Game!", textStyle);
+        Label text = new Label("Welcome to the Team FARCE Murder Mystery Game!", textStyle);
 
         text.setFontScale(2, 2);
         text.setBounds(
@@ -114,7 +114,7 @@ public class MainMenuScreen extends AbstractScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                 	game.trimPlayers(1);
-                	game.getCurrentGameSnapshot().setState(GameState.map);
+                	game.getCurrentGameSnapshot().setState(GameState.narrator);
                 }
             }
         );
@@ -124,7 +124,7 @@ public class MainMenuScreen extends AbstractScreen {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                	game.getCurrentGameSnapshot().setState(GameState.map);
+                	game.getCurrentGameSnapshot().setState(GameState.narrator);
                 }
             }
         );

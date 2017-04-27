@@ -16,6 +16,7 @@ import org.teamfarce.mirch.MIRCH;
 
 /**
  * Top status bar in game
+ * @author Team Farce/Lorem Ipsum - status bar has been altered heavily
  */
 public class StatusBar {
     /**

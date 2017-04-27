@@ -18,7 +18,7 @@ import java.util.Random;
 public class MIRCH extends Game {
     ArrayList<GameSnapshot> gameSnapshots = new ArrayList();
     public int currentSnapshot = 0;
-    private int PLAYERNO = 2;
+    int PLAYERNO = 2;
     public GUIController guiController;
 
     /**
@@ -59,6 +59,11 @@ public class MIRCH extends Game {
         this.guiController.initScreens();
     }
     
+    /**
+     * @author Team FARCE - Jacob Unwin
+     * Trims the number of players from a maximum of 2
+     * @param no
+     */
     public void trimPlayers(int no){
     	this.PLAYERNO = no;
     	for (int i = no; i < this.gameSnapshots.size(); i++){
