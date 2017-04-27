@@ -20,6 +20,7 @@ public class MIRCH extends Game {
     public int currentSnapshot = 0;
     int PLAYERNO = 2;
     public GUIController guiController;
+    public boolean isPaused = false;
 
     /**
      * Initialises all variables in the game and sets up the game for play.
