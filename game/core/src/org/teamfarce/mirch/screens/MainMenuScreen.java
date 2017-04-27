@@ -114,7 +114,7 @@ public class MainMenuScreen extends AbstractScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                 	game.trimPlayers(1);
-                	game.getCurrentGameSnapshot().setState(GameState.map);
+                	game.getCurrentGameSnapshot().setState(GameState.narrator);
                 }
             }
         );
@@ -124,7 +124,7 @@ public class MainMenuScreen extends AbstractScreen {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                	game.getCurrentGameSnapshot().setState(GameState.map);
+                	game.getCurrentGameSnapshot().setState(GameState.narrator);
                 }
             }
         );
