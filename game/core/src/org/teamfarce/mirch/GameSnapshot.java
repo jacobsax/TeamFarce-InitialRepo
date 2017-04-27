@@ -42,8 +42,11 @@ public class GameSnapshot {
     public List<Room> rooms;
     public List<Suspect> suspects;
 
-    private static final String singlePlayerLooseMsg =
+    private static final String singlePlayerLoseMsg =
         "You messed up mate.\n\n%s has deduced that it was %s who killed %s in the %s with %s.";
+
+    private static final String mutliPlayerLoseMsg =
+        "Player %d's score has reached 0. Player %d wins";
 
     // List of other detectives who could've possibly solved the crime
     private static final String[] detectives = new String[] {
@@ -69,10 +72,33 @@ public class GameSnapshot {
     }
 
     /**
-     * This method shows the narrator screen with the necessary dialog for the player losing the
+     * This method shows the narrator screen with the necessary dialogue for the player losing the
      * game.
      */
     public void showLoseScreen() {
+        String endMsg = null;
+
+        switch (this.game.gameSnapshots.size()) {
+            case 1:
+                endMsg = this.getSingleLoseMsg();
+                break;
+            case 2:
+                endMsg = this.getMultiLoseMsg();
+                break;
+            default:
+                throw new RuntimeException("Can only handle 1 or 2 players");
+        };
+
+        this.game
+            .guiController
+            .narratorScreen
+            .setSpeech(endMsg)
+            .setButton("End Game", () -> Gdx.app.exit());
+
+        this.game.getCurrentGameSnapshot().setState(GameState.narrator);
+    }
+
+    private String getSingleLoseMsg() {
         final String murdererName = murderer.getName();
         final String victimName = victim.getName();
         final String weapon = meansClue.getName();
@@ -92,17 +118,20 @@ public class GameSnapshot {
             // We want its name.
             .getName();
 
-        final String endMsg = String.format(
-            singlePlayerLooseMsg, otherDetective, murdererName, victimName, room, weapon
+        return String.format(
+            singlePlayerLoseMsg, otherDetective, murdererName, victimName, room, weapon
         );
+    }
 
-        this.game
-            .guiController
-            .narratorScreen
-            .setSpeech(endMsg)
-            .setButton("End Game", () -> Gdx.app.exit());
+    private String getMultiLoseMsg() {
+        final int losePlayer = this.game.currentSnapshot;
+        int winPlayer = 0;
 
-        this.game.getCurrentGameSnapshot().setState(GameState.narrator);
+        if (losePlayer == 0) {
+            winPlayer = 1;
+        }
+
+        return String.format(mutliPlayerLoseMsg, losePlayer + 1, winPlayer + 1);
     }
 
     /**
