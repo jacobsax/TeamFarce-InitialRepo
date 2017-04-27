@@ -90,7 +90,7 @@ public class MainMenuScreen extends AbstractScreen {
         newGameButton.getLabel().setFontScale(3 / 2, 3 / 2);
         newGameButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         
-        TextButton newMultiplayerButton = new TextButton("New Mult-Player Game", uiSkin);
+        TextButton newMultiplayerButton = new TextButton("New Multiplayer Game", uiSkin);
 
         // Creating the buttons and setting their positions
         newMultiplayerButton.setPosition(

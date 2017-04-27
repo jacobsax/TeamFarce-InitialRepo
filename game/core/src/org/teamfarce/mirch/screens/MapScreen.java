@@ -2,6 +2,8 @@ package org.teamfarce.mirch.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -20,8 +22,10 @@ import org.teamfarce.mirch.entities.Suspect;
 import org.teamfarce.mirch.screens.elements.RoomArrow;
 import org.teamfarce.mirch.screens.elements.StatusBar;
 
-import java.util.ArrayList;
 import java.util.List;
+
+
+
 
 /**
  * Created by brookehatton on 31/01/2017.
@@ -68,6 +72,7 @@ public class MapScreen extends AbstractScreen {
      * This boolean determines whether the black is fading in or out
      */
     private boolean fadeToBlack = true;
+    private Music bgm;
     private StatusBar statusBar;
 
     public MapScreen(MIRCH game, Skin uiSkin) {
@@ -79,6 +84,9 @@ public class MapScreen extends AbstractScreen {
         this.camera.update();
         this.playerController = new PlayerController(game, camera);
         this.spriteBatch = new SpriteBatch();
+        this.bgm = Gdx.audio.newMusic(Gdx.files.internal("Minima.mp3"));
+        this.bgm.setLooping(true);
+
 
         Pixmap pixMap =
             new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
@@ -105,6 +113,7 @@ public class MapScreen extends AbstractScreen {
         multiplexer.addProcessor(this.getStatusBar().stage);
         multiplexer.addProcessor(this.getPlayerController());
         Gdx.input.setInputProcessor(multiplexer);
+        this.bgm.play();
     }
 
     @Override
@@ -244,6 +253,7 @@ public class MapScreen extends AbstractScreen {
     @Override
     public void dispose() {
         this.getStatusBar().dispose();
+        this.bgm.pause();
     }
 
     private OrthogonalTiledMapRendererWithPeople getTileRenderer() {
