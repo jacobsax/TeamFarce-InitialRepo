@@ -42,6 +42,20 @@ public class GameSnapshot {
     public List<Room> rooms;
     public List<Suspect> suspects;
 
+    private static final String singlePlayerLoseMsg =
+        "You messed up mate.\n\n%s has deduced that it was %s who killed %s in the %s with %s.";
+
+    private static final String mutliPlayerLoseMsg =
+        "Player %d's score has reached 0. Player %d wins";
+
+    // List of other detectives who could've possibly solved the crime
+    private static final String[] detectives = new String[] {
+        "Richie Paper",
+        "Princess Fiona",
+        "Lilly Blort",
+        "Michael Dodders"
+    };
+
     /**
      * Initialises function.
      */
@@ -58,50 +72,66 @@ public class GameSnapshot {
     }
 
     /**
-     * This method shows the narrator screen with the necessary dialog for the player losing the
+     * This method shows the narrator screen with the necessary dialogue for the player losing the
      * game.
      */
     public void showLoseScreen() {
-        String murdererName = murderer.getName();
-        String victimName = victim.getName();
-        String room = "";
-        String weapon = meansClue.getName();
+        String endMsg = null;
 
-        // Get the murder room name and the murder weapon
-        for (Room r: game.getCurrentGameSnapshot().map.getRooms()) {
-            if (r.isMurderRoom()) {
-                room = r.getName();
-            }
-        }
-        
-        // List of other detectives who could've possibly solved the crime
-        String[] detectives = new String[] {
-            "Richie Paper",
-            "Princess Fiona",
-            "Lilly Blort",
-            "Michael Dodders"
+        switch (this.game.gameSnapshots.size()) {
+            case 1:
+                endMsg = this.getSingleLoseMsg();
+                break;
+            case 2:
+                endMsg = this.getMultiLoseMsg();
+                break;
+            default:
+                throw new RuntimeException("Can only handle 1 or 2 players");
         };
 
-        // Send the speech to the narrrator screen and display it
-        game.guiController.narratorScreen
-            .setSpeech(
-                "Oh No!\n \nDetective " + detectives[new Random().nextInt(detectives.length)]
-                    + " has solved the crime before you! They discovered that all along it was "
-                    + murdererName + " who killed " + victimName + " in the " + room + " with "
-                    + weapon + "\n \n"
-                    + "It's a real shame, I really thought you'd have gotten there first!\n \nOh well! Better luck next time!"
-            )
-            .setButton(
-                "End Game",
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        Gdx.app.exit();
-                    }
-                }
-            );
+        this.game
+            .guiController
+            .narratorScreen
+            .setSpeech(endMsg)
+            .setButton("End Game", () -> Gdx.app.exit());
 
-        game.getCurrentGameSnapshot().setState(GameState.narrator);
+        this.game.getCurrentGameSnapshot().setState(GameState.narrator);
+    }
+
+    private String getSingleLoseMsg() {
+        final String murdererName = murderer.getName();
+        final String victimName = victim.getName();
+        final String weapon = meansClue.getName();
+        final String otherDetective = detectives[new Random().nextInt(detectives.length)];
+
+        final String room = game
+            // First get a stream of the rooms in this game.
+            .getCurrentGameSnapshot()
+            .map
+            .getRooms()
+            .stream()
+            // Select the room which is the murder room.
+            .filter(r -> r.isMurderRoom())
+            .findFirst()
+            // We should be guaranteed to have one room which matches.
+            .get()
+            // We want its name.
+            .getName();
+
+        return String.format(
+            singlePlayerLoseMsg, otherDetective, murdererName, victimName, room, weapon
+        );
+    }
+
+    private String getMultiLoseMsg() {
+        final int losePlayer = this.game.currentSnapshot;
+        int winPlayer = 0;
+
+        if (losePlayer == 0) {
+            winPlayer = 1;
+        }
+
+        return String.format(mutliPlayerLoseMsg, losePlayer + 1, winPlayer + 1);
     }
 
     /**
